@@ -990,6 +990,7 @@ body,
     min-height: 100vh;
     height: calc( 100vh + 2000px );
     overflow-x: hidden; /* Keep overflow-x hidden on root elements */
+    overflow-y: hidden;
 }
 
 #App {
@@ -1022,10 +1023,7 @@ body,
 }
 
 .contact-us{
-    position: relative;
-    z-index: 30;
-    width: 100vw;
-    overflow-x: hidden;
+  
 }
 
 

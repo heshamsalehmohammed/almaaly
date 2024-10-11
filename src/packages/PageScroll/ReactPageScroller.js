@@ -83,6 +83,14 @@ import React, {
         }
   
         pageContainer.current.style.transform = `translate3d(0, ${positions[nextComponentIndex]}%, 0)`;
+
+        if( children.length - 1 === nextComponentIndex){
+            setTimeout(()=>{
+                document.documentElement.style.overflowY = 'scroll';
+            },500)
+        }else{
+            document.documentElement.style.overflowY = 'hidden';
+        }
       },
       [onBeforePageScroll, positions],
     );
@@ -163,7 +171,7 @@ import React, {
     }, [children, componentsToRenderLength]);
   
     const scrollWindowDown = useCallback((event) => {
-      if (!isScrolling && !blockScrollDown) {
+      if (!isScrolling && !blockScrollDown && document.documentElement.scrollTop === 0) {
         if (!isNil(containersRef.current[componentIndex + 1])) {
             
           disableScroll();
@@ -194,7 +202,7 @@ import React, {
     ]);
   
     const scrollWindowUp = useCallback(() => {
-      if (!isScrolling && !blockScrollUp) {
+      if (!isScrolling && !blockScrollUp && document.documentElement.scrollTop === 0) {
         if (!isNil(containersRef.current[componentIndex - 1])) {
           disableScroll();
           isScrolling = true;
@@ -240,7 +248,8 @@ import React, {
   
     const wheelScroll = useCallback(
       event => {
-        
+/*         event.stopPropagation();
+ */        
         if (Math.abs(event.deltaY) > MINIMAL_DELTA_Y_DIFFERENCE) {
           if (isPositiveNumber(event.deltaY)) {
             lastScrolledElement.current = event.target;
@@ -368,6 +377,7 @@ import React, {
         <div
           ref={pageContainer}
           onWheel={wheelScroll}
+          onScrollCapture={wheelScroll}
           style={{
             height: "100%",
             width: "100%",
