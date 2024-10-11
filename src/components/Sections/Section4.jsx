@@ -1,10 +1,9 @@
 
 
 const Section4 = () => (
-    <div className="section">
-      <div className="section-inner">
-        <div className="row justify-content-center">
-          <div className="col-md-7 wide-col-laptop">
+
+        <div className="row w-100 justify-content-center animated-row">
+          <div className="col-md-8 col-10 wide-col-laptop">
             <div className="title-block animate__animated animate__fadeInUp">
               <span>My Skills</span>
               <h2>What I’m Good At?</h2>
@@ -37,8 +36,7 @@ const Section4 = () => (
             </div>
           </div>
         </div>
-      </div>
-    </div>
+
   );
 
 
