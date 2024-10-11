@@ -12,11 +12,13 @@ import FullpageSections from "./components/FullpageSections";
 
 
 const App = () => {
-  return (
-    <PageProvider>
+  return ( <PageProvider>
+    <div id="App" className="App">
       <BackgroundVideo />
       <Header />
       <FullpageSections />
+      </div>
+   
     </PageProvider>
   );
 };

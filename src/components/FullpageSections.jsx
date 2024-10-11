@@ -1,4 +1,6 @@
-import { useContext } from "react";
+// src/components/FullpageSections.js
+
+import React, { useContext } from "react";
 import { PageContext } from "../context/PageContext";
 import Section1 from "./Sections/Section1";
 import Section2 from "./Sections/Section2";
@@ -11,20 +13,20 @@ import SocialIcons from "./SocilaIcons";
 import Section6 from "./Sections/Section6";
 
 const FullpageSections = () => {
-    const { currentPage, setCurrentPage, pageScrollerRef } =
-      useContext(PageContext);
-  
-    const handlePageChange = (number) => {
-      setCurrentPage(number);
-      console.log("Page changed to:", number);
-    };
-  
-    const handleBeforePageChange = (number) => {
-      console.log("Before scrolling to page:", number);
-    };
-  
-    return (
-      <div className="full-page-content">
+  const { currentPage, setCurrentPage, pageScrollerRef } = useContext(PageContext);
+
+  const handlePageChange = (number) => {
+    setCurrentPage(number);
+    console.log("Page changed to:", number);
+  };
+
+  const handleBeforePageChange = (number) => {
+    console.log("Before scrolling to page:", number);
+  };
+
+  return (
+    <>
+      <div className="full-page-content top-element">
         <ReactPageScroller
           ref={pageScrollerRef}
           pageOnChange={handlePageChange}
@@ -38,13 +40,17 @@ const FullpageSections = () => {
           <Section3 />
           <Section4 />
           <Section5 />
-          <Section6/>
+          <Section6 />
           <ContactUs />
         </ReactPageScroller>
         <SocialIcons />
       </div>
-    );
-  };
 
+      <div
+        className="bottom-element"
+      ></div>
+    </>
+  );
+};
 
-  export default FullpageSections;
+export default FullpageSections;

@@ -980,55 +980,38 @@ textarea.form-control {
 
 
 /* Prevent body from having scroll */
-body,
+
 html,
+body,
 #root {
-    height: 100%;
+    width: 100vw;
     margin: 0;
     padding: 0;
-    overflow: hidden;
+    min-height: 100vh;
+    height: calc( 100vh + 2000px );
+    overflow-x: hidden; /* Keep overflow-x hidden on root elements */
 }
 
-
-
-#video {
-    position: relative;
-    height: 100vh;
-    /* Full viewport height */
-    overflow: hidden;
-    /* Prevent scrollbars from the overlay or background */
+#App {
+    overflow-y: scroll; /* Manage vertical scrolling */
 }
 
-/* BackgroundVideo positioned absolutely at the bottom */
-#video .BackgroundVideo {
-    position: absolute;
+.full-page-content {
+    position: fixed; /* Changed from sticky to fixed */
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    z-index: 0;
-    /* Background layer */
+    height: 100vh;
+    z-index: 2; /* Lower z-index */
 }
 
-/* :after pseudo-element overlay */
-.video-overlay {
-    content: '';
-    opacity: 0.75;
-    background: linear-gradient(to bottom, #4096ee 0%, #39ced6 100%);
-    position: absolute;
-    /* Positioned within #video */
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    pointer-events: none;
-    /* Allow interactions to pass through */
-    z-index: 1;
-    /* Overlay layer */
+.bottom-element {
+    height: 2000px;
+    background-color: black;
+    position: relative;
+    z-index: 3; /* Higher z-index */
+    margin-top: 100vh; /* Pushes it below the fixed top element */
 }
-
-
-
 
 
 
@@ -1038,10 +1021,11 @@ html,
     align-items: center;
 }
 
-
-.full-page-content{
-    position: fixed;
-    z-index: 2;
+.contact-us{
+    position: relative;
+    z-index: 30;
+    width: 100vw;
+    overflow-x: hidden;
 }
 
 
@@ -1116,7 +1100,28 @@ html,
 	}
 }
 
+video{
+   
+}
 
+/* :after pseudo-element overlay */
+.video-overlay {
+    content: '';
+    opacity: 0.75;
+    background: linear-gradient(to bottom, #4096ee 0%, #39ced6 100%);
+    position: absolute;
+    /* Positioned within #video */
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    /* Allow interactions to pass through */
+    z-index: 1;
+    height: 100vh;
+    width: 100vw;
+    /* Overlay layer */
+}
 
 
 
