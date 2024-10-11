@@ -71,25 +71,25 @@ const RotatingText = () => {
       <div className="col-12 text-center">
         <div className="welcome-box">
           <RotatingText />
-         <div className="">  <span className="coumpany-name display-1 welcome-title animate__animated animate__fadeInUp">
+         <div className="">  <span className="coumpany-name display-1 welcome-title">
             A
           </span>
-          <span className="coumpany-name display-1 welcome-title animate__animated animate__fadeInUp">
+          <span className="coumpany-name display-1 welcome-title">
             L
           </span>
-          <span className="coumpany-name display-1 welcome-title animate__animated animate__fadeInUp">
+          <span className="coumpany-name display-1 welcome-title">
             M
           </span>
-          <span className="coumpany-name display-1 welcome-title animate__animated animate__fadeInUp">
+          <span className="coumpany-name display-1 welcome-title">
             A
           </span>
-          <span className="coumpany-name display-1 welcome-title animate__animated animate__fadeInUp">
+          <span className="coumpany-name display-1 welcome-title">
             A
           </span>
-          <span className="coumpany-name display-1 welcome-title animate__animated animate__fadeInUp">
+          <span className="coumpany-name display-1 welcome-title">
             L
           </span>
-          <span className="coumpany-name display-1 welcome-title animate__animated animate__fadeInUp">
+          <span className="coumpany-name display-1 welcome-title">
             Y
           </span></div>
         

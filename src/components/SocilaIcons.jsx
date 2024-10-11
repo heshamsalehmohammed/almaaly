@@ -4,17 +4,17 @@ const SocialIcons = () => (
         <ul className="social-icons">
           <li>
             <a href="#" title="Facebook">
-              <i class="fa-brands fa-facebook-f"></i>
+              <i className="fa-brands fa-facebook-f"></i>
             </a>
           </li>
           <li>
             <a href="#" title="Twitter">
-              <i class="fa-brands fa-twitter"></i>
+              <i className="fa-brands fa-twitter"></i>
             </a>
           </li>
           <li>
             <a href="#" title="LinkedIn">
-              <i class="fa-brands fa-linkedin-in"></i>
+              <i className="fa-brands fa-linkedin-in"></i>
             </a>
           </li>
         </ul>

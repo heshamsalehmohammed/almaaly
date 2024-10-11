@@ -1,5 +1,5 @@
 const ContactUs = () => (
-    <div className="row w-100 justify-content-center animated-row">
+    <div className="row w-100 justify-content-center animated-row contact-us">
       <div className="col-md-8 col-10 wide-col-laptop">
         <div className="title-block animate__animated animate__fadeInUp">
           <span>Contact</span>

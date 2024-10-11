@@ -1,0 +1,6 @@
+export const TOUCHMOVE = "touchmove";
+export const KEYDOWN = "keydown";
+
+
+
+export default {TOUCHMOVE,KEYDOWN}

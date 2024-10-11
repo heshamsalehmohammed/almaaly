@@ -6,7 +6,7 @@ import Section3 from "./Sections/Section3";
 import Section4 from "./Sections/Section4";
 import Section5 from "./Sections/Section5";
 import ContactUs from "./Sections/ContactUs";
-import ReactPageScroller from "react-page-scroller";
+import ReactPageScroller from "../packages/PageScroll/ReactPageScroller";
 import SocialIcons from "./SocilaIcons";
 import Section6 from "./Sections/Section6";
 
