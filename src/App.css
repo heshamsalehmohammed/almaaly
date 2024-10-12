@@ -41,6 +41,13 @@ CSS SITEMAP >>>>
     font-style: normal;
   }
 
+  @font-face {
+    font-family: 'ProtestStrike';
+    src: url('./assets/fonts/Protest_Strike/ProtestStrike-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
 
 
 
@@ -53,6 +60,9 @@ CSS SITEMAP >>>>
     font-family: 'PoppinsSemiBoldItalic',sans-serif !important;
 }
 
+.font-protest-strike{
+    font-family: 'ProtestStrike',sans-serif !important;
+}
 
 html,
 body {
