@@ -2,7 +2,7 @@ import AnimatedCanvas from "./AnimatedCanvas";
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-
+import profile01 from "../assets/images/profile-01.jpg";
 import {
   forwardRef,
   useEffect,
@@ -399,9 +399,53 @@ const BottomPage = () => {
 };
 
 const WhatTheySay = () => {
+  const testimonials = [
+    {
+      name: "Sandar",
+      role: "Managing Director",
+      img: profile01,
+      text: "Ut varius leo eu mauris lacinia, eleifend posuere urna gravida. Aenean a mattis lacus.",
+    },
+    {
+      name: "Shinn",
+      role: "CEO and Founder",
+      img: profile01,
+      text: "Nam iaculis, leo nec facilisis sollicitudin, dui massa tempus odio, vitae malesuada ante elit vitae eros.",
+    },
+    {
+      name: "Marlar",
+      role: "Chief Marketing Officer",
+      img: profile01,
+      text: "Etiam efficitur, tortor facilisis finibus semper, diam magna fringilla lectus, et fringilla felis urna posuere tortor.",
+    },
+  ];
+
+
+
+  const boxesRef = useRef([]);
+
+  useGSAP(() => {
+    // Set initial positions using gsap.set
+    gsap.set(boxesRef.current, {
+      x: (i) => i * 50,
+    });
+
+    // Create the timeline with infinite repeat and modifiers
+    const action = gsap.timeline({ repeat: -1 });
+    action.to(boxesRef.current, {
+      duration: 5,
+      ease: "none",
+      x: "+=500",
+      modifiers: {
+        x: (x) => x % 500,
+      },
+    });
+  }, []);
+
+
   return (
     <div className="row min-vh-100 p-3 mt-6  justify-content-center bg-dark">
-      <div className="col-md-7 col-10 pt-5">
+      <div className="col-md-7 col-10 pt-4">
         <div className="bottom-element-text font-poppins-semi-bold-italic mt-5 pt-5">
           <div>
             <h1 className="mt-5 py-4 display-6 display-md-4 display-xl-3 text-transform-none">
@@ -410,7 +454,28 @@ const WhatTheySay = () => {
           </div>
         </div>
       </div>
-      <div className="col-12"></div>
+      <div className="col-12">
+        <div class="what-they-say-wrapper d-flex">
+
+            {testimonials.map((item, index) => (
+              <div key={`testimonial-item${index}`} className="testimonial-item ms-2 me-2" ref={(el) => (boxesRef.current[index] = el)}>
+                <div className="client-row">
+                  <img
+                    src={item.img}
+                    className="rounded-circle"
+                    alt={`profile ${index + 1}`}
+                  />
+                </div>
+                <div className="testimonial-content">
+                  <h4>{item.name}</h4>
+                  <p>"{item.text}"</p>
+                  <span>{item.role}</span>
+                </div>
+              </div>
+            ))}
+          
+        </div>
+      </div>
     </div>
   );
 };

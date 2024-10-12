@@ -1386,3 +1386,12 @@ body,
 .main-works-subtitle h1{
     font-size: 5.5rem;
 }
+
+
+.what-they-say-wrapper .testimonial-item{
+    width: 520px;
+    background: #494848;
+    padding: 12px;
+    border-radius: 12px;
+
+}
