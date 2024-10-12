@@ -25,6 +25,35 @@ CSS SITEMAP >>>>
 01. GENERAL CSS
 ================================================*/
 
+@font-face {
+    font-family: 'Anton';
+    src: url('./assets/fonts/Anton/Anton-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+
+
+  @font-face {
+    font-family: 'PoppinsSemiBoldItalic';
+    src: url('./assets/fonts/Poppins/Poppins-SemiBoldItalic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+
+
+
+  .font-anton{
+    font-family: 'Anton', sans-serif !important;
+  }
+
+
+.font-poppins-semi-bold-italic{
+    font-family: 'PoppinsSemiBoldItalic',sans-serif !important;
+}
+
+
 html,
 body {
     -webkit-font-smoothing: antialiased;
@@ -1338,3 +1367,12 @@ body,
         height: 55vh;
       }
   }
+
+
+.pin-spacer{
+    margin: 0px !important;
+}
+
+.main-works-subtitle h1{
+    font-size: 5.5rem;
+}

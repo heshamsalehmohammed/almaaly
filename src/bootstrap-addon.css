@@ -536,3 +536,15 @@
     .overflow-y-xxl-visible { overflow-y: visible !important; }
     .overflow-y-xxl-scroll { overflow-y: scroll !important; }
   }
+
+
+
+  .ls-1 { letter-spacing: 0.1rem; }
+.ls-2 { letter-spacing: 0.2rem; }
+.ls-3 { letter-spacing: 0.3rem; }
+.ls-4 { letter-spacing: 0.4rem; }
+
+
+.text-transform-none{
+  text-transform: none !important;
+}

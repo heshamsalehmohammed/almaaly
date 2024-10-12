@@ -6,6 +6,10 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { forwardRef, useEffect, useImperativeHandle, useRef } from "react";
 import { useGSAP } from "@gsap/react";
 
+ScrollTrigger.config({
+  autoRefreshEvents: "resize,orientationchange"
+});
+
 // Register the ScrollTrigger plugin
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -153,7 +157,7 @@ const BottomPage = () => {
         scrollTrigger: {
           trigger: stickyElementRef.current,
           start: "top top", // when sticky element hits top of the viewport
-          end: "+=2000", // you can adjust this value based on how long you want it to stay sticky
+          end: "+=2350", // you can adjust this value based on how long you want it to stay sticky
           pin: true, // pin the element in place
           /* pinSpacing: false, // removes space while the element is pinned */
           scrub: 1, // smooth scrolling effect
@@ -173,9 +177,9 @@ const BottomPage = () => {
             "With support from three amazing assistants, I can bring your ideal website to life.",
             "Let's start chatting!",
           ].map((text, index) => (
-            <div className="bottom-element-text" key={index}>
+            <div className="bottom-element-text font-poppins-semi-bold-italic " key={index}>
               <div>
-                <h1 className="py-4 display-6 display-md-4 display-xl-3">
+                <h1 className="py-4 display-6 display-md-4 display-xl-3 text-transform-none">
                   {text}
                 </h1>
               </div>
@@ -191,30 +195,28 @@ const BottomPage = () => {
           </div>
         </div>
         <div
-          className="min-vh-100"
+          className="row min-vh-100 w-100 p-3 mt-6  justify-content-center"
           ref={stickyElementRef}
         >
-          <div className="row h-100 w-100 p-3 mt-6  justify-content-center">
-            <div className="col-10 col-md-9 col-lg-8">
-              <div
-                className="bottom-element-text mt-5 pb-3 main-works-title"
-                ref={mainWorksTitleRef}
-              >
-                <div>
-                  <h1 className="py-5 display-6 display-md-5 display-lg-4  display-xl-3 fw-bold text-dark">
-                    My Work
-                  </h1>
-                </div>
+          <div className="col-10 col-md-9 col-lg-8">
+            <div
+              className="bottom-element-text mt-5 pb-3 main-works-title"
+              ref={mainWorksTitleRef}
+            >
+              <div>
+                <h1 className="py-5 display-6 display-md-5 display-lg-4  display-xl-3 fw-bold text-dark">
+                  My Work
+                </h1>
               </div>
-              <div
-                className="bottom-element-text mt-5 py-5 main-works-subtitle"
-                ref={mainWorksSubTitleRef}
-              >
-                <div>
-                  <h1 className="py-5 display-4 display-md-3 display-lg-2  display-xl-1 fw-bold text-dark">
-                    SCARLETT'S PHOTO GALLERY
-                  </h1>
-                </div>
+            </div>
+            <div
+              className="bottom-element-text mt-5 py-5 main-works-subtitle"
+              ref={mainWorksSubTitleRef}
+            >
+              <div>
+                <h1 className="py-5 display-1  display-xl-1 fw-bold text-dark font-anton ls-4">
+                  SCARLETT'S PHOTO GALLERY
+                </h1>
               </div>
             </div>
           </div>
