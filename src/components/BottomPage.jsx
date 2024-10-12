@@ -2,17 +2,21 @@ import AnimatedCanvas from "./AnimatedCanvas";
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useEffect, useRef } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useRef } from "react";
 import { useGSAP } from "@gsap/react";
 
 // Register the ScrollTrigger plugin
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-const YouTubeEmbed = ({ videoId }) => {
+const YouTubeEmbed = forwardRef(({ videoId },ref) => {
   const videoResponsive = useRef();
+
+  useImperativeHandle(ref, () => videoResponsive.current);
 
   useGSAP(
     () => {
+
+      if (!videoResponsive.current) return;
       gsap.fromTo(
         videoResponsive.current,
         {
@@ -66,9 +70,11 @@ const YouTubeEmbed = ({ videoId }) => {
       />
     </div>
   );
-};
+});
 
 const BottomPage = () => {
+  const bottomElementRef = useRef(null); // Reference to the container
+  const videoResponsiveRef = useRef(null); 
   const bottomElementTextContainer = useRef();
 
   useGSAP(
@@ -111,13 +117,27 @@ const BottomPage = () => {
           }
         );
       });
+
+
+      gsap.to(bottomElementRef.current, {
+        "--gradient-start": "#ffffff", // Transition to white
+        "--gradient-end": "#ddd",   // Transition to white
+        ease: "none",
+        scrollTrigger: {
+          trigger: videoResponsiveRef.current, // Use the video-responsive as the trigger
+          start: "bottom 80%",   // When the trigger's bottom reaches 50% of the viewport
+          end: "bottom top",        // When the trigger's top reaches the top of the viewport
+          scrub: true,           // Links the animation progress to the scrollbar
+          // markers: true,       // Uncomment for debugging
+        },
+      });
     },
     { scope: bottomElementTextContainer }
   );
 
   return (
     <>
-      <div className="bottom-element pt-5">
+      <div className="bottom-element pt-5" ref={bottomElementRef}>
         <div
           className="d-flex flex-column text-white text-start mb-2 p-5"
           ref={bottomElementTextContainer}
@@ -138,7 +158,7 @@ const BottomPage = () => {
         </div>
         <div className="row p-3 mt-3 justify-content-center">
           <div className="col-10 col-md-8 col-lg-7">
-            <YouTubeEmbed videoId="dQw4w9WgXcQ" />
+            <YouTubeEmbed videoId="dQw4w9WgXcQ" ref={videoResponsiveRef}/>
           </div>
         </div>
       </div>

@@ -1022,6 +1022,12 @@ body,
     /* Higher z-index */
     margin-top: 100vh;
     /* Pushes it below the fixed top element */
+
+
+    --gradient-start: black;
+    --gradient-end: black;
+    background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+    transition: background 0.3s ease; /* Optional: Smooth transition if needed */
 }
 
 
