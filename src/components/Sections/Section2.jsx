@@ -1,6 +1,6 @@
 // src/components/Section2.js
 
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -17,12 +17,12 @@ const Section2 = () => {
   ];
 
   return (
-    <div className="row w-100 justify-content-center animated-row overflow-y-scroll overflow-y-md-hidden pt-3 pt-md-0">
+    <div className="row w-100 justify-content-center   overflow-y-scroll overflow-y-md-hidden pt-3 pt-md-0">
 
           {/* About Content */}
           <div className="col-md-4 mb-3 mb-md-0 pt-3 pt-md-0  col-10">
             <div className="about-contentbox">
-              <div className="animate__animated animate__fadeInUp">
+              <div className="   ">
                 <span>About Us</span>
                 <h2>Who are We?</h2>
                 <p>
@@ -72,7 +72,7 @@ const Section2 = () => {
           </div>
           {/* About Image */}
           <div className="col-md-5 col-10">
-            <figure className="about-img animate__animated animate__fadeInUp">
+            <figure className="about-img    ">
               <img
                 src={profileGirl}
                 className="rounded img-fluid"

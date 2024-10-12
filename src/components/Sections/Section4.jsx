@@ -2,13 +2,13 @@
 
 const Section4 = () => (
 
-        <div className="row w-100 justify-content-center animated-row">
+        <div className="row w-100 justify-content-center  ">
           <div className="col-md-8 col-10 wide-col-laptop">
-            <div className="title-block animate__animated animate__fadeInUp">
+            <div className="title-block    ">
               <span>My Skills</span>
               <h2>What I’m Good At?</h2>
             </div>
-            <div className="skills-row animate__animated animate__fadeInDown">
+            <div className="skills-row   animate__fadeInDown">
               <div className="row">
                 {[
                   { title: "HTML CSS", percent: 70 },
@@ -17,7 +17,7 @@ const Section4 = () => (
                   { title: "Leadership", percent: 90 },
                 ].map((skill, index) => (
                   <div
-                    className="col-md-8 offset-md-2 skill-item animate__animated animate__fadeInUp"
+                    className="col-md-8 offset-md-2 skill-item    "
                     key={index}
                   >
                     <h6>{skill.title}</h6>

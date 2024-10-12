@@ -1,13 +1,13 @@
 const ContactUs = () => (
-    <div className="contact-us row w-100 justify-content-center animated-row contact-us">
+    <div className="contact-us row w-100 justify-content-center   contact-us">
       <div className="col-md-8 col-10 wide-col-laptop">
-        <div className="title-block animate__animated animate__fadeInUp">
+        <div className="title-block    ">
           <span>Contact</span>
           <h2>Get In Touch!</h2>
         </div>
         <div className="contact-section">
           <div className="row">
-            <div className="col-md-6 animate__animated animate__fadeInUp">
+            <div className="col-md-6    ">
               <div className="contact-box">
                 <div className="contact-row">
                   <i className="fa fa-map-marker"></i> 123 New Street Here,
@@ -21,7 +21,7 @@ const ContactUs = () => (
                 </div>
               </div>
             </div>
-            <div className="col-md-6 animate__animated animate__fadeInUp">
+            <div className="col-md-6    ">
               <form id="ajax-contact" method="post" action="#">
                 <div className="input-field">
                   <input

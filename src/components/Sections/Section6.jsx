@@ -3,7 +3,6 @@
 import React, { useEffect, useRef } from "react";
 import $ from "jquery"; // Import jQuery
 import "owl.carousel"; // Import Owl Carousel JS
-import "animate.css/animate.min.css"; // Import Animate.css (if not already imported globally)
 
 // Import your gallery images
 import item1 from "../../assets/images/item-1.jpg";
@@ -95,7 +94,7 @@ const Section6 = () => {
   ];
 
   return (
-        <div className="row w-100 justify-content-center animated-row">
+        <div className="row w-100 justify-content-center  ">
           <div className="col-md-8 col-12 wide-col-laptop">
             <div className="title-block animate" data-animate="fadeInUp">
               <span>My Work</span>

@@ -1,7 +1,6 @@
 // src/components/Section3.js
 
-import React, { useEffect, useRef } from "react";
-import _ from "lodash"; // Import lodash.debounce
+import React from "react";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -53,9 +52,9 @@ const Section3 = () => {
   ];
 
   return (
-    <div className="row justify-content-center animated-row">
+    <div className="row justify-content-center  ">
       <div className="col-md-8 col-10">
-        <div className="title-block animate__animated animate__fadeInUp">
+        <div className="title-block    ">
           <span>Services</span>
           <h2>What I Do?</h2>
         </div>

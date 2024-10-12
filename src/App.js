@@ -1,4 +1,3 @@
-import "animate.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./bootstrap-addon.css";
 /* import "owl.carousel/dist/assets/owl.carousel.css";

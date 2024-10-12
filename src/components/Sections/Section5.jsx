@@ -58,7 +58,7 @@ const Section5 = () => {
   ];
 
   return (
-        <div className="row w-100 justify-content-center animated-row">
+        <div className="row w-100 justify-content-center  ">
           <div className="col-md-7 col-10 wide-col-laptop">
             <div
               className="title-block animate"
