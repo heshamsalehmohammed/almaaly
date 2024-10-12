@@ -670,6 +670,7 @@ a#logo {
 }
 
 .portfolio-item {
+    width: 370px;
     position: relative;
 }
 

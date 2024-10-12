@@ -12,9 +12,9 @@ import React, {
   import usePrevious from "./usePrevValue";
   import { SectionContainer } from "./SectionContainer";
   
-  if (!global._babelPolyfill) {
+/*   if (!global._babelPolyfill) {
     require("babel-polyfill");
-  }
+  } */
   
   const DEFAULT_ANIMATION_TIMER = 1000;
   const DEFAULT_ANIMATION = "ease-in-out";

@@ -1,41 +1,13 @@
 // src/components/Section5.js
 
 import React, { useEffect, useRef } from "react";
-import $ from "jquery"; // Import jQuery
-import "owl.carousel"; // Import Owl Carousel JS
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import { Autoplay, Pagination } from "swiper/modules";
 import profile01 from "../../assets/images/profile-01.jpg";
 
 const Section5 = () => {
-  const testimonialsListRef = useRef(null); // Reference to the .testimonials-slider element
-
-  useEffect(() => {
-    // Initialize Owl Carousel
-    $(testimonialsListRef.current).owlCarousel({
-      loop: true,
-      nav: false,
-      dots: true,
-      items: 1,
-      margin: 30,
-      autoplay: true,
-      smartSpeed: 700,
-      autoplayTimeout: 6000,
-      responsive: {
-        0: {
-          items: 1,
-          margin: 0,
-        },
-        768: {
-          items: 1,
-        },
-      },
-    });
-
-    // Cleanup function to destroy carousel on component unmount
-    return () => {
-      $(testimonialsListRef.current).owlCarousel("destroy");
-    };
-  }, []);
-
   const testimonials = [
     {
       name: "Sandar",
@@ -58,49 +30,56 @@ const Section5 = () => {
   ];
 
   return (
-        <div className="row w-100 justify-content-center  ">
-          <div className="col-md-7 col-10 wide-col-laptop">
-            <div
-              className="title-block animate"
-              data-animate="fadeInUp"
-            >
-              <span>TESTIMONIALS</span>
-              <h2>What THEY SAY?</h2>
-            </div>
-            <div className="col-md-8 offset-md-2">
-              <div className="testimonials-section">
-                {/* Apply Owl Carousel to testimonials-slider */}
-                <div
-                  className="testimonials-slider owl-carousel"
-                  ref={testimonialsListRef}
-                >
-                  {testimonials.map((testimonial, index) => (
-                    <div
-                      className="item animate"
-                      data-animate="fadeInUp"
-                      key={index}
-                    >
-                      <div className="testimonial-item">
-                        <div className="client-row">
-                          <img
-                            src={testimonial.img}
-                            className="rounded-circle"
-                            alt={`profile ${index + 1}`}
-                          />
-                        </div>
-                        <div className="testimonial-content">
-                          <h4>{testimonial.name}</h4>
-                          <p>"{testimonial.text}"</p>
-                          <span>{testimonial.role}</span>
-                        </div>
+    <div className="row w-100 justify-content-center  ">
+      <div className="col-md-7 col-10 wide-col-laptop">
+        <div className="title-block animate" data-animate="fadeInUp">
+          <span>TESTIMONIALS</span>
+          <h2>What THEY SAY?</h2>
+        </div>
+        <div className="col-md-8 offset-md-2">
+          <div className="testimonials-section">
+            <div className="testimonials-slider">
+              <Swiper
+                slidesPerView={1}
+                grabCursor={true}
+                centeredSlides={true}
+                pagination={{
+                  clickable: true,
+                  el: ".custom-pagination-testimonials",
+                }}
+                modules={[Autoplay, Pagination]}
+                className=""
+                initialSlide={Math.ceil(testimonials.length / 2)}
+                autoplay={{
+                  delay: 3000,
+                  disableOnInteraction: false,
+                }}
+              >
+                {testimonials.map((item, index) => (
+                  <SwiperSlide className="item text-center" key={index}>
+                    <div className="testimonial-item">
+                      <div className="client-row">
+                        <img
+                          src={item.img}
+                          className="rounded-circle"
+                          alt={`profile ${index + 1}`}
+                        />
+                      </div>
+                      <div className="testimonial-content">
+                        <h4>{item.name}</h4>
+                        <p>"{item.text}"</p>
+                        <span>{item.role}</span>
                       </div>
                     </div>
-                  ))}
-                </div>
-              </div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+              <div className=" custom-pagination custom-pagination-testimonials"></div>
             </div>
           </div>
         </div>
+      </div>
+    </div>
   );
 };
 
