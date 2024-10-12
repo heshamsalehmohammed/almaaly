@@ -985,6 +985,10 @@ textarea.form-control {
 
 /* Prevent body from having scroll */
 
+*{
+    box-sizing: border-box;
+}
+
 html,
 body,
 #root {
@@ -992,7 +996,7 @@ body,
     margin: 0;
     padding: 0;
     min-height: 100vh;
-    height: calc(100vh + 2000px);
+    height: calc(100vh + 6000px);
     overflow-x: hidden;
     /* Keep overflow-x hidden on root elements */
     overflow-y: hidden;
@@ -1015,7 +1019,7 @@ body,
 }
 
 .bottom-element {
-    height: 4000px;
+    height: 60000px;
     background-color: black;
     position: relative;
     z-index: 3;
@@ -1028,6 +1032,10 @@ body,
     --gradient-end: black;
     background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
     transition: background 0.3s ease; /* Optional: Smooth transition if needed */
+
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
 }
 
 
@@ -1116,7 +1124,6 @@ body,
     }
 }
 
-video {}
 
 /* :after pseudo-element overlay */
 .video-overlay {
@@ -1244,19 +1251,90 @@ video {}
 
 
 
-.video-responsive {
+.main-video-responsive {
     position: relative;
     width: 100%;
-    padding-bottom: 56.25%; /* 16:9 aspect ratio */
     overflow: hidden;
-    height: 0;
+    height: 65vh;
     border-radius: 15px;
   }
   
-  .video-responsive iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
+  .main-video-responsive iframe {
     width: 100%;
     height: 100%;
+  }
+
+  .normal-video-responsive {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    height: 50vh;
+    border-radius: 15px;
+  }
+  
+  .normal-video-responsive iframe {
+    width: 100%;
+    height: 100%;
+  }
+
+
+
+/* Extra Small: <576px */
+@media (max-width: 575.98px) {
+    .main-video-responsive {
+        height: 45vh;
+      }
+      .normal-video-responsive {
+        height: 30vh;
+      }
+  }
+  
+  /* Small: 576px ≤ width < 768px */
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    .main-video-responsive {
+        height: 50vh;
+      }
+      .normal-video-responsive {
+        height: 35vh;
+      }
+  }
+  
+  /* Medium: 768px ≤ width < 992px */
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .main-video-responsive {
+        height: 55vh;
+      }
+      .normal-video-responsive {
+        height: 40vh;
+      }
+  }
+  
+  /* Large: 992px ≤ width < 1200px */
+  @media (min-width: 992px) and (max-width: 1199.98px) {
+    .main-video-responsive {
+        height: 60vh;
+      }
+      .normal-video-responsive {
+        height:45vh;
+      }
+  }
+  
+  /* Extra Large: 1200px ≤ width < 1400px */
+  @media (min-width: 1200px) and (max-width: 1399.98px) {
+    .main-video-responsive {
+        height: 65vh;
+      }
+      .normal-video-responsive {
+        height: 50vh;
+      }
+  }
+  
+  /* XXL: ≥1400px */
+  @media (min-width: 1400px) {
+    .main-video-responsive {
+        height: 70vh;
+      }
+      .normal-video-responsive {
+        height: 55vh;
+      }
   }
