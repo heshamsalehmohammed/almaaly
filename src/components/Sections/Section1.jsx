@@ -1,7 +1,10 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import mouseScroll from "../../assets/images/mouse-scroll.png";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const RotatingText = () => {
   useEffect(() => {
@@ -63,80 +66,86 @@ const RotatingText = () => {
 };
 
 const Section1 = () => {
+  const sectionRef = useRef(null);
   const welcomeBoxRef = useRef(null);
   const descriptionRef1 = useRef(null);
   const descriptionRef2 = useRef(null);
   const scrollDownRef = useRef(null);
 
-  useEffect(() => {
-    const tl = gsap.timeline();
+  useGSAP(
+    () => {
+      const tl = gsap.timeline();
 
-    // Animate Welcome Titles
-    tl.fromTo(
-      welcomeBoxRef.current.querySelectorAll(".welcome-title"),
-      {
-        y: 50,
-        opacity: 0,
-      },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 0.8,
-        stagger: 0.1,
-        ease: "power3.out",
-      }
-    )
-    // Animate First Description Paragraph
-    .fromTo(
-      descriptionRef1.current,
-      {
-        y: 50,
-        opacity: 0,
-      },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 0.8,
-        ease: "power3.out",
-      },
-      "-=0.6" // Overlap with previous animation
-    )
-    // Animate Second Description Paragraph
-    .fromTo(
-      descriptionRef2.current,
-      {
-        y: 50,
-        opacity: 0,
-      },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 0.8,
-        ease: "power3.out",
-      },
-      "-=0.6"
-    )
-    // Animate Scroll Down Indicator
-    .fromTo(
-      scrollDownRef.current,
-      {
-        y: 50,
-        opacity: 0,
-      },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 0.8,
-        ease: "power3.out",
-      },
-      "-=0.6"
-    );
-  }, []);
+      // Animate Welcome Titles
+      tl.fromTo(
+        ".welcome-title",
+        {
+          y: 50,
+          opacity: 0,
+        },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.1,
+          ease: "power3.out",
+        }
+      )
+        // Animate First Description Paragraph
+        .fromTo(
+          descriptionRef1.current,
+          {
+            y: 50,
+            opacity: 0,
+          },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            ease: "power3.out",
+          },
+          "-=0.6" // Overlap with previous animation
+        )
+        // Animate Second Description Paragraph
+        .fromTo(
+          descriptionRef2.current,
+          {
+            y: 50,
+            opacity: 0,
+          },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            ease: "power3.out",
+          },
+          "-=0.6"
+        )
+        // Animate Scroll Down Indicator
+        .fromTo(
+          scrollDownRef.current,
+          {
+            y: 50,
+            opacity: 0,
+          },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            ease: "power3.out",
+          },
+          "-=0.6"
+        );
+    },
+    { scope: sectionRef } // Scope the animations to sectionRef
+  );
+
 
   return (
     <div
       className="section d-flex flex-column justify-content-center align-items-center position-relative"
       style={{ height: "100vh", width: "100%" }}
+      ref={sectionRef}
     >
       {/* Welcome Box */}
       <div className="col-12 text-center" ref={welcomeBoxRef}>

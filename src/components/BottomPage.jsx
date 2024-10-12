@@ -3,59 +3,71 @@ import AnimatedCanvas from "./AnimatedCanvas";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef } from "react";
+import { useGSAP } from "@gsap/react";
 
 // Register the ScrollTrigger plugin
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const BottomPage = () => {
-  const textRefs = useRef([]);
+  const bottomElementTextContainer = useRef();
 
-  useEffect(() => {
-    textRefs.current.forEach((element, index) => {
-      gsap.fromTo(
-        element,
-        {
-          opacity: 0,
-          y: 50,
-        },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: element,
-            start: "top 80%",
-            end: "bottom 50%",
-            once:true,
-            scrub:true,
-            toggleActions: "play none none reverse",
+  useGSAP(
+    () => {
+      const boxes = gsap.utils.toArray(".bottom-element-text");
+      boxes.forEach((box) => {
+        gsap.fromTo(
+          box,
+          {
+            opacity: 0,
           },
-        }
-      );
-    });
-  }, []);
+          {
+            opacity: 1,
+            duration: 2,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: box,
+              start: "bottom bottom",
+              end: "bottom 60%",
+              scrub: true,
+            },
+          }
+        );
+
+        gsap.fromTo(
+          box,
+          {
+            y: 75,
+          },
+          {
+            y: 0,
+            ease: "elastic.out(1,1)",
+            scrollTrigger: {
+              trigger: box,
+              start: "bottom bottom",
+              end: "bottom 90%",
+              toggleActions: "play none none reset",
+              // markers:true
+            },
+          }
+        );
+      });
+    },
+    { scope: bottomElementTextContainer }
+  );
 
   return (
     <>
-      {" "}
       <div className="bottom-element pt-5">
-        {/*  <AnimatedCanvas>
-         
-      
-      
-    </AnimatedCanvas>  */}{" "}
-        <div className="d-flex flex-column text-white text-start mb-2 p-5">
+        <div
+          className="d-flex flex-column text-white text-start mb-2 p-5"
+          ref={bottomElementTextContainer}
+        >
           {[
             "An AI web designer & developer by your side.",
             "With support from three amazing assistants, I can bring your ideal website to life.",
             "Let's start chatting!",
           ].map((text, index) => (
-            <div
-              className=""
-              key={index}
-              ref={(el) => (textRefs.current[index] = el)}
-            >
+            <div className="bottom-element-text" key={index}>
               <div>
                 <h1 className="py-4 display-6 display-md-4 display-xl-3">
                   {text}
