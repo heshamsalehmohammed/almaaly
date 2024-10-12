@@ -8,6 +8,66 @@ import { useGSAP } from "@gsap/react";
 // Register the ScrollTrigger plugin
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
+const YouTubeEmbed = ({ videoId }) => {
+  const videoResponsive = useRef();
+
+  useGSAP(
+    () => {
+      gsap.fromTo(
+        videoResponsive.current,
+        {
+          y: 150,
+        },
+        {
+          y: 0,
+          ease: "elastic.out(1,1)",
+          duration:1.5,
+          scrollTrigger: {
+            trigger: videoResponsive.current,
+            start: "top bottom",
+            end: "top 60%",
+            toggleActions: "play none none reset",
+            // markers:true
+          },
+        }
+      );
+
+      gsap.fromTo(
+        videoResponsive.current,
+        {
+          scale: 1,
+        },
+        {
+          scale: 0.6,
+          ease: "none",
+          duration:1.5,
+          scrollTrigger: {
+            trigger: videoResponsive.current,
+            start: "top 40%",
+            end: "bottom 10%",
+            scrub: true,
+            // markers:true
+          },
+        }
+      );
+    }
+  );
+
+  return (
+    <div className="video-responsive mt-4" ref={videoResponsive}>
+      <iframe
+        width="100%"
+        height="720"
+        src={`https://www.youtube.com/embed/${videoId}`}
+        frameBorder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+        title="Embedded YouTube Video"
+      />
+    </div>
+  );
+};
+
 const BottomPage = () => {
   const bottomElementTextContainer = useRef();
 
@@ -75,6 +135,11 @@ const BottomPage = () => {
               </div>
             </div>
           ))}
+        </div>
+        <div className="row p-3 mt-3 justify-content-center">
+          <div className="col-10 col-md-8 col-lg-7">
+            <YouTubeEmbed videoId="dQw4w9WgXcQ" />
+          </div>
         </div>
       </div>
     </>
