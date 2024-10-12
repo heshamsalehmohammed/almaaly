@@ -479,19 +479,19 @@ a#logo {
 }
 
 .welcome-box p.desc {
- 
+
     margin: 0 auto 30px;
     color: #fff;
 }
 
 .welcome-title {
-   
+
     margin-bottom: 10px;
     letter-spacing: 0.02em;
 }
 
 .welcome-title span {
-   
+
     display: block;
     font-weight: 300;
     line-height: 1.2;
@@ -519,7 +519,7 @@ a#logo {
 
 .about-contentbox {
     margin-top: 80px;
-    text-align: left;
+    text-align: center;
     line-height: 1.8;
 }
 
@@ -537,13 +537,15 @@ a#logo {
 
 .facts-list {
     margin-top: 30px;
+
 }
 
 .facts-list .item {
     overflow: hidden;
     text-align: center;
     border-radius: 10px;
-    width: 100%;
+    width: 152px;
+    height: 162px;
     display: inline-block;
     text-transform: capitalize;
     font-size: 14px;
@@ -598,6 +600,7 @@ a#logo {
     border-radius: 10px;
     -webkit-transition: all 0.5s ease;
     transition: all 0.5s ease;
+    width: 335px !important;
 }
 
 .service-icon {
@@ -666,7 +669,7 @@ a#logo {
     text-align: center;
 }
 
-.portfolio-item{
+.portfolio-item {
     position: relative;
 }
 
@@ -988,30 +991,36 @@ body,
     margin: 0;
     padding: 0;
     min-height: 100vh;
-    height: calc( 100vh + 2000px );
-    overflow-x: hidden; /* Keep overflow-x hidden on root elements */
+    height: calc(100vh + 2000px);
+    overflow-x: hidden;
+    /* Keep overflow-x hidden on root elements */
     overflow-y: hidden;
 }
 
 #App {
-    overflow-y: scroll; /* Manage vertical scrolling */
+    overflow-y: scroll;
+    /* Manage vertical scrolling */
 }
 
 .full-page-content {
-    position: fixed; /* Changed from sticky to fixed */
+    position: fixed;
+    /* Changed from sticky to fixed */
     top: 0;
     left: 0;
     width: 100%;
     height: 100vh;
-    z-index: 2; /* Lower z-index */
+    z-index: 2;
+    /* Lower z-index */
 }
 
 .bottom-element {
     height: 2000px;
     background-color: black;
     position: relative;
-    z-index: 3; /* Higher z-index */
-    margin-top: 100vh; /* Pushes it below the fixed top element */
+    z-index: 3;
+    /* Higher z-index */
+    margin-top: 100vh;
+    /* Pushes it below the fixed top element */
 }
 
 
@@ -1022,12 +1031,10 @@ body,
     align-items: center;
 }
 
-.contact-us{
-  
-}
+.contact-us {}
 
 
-.full-page-content > div > div > div {
+.full-page-content>div>div>div {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -1037,70 +1044,72 @@ body,
 
 @import 'https://fonts.googleapis.com/css?family=Permanent+Marker';
 
- .coumpany-name{
+.coumpany-name {
     font: 12vw/1 'Permanent Marker', sans-serif;
 }
 
 
 .coumpany-name {
-	animation: glow 2s ease-in-out both infinite;
+    animation: glow 2s ease-in-out both infinite;
 }
 
 .coumpany-name:nth-child(1) {
-	animation-delay: calc(1 / 7 * -2s);
+    animation-delay: calc(1 / 7 * -2s);
 }
 
 .coumpany-name:nth-child(2) {
-	animation-delay: calc(2 / 7 * -2s);
+    animation-delay: calc(2 / 7 * -2s);
 }
 
 .coumpany-name:nth-child(3) {
-	animation-delay: calc(3 / 7 * -2s);
+    animation-delay: calc(3 / 7 * -2s);
 }
 
 .coumpany-name:nth-child(4) {
-	animation-delay: calc(4 / 7 * -2s);
+    animation-delay: calc(4 / 7 * -2s);
 }
 
 .coumpany-name:nth-child(5) {
-	animation-delay: calc(5 / 7 * -2s);
+    animation-delay: calc(5 / 7 * -2s);
 }
 
 .coumpany-name:nth-child(6) {
-	animation-delay: calc(6 / 7 * -2s);
+    animation-delay: calc(6 / 7 * -2s);
 }
 
 .coumpany-name:nth-child(7) {
-	animation-delay: calc(7 / 7 * -2s);
+    animation-delay: calc(7 / 7 * -2s);
 }
 
 @keyframes glow {
-	0%, 100% {
-		text-shadow: 
-			0 0 calc(50px / 6) snow,
-			0 -25px 50px tomato,
-			-25px 25px 50px yellow,
-			25px 25px 50px tomato;
-	}
-	33% {
-		text-shadow: 
-			0 0 calc(50px / 6) snow,
-			0 -25px 50px yellow,
-			-25px 25px 50px tomato,
-			25px 25px 50px cyan;
-	}
-	66% {
-		text-shadow: 
-			0 0 calc(50px / 6) snow,
-			0 -25px 50px rgb(0, 255, 255),
-			-25px 25px 50px rgb(255, 99, 71),
-			25px 25px 50px rgb(255, 255, 0);
-	}
+
+    0%,
+    100% {
+        text-shadow:
+            0 0 calc(50px / 6) snow,
+            0 -25px 50px tomato,
+            -25px 25px 50px yellow,
+            25px 25px 50px tomato;
+    }
+
+    33% {
+        text-shadow:
+            0 0 calc(50px / 6) snow,
+            0 -25px 50px yellow,
+            -25px 25px 50px tomato,
+            25px 25px 50px cyan;
+    }
+
+    66% {
+        text-shadow:
+            0 0 calc(50px / 6) snow,
+            0 -25px 50px rgb(0, 255, 255),
+            -25px 25px 50px rgb(255, 99, 71),
+            25px 25px 50px rgb(255, 255, 0);
+    }
 }
 
-video{
-   
-}
+video {}
 
 /* :after pseudo-element overlay */
 .video-overlay {
@@ -1127,48 +1136,101 @@ video{
     font-family: Lato, sans-serif;
     font-weight: 600;
     color: white;
-   
-  }
-  .rotating-text p {
+
+}
+
+.rotating-text p {
     display: inline-flex;
     margin: 0;
     vertical-align: top;
-  }
-  .rotating-text p .word {
+}
+
+.rotating-text p .word {
     position: absolute;
     display: flex;
     opacity: 0;
-  }
-  .rotating-text p .word .letter {
+}
+
+.rotating-text p .word .letter {
     transform-origin: center center 25px;
-  }
-  .rotating-text p .word .letter.out {
+}
+
+.rotating-text p .word .letter.out {
     transform: rotateX(90deg);
     transition: 0.32s cubic-bezier(0.6, 0, 0.7, 0.2);
-  }
-  .rotating-text p .word .letter.in {
+}
+
+.rotating-text p .word .letter.in {
     transition: 0.38s ease;
-  }
-  .rotating-text p .word .letter.behind {
+}
+
+.rotating-text p .word .letter.behind {
     transform: rotateX(-90deg);
-  }
-  
-  .alizarin {
+}
+
+.alizarin {
     color: tomato;
-  }
-  
-  .wisteria {
+}
+
+.wisteria {
     color: #ec2bdf;
-  }
-  
-  .peter-river {
+}
+
+.peter-river {
     color: cyan;
-  }
-  
-  .emerald {
+}
+
+.emerald {
     color: #2ecc71;
-  }
-  
-  .sun-flower {
+}
+
+.sun-flower {
     color: yellow;
-  }
+}
+
+
+
+
+.custom-pagination{
+    margin-top: 15px; /* Adjusts the space between Swiper and pagination */
+    display: flex;
+    justify-content: center;
+}
+
+
+
+.swiper-pagination-bullet.swiper-pagination-bullet-active {
+    background: #fff !important;
+}
+
+.swiper-pagination-bullet {
+    width: 12px !important;
+    height: 12px !important;
+    margin: 0 5px !important;
+    background: rgba(255, 255, 255) !important;
+    border-radius: 3px !important;
+    cursor: pointer;
+}
+
+
+
+
+::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar
+{
+	width: 10px;
+	background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #555;
+}

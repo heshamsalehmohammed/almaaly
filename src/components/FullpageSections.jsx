@@ -11,9 +11,11 @@ import ContactUs from "./Sections/ContactUs";
 import ReactPageScroller from "../packages/PageScroll/ReactPageScroller";
 import SocialIcons from "./SocilaIcons";
 import Section6 from "./Sections/Section6";
+import BottomPage from "./BottomPage";
 
 const FullpageSections = () => {
-  const { currentPage, setCurrentPage, pageScrollerRef } = useContext(PageContext);
+  const { currentPage, setCurrentPage, pageScrollerRef } =
+    useContext(PageContext);
 
   const handlePageChange = (number) => {
     setCurrentPage(number);
@@ -46,9 +48,7 @@ const FullpageSections = () => {
         <SocialIcons />
       </div>
 
-      <div
-        className="bottom-element"
-      ></div>
+     <BottomPage/>
     </>
   );
 };
