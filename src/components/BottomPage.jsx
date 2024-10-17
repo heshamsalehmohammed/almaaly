@@ -15,6 +15,9 @@ import { useGSAP } from "@gsap/react";
 ScrollTrigger.config({
   autoRefreshEvents: "resize,orientationchange",
 });
+window.addEventListener("resize", () => {
+  ScrollTrigger.refresh();
+});
 
 // Register the ScrollTrigger plugin
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -308,7 +311,7 @@ const BottomPage = () => {
   return (
     <>
       <div className="bottom-element pt-5" ref={bottomElementRef}>
-        <div className="d-flex flex-column text-white text-start mb-2 p-5">
+        <div className="d-flex w-100 flex-column text-white text-start mb-2 p-5">
           {[
             "An AI web designer & developer by your side.",
             "With support from three amazing assistants, I can bring your ideal website to life.",
@@ -326,7 +329,7 @@ const BottomPage = () => {
             </div>
           ))}
         </div>
-        <div className="row p-3 mt-3 mb-5 justify-content-center">
+        <div className="row w-100 p-3 mt-3 mb-5 justify-content-center">
           <div className="col-10 col-md-8 col-lg-7">
             <MainYouTubeEmbedWithAnimation
               videoId="dQw4w9WgXcQ"
@@ -335,7 +338,7 @@ const BottomPage = () => {
           </div>
         </div>
         <div
-          className="row min-vh-100 w-100 p-3 mt-6  justify-content-center"
+          className="row w-100 min-vh-100 w-100 p-3 mt-6  justify-content-center"
           ref={stickyElementRef}
         >
           <div className="col-10 col-md-9 col-lg-8">
@@ -365,7 +368,7 @@ const BottomPage = () => {
             </div>
           </div>
         </div>
-        <div className="position-relative">
+        <div className="position-relative w-100">
           <div className="row p-3 mt-5 mb-5 pt-5 pb-5 justify-content-center">
             <div className="col-8 col-md-6 col-lg-5 pt-5 pb-5">
               <NormalYouTubeEmbedWithAnimation
@@ -398,7 +401,61 @@ const BottomPage = () => {
   );
 };
 
-const WhatTheySay = () => {
+const DURATION = 25000;
+const TAGS_PER_ROW = 5;
+
+const random = (min, max) => Math.floor(Math.random() * (max - min)) + min;
+const shuffle = (arr) => [...arr].sort(() => 0.5 - Math.random());
+
+const InfiniteLoopSlider = ({ children, duration, reverse = false }) => {
+  const innerRef = useRef(null);
+
+
+  return (
+    <div
+      className="loop-slider"
+      style={{
+        "--duration": `${duration}ms`,
+        "--direction": reverse ? "reverse" : "normal",
+      }}
+    >
+      <div className="inner" ref={innerRef}>
+        {children}
+        {children}
+      </div>
+    </div>
+  );
+};
+
+const TestimonialItem = ({ img, name, text, role }) => {
+  
+  const handleMouseEnter = (e) => {
+    gsap.to(e.currentTarget, { scale: 1.1, duration: 0.3 });
+  };
+
+  const handleMouseLeave = (e) => {
+    gsap.to(e.currentTarget, { scale: 1, duration: 0.3 });
+  };
+
+  return (
+    <div
+      className="testimonial-item ms-2 me-2 "
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <div className="client-row">
+        <img src={img} className="rounded-circle" alt={`profile ${name}`} />
+      </div>
+      <div className="testimonial-content">
+        <h4>{name}</h4>
+        <p>"{text}"</p>
+        <span>{role}</span>
+      </div>
+    </div>
+  );
+};
+
+export const WhatTheySay = () => {
   const testimonials = [
     {
       name: "Sandar",
@@ -418,66 +475,44 @@ const WhatTheySay = () => {
       img: profile01,
       text: "Etiam efficitur, tortor facilisis finibus semper, diam magna fringilla lectus, et fringilla felis urna posuere tortor.",
     },
+    {
+      name: "Hesham",
+      role: "Chief Marketing Officer",
+      img: profile01,
+      text: "Etiam efficitur, tortor facilisis finibus semper, diam magna fringilla lectus, et fringilla felis urna posuere tortor.",
+    },
   ];
 
-
-
-  const boxesRef = useRef([]);
-
-  useGSAP(() => {
-    // Set initial positions using gsap.set
-    gsap.set(boxesRef.current, {
-      x: (i) => i * 50,
-    });
-
-    // Create the timeline with infinite repeat and modifiers
-    const action = gsap.timeline({ repeat: -1 });
-    action.to(boxesRef.current, {
-      duration: 5,
-      ease: "none",
-      x: "+=500",
-      modifiers: {
-        x: (x) => x % 500,
-      },
-    });
-  }, []);
-
-
   return (
-    <div className="row min-vh-100 p-3 mt-6  justify-content-center bg-dark">
-      <div className="col-md-7 col-10 pt-4">
-        <div className="bottom-element-text font-poppins-semi-bold-italic mt-5 pt-5">
-          <div>
+    <div className="position-relative w-100">
+      <div className="row mr-0 ml-0 min-vh-100 p-3 mt-6 justify-content-center bg-dark">
+        <div className="col-md-7 col-10 pt-4">
+          <div className="bottom-element-text font-poppins-semi-bold-italic mt-5 pt-5">
             <h1 className="mt-5 py-4 display-6 display-md-4 display-xl-3 text-transform-none">
               What do creators say about Almaaly
             </h1>
           </div>
         </div>
-      </div>
-      <div className="col-12">
-        <div class="what-they-say-wrapper d-flex">
-
-            {testimonials.map((item, index) => (
-              <div key={`testimonial-item${index}`} className="testimonial-item ms-2 me-2" ref={(el) => (boxesRef.current[index] = el)}>
-                <div className="client-row">
-                  <img
-                    src={item.img}
-                    className="rounded-circle"
-                    alt={`profile ${index + 1}`}
-                  />
-                </div>
-                <div className="testimonial-content">
-                  <h4>{item.name}</h4>
-                  <p>"{item.text}"</p>
-                  <span>{item.role}</span>
-                </div>
-              </div>
-            ))}
-          
+        <div className="col-12 what-they-say-menu">
+          <InfiniteLoopSlider
+            duration={random(DURATION - 5000, DURATION + 5000)}
+            reverse={false}
+          >
+            {shuffle(testimonials)
+              .slice(0, TAGS_PER_ROW)
+              .map((item, index) => (
+                <TestimonialItem
+                  key={`testimonial-item${index}`}
+                  img={item.img}
+                  name={item.name}
+                  text={item.text}
+                  role={item.role}
+                />
+              ))}
+          </InfiniteLoopSlider>
         </div>
       </div>
     </div>
   );
 };
-
 export default BottomPage;

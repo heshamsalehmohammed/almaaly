@@ -54,12 +54,12 @@ const RotatingText = () => {
   return (
     <div className="mb-3 rotating-text fs-2 d-flex justify-content-center align-items-center flex-md-wrap">
       <p className="me-2">Our School is</p>
-      <p className="text-uppercase">
-        <span className="word alizarin">awesome.</span>
-        <span className="word wisteria">beautiful.</span>
-        <span className="word peter-river">creative.</span>
-        <span className="word emerald">fabulous.</span>
-        <span className="word sun-flower">interesting.</span>
+      <p className="text-uppercase glow1">
+        <span className="word ">awesome.</span>
+        <span className="word ">beautiful.</span>
+        <span className="word ">creative.</span>
+        <span className="word ">fabulous.</span>
+        <span className="word ">interesting.</span>
       </p>
     </div>
   );
@@ -74,50 +74,39 @@ const Section1 = () => {
 
   useGSAP(
     () => {
+
+
+
       const tl = gsap.timeline();
 
       // Animate Welcome Titles
-      tl.fromTo(
-        ".welcome-title",
-        {
-          y: 50,
-          opacity: 0,
-        },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.8,
-          stagger: 0.1,
-          ease: "power3.out",
-        }
-      )
+      tl
         // Animate First Description Paragraph
         .fromTo(
           descriptionRef1.current,
           {
-            y: 50,
+            y: '70px',
             opacity: 0,
           },
           {
             y: 0,
             opacity: 1,
-            duration: 0.8,
-            ease: "power3.out",
-          },
-          "-=0.6" // Overlap with previous animation
+            duration: 1,
+            ease: "elastic.out(1,0.75)",
+          }
         )
         // Animate Second Description Paragraph
         .fromTo(
           descriptionRef2.current,
           {
-            y: 50,
+            y: 70,
             opacity: 0,
           },
           {
             y: 0,
             opacity: 1,
-            duration: 0.8,
-            ease: "power3.out",
+            duration: 1,
+            ease: "elastic.out(1,0.75)",
           },
           "-=0.6"
         )
@@ -125,14 +114,14 @@ const Section1 = () => {
         .fromTo(
           scrollDownRef.current,
           {
-            y: 50,
+            y: 70,
             opacity: 0,
           },
           {
             y: 0,
             opacity: 1,
-            duration: 0.8,
-            ease: "power3.out",
+            duration: 1,
+            ease: "elastic.out(1,0.75)",
           },
           "-=0.6"
         );
