@@ -184,7 +184,7 @@ const HtmlScrolledItems = () => {
       <AnimatedH1
         id="h1-all"
         style={{
-          top: `50vh`,
+          top: `100vh`,
           right: "20vw",
           fontSize: "25em",
         }}
@@ -273,21 +273,30 @@ const HtmlScrolledItems = () => {
 };
 
 function Number({ hover }) {
-  const ref = useRef();
-  
-  useFrame((state) => {
+
+  const visible = useRef(false);
+  const ref = useIntersect((isVisible) => (visible.current = isVisible));
+  const { height } = useThree((state) => state.viewport);
+
+  useFrame((state,delta) => {
     if (ref.current) {
+      ref.current.position.y = THREE.MathUtils.damp(
+        ref.current.position.y,
+        visible.current ? 0 : height / 4 + 1,
+        2,
+        delta
+      );
       ref.current.position.x = THREE.MathUtils.lerp(
         ref.current.position.x,
-        state.mouse.x * 2,
+        state.mouse.x * 3,
         0.1
       );
-      ref.current.rotation.x = THREE.MathUtils.lerp(
+/*       ref.current.rotation.x = THREE.MathUtils.lerp(
         ref.current.rotation.x,
         state.mouse.y / 2,
         0.1
-      );
-      ref.current.rotation.y = 0.3;
+      ); */
+      ref.current.rotation.y = 0.2;
 
     }
   });
@@ -383,7 +392,6 @@ const App = () => {
         
         <Effects />
        <ScrollControls pages={5}>
-       {/* <FullPageScroll/> */}
           <CanvasScrolledItems />
           <HtmlScrolledItems />
         </ScrollControls>   

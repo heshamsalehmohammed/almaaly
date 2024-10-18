@@ -1402,7 +1402,7 @@ body,
 }
 
 
-.what-they-say-menu .testimonial-item {
+.what-they-say-menu .testimonial-item,.what-they-say-menu-spring .testimonial-item  {
     width: 520px !important;
     background: #494848;
     padding: 12px;
@@ -1444,6 +1444,12 @@ body,
     padding: 1.5rem 0;
     overflow: hidden;
 }
+
+
+.what-they-say-menu-spring {
+    width: 100% !important;
+}
+
 
 .loop-slider .inner {
 

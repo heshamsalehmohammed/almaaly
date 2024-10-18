@@ -10,14 +10,14 @@ extend({TextGeometry })
 
 const Text = forwardRef(({ children, vAlign = 'center', hAlign = 'center', size = 1, color = '#000000', ...props }, ref) => {
     const font = useLoader(FontLoader, '/bold.json')
-    const config = useMemo(() => ({ font, size: 40, height: 50 }), [font])
+    const config = useMemo(() => ({ font, size: 30, height: 50 }), [font])
     const mesh = useRef()
     useLayoutEffect(() => {
       const size = new THREE.Vector3()
       mesh.current.geometry.computeBoundingBox()
       mesh.current.geometry.boundingBox.getSize(size)
       mesh.current.position.x = hAlign === 'center' ? -size.x / 2 : hAlign === 'right' ? 0 : -size.x
-      mesh.current.position.y = vAlign === 'center' ? -size.y / 2 : vAlign === 'top' ? 0 : -size.y
+      mesh.current.position.y = vAlign === 'center' ? -size.y : vAlign === 'top' ? 0 : -size.y
     }, [children])
 
 

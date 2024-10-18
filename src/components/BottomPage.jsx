@@ -515,4 +515,8 @@ export const WhatTheySay = () => {
     </div>
   );
 };
+
+
+
+
 export default BottomPage;
