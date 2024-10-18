@@ -247,9 +247,7 @@ import React, {
     );
   
     const wheelScroll = useCallback(
-      event => {
-/*         event.stopPropagation();
- */        
+      event => {      
         if (Math.abs(event.deltaY) > MINIMAL_DELTA_Y_DIFFERENCE) {
           if (isPositiveNumber(event.deltaY)) {
             lastScrolledElement.current = event.target;

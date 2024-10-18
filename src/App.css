@@ -64,31 +64,12 @@ CSS SITEMAP >>>>
     font-family: 'ProtestStrike', sans-serif !important;
 }
 
-html,
-body {
-    -webkit-font-smoothing: antialiased;
-    -moz-font-smoothing: antialiased;
-    -ms-font-smoothing: antialiased;
-    font-smoothing: antialiased;
-    -webkit-text-size-adjust: 100%;
-}
 
-body {
-    font: 16px/1.6 'Raleway', Arial, Helvetica, sans-serif;
-    color: #fff;
-    text-align: center;
-    background: #222;
-}
 
 img {
     border: 0;
     max-width: 100%;
 }
-
-html {
-    -ms-overflow-style: scrollbar;
-}
-
 .alltrans,
 .social-icons li a,
 .owl-nav>button,
@@ -1028,22 +1009,36 @@ textarea.form-control {
     box-sizing: border-box;
 }
 
+
+ html,
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-font-smoothing: antialiased;
+    -ms-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    font: 16px/1.6 'Raleway', Arial, Helvetica, sans-serif;
+    color: #fff;
+    text-align: center;
+    background: #222;
+} 
+
 html,
 body,
 #root {
-    width: 100vw;
+   width: 100vw;
     margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    height: calc(100vh + 6000px);
+    padding: 0; 
+    height: 100vh;
     overflow-x: hidden;
-    /* Keep overflow-x hidden on root elements */
     overflow-y: hidden;
 }
 
 #App {
     overflow-y: scroll;
-    /* Manage vertical scrolling */
 }
 
 .full-page-content {

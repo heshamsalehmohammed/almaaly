@@ -139,7 +139,7 @@ const Section1 = () => {
       {/* Welcome Box */}
       <div className="col-12 text-center" ref={welcomeBoxRef}>
         <div className="welcome-box">
-          <RotatingText />
+          {/* <RotatingText /> */}
           <div className="">
             <span className="coumpany-name display-1 welcome-title">A</span>
             <span className="coumpany-name display-1 welcome-title">L</span>
