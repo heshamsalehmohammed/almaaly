@@ -1,0 +1,85 @@
+{
+  "glyphs": {
+    "a": {
+      "ha": 729,
+      "x_min": 96,
+      "x_max": 626,
+      "o": "m 556 153 q 570 43 556 76 q 626 -4 585 10 l 622 -12 q 563 34 579 1 q 544 139 546 67 q 449 26 507 64 q 307 -12 390 -12 q 151 47 207 -12 q 96 201 96 106 q 170 365 96 307 q 374 424 244 424 l 544 424 l 544 515 q 500 669 544 617 q 353 722 456 722 q 151 676 263 722 l 147 686 q 353 733 263 733 q 508 678 460 733 q 556 517 556 622 l 556 153 m 307 -3 q 449 37 393 -3 q 544 156 506 76 l 544 414 l 376 414 q 178 358 250 414 q 107 201 107 303 q 160 53 107 110 q 307 -3 213 -3 z "
+    },
+    "l": {
+      "ha": 382,
+      "x_min": 164,
+      "x_max": 311,
+      "o": "m 251 -12 q 186 15 208 -12 q 164 92 164 42 l 164 1015 l 175 1017 l 175 93 q 194 22 175 47 q 251 -3 214 -3 q 308 8 282 -3 l 311 -1 q 251 -12 282 -12 z "
+    },
+    "m": {
+      "ha": 1175,
+      "x_min": 171,
+      "x_max": 1011,
+      "o": "m 836 733 q 967 674 922 733 q 1011 511 1011 615 l 1011 0 l 1000 0 l 1000 511 q 959 667 1000 613 q 836 722 918 722 q 596 536 692 722 l 596 0 l 585 0 l 585 521 q 543 669 585 615 q 421 722 501 722 q 182 536 276 722 l 182 0 l 171 0 l 171 719 l 181 719 l 182 553 q 421 733 276 733 q 544 685 500 733 q 596 551 589 636 q 836 733 690 733 z "
+    },
+    "y": {
+      "ha": 607,
+      "x_min": 39,
+      "x_max": 568,
+      "o": "m 319 0 q 264 -135 289 -87 q 197 -213 239 -182 q 83 -265 156 -244 l 83 -256 q 192 -205 153 -235 q 255 -131 231 -175 q 310 0 279 -86 l 303 0 l 39 719 l 51 719 l 311 7 l 556 719 l 568 719 l 319 0 z "
+    },
+    "A": {
+      "ha": 772,
+      "x_min": 46,
+      "x_max": 728,
+      "o": "m 613 292 l 160 292 l 57 0 l 46 0 l 379 944 l 392 944 l 728 0 l 715 0 l 613 292 m 608 303 l 385 936 l 164 303 l 608 303 z "
+    },
+    "L": {
+      "ha": 622,
+      "x_min": 178,
+      "x_max": 589,
+      "o": "m 189 11 l 589 11 l 588 0 l 178 0 l 178 944 l 189 944 l 189 11 z "
+    },
+    "M": {
+      "ha": 1054,
+      "x_min": 115,
+      "x_max": 939,
+      "o": "m 939 0 l 928 0 l 871 488 q 849 674 853 639 q 833 806 842 739 q 819 933 825 874 l 532 118 l 521 118 l 232 933 l 199 638 l 182 499 l 126 0 l 115 0 l 222 944 l 239 944 l 526 132 l 813 944 l 829 944 l 939 0 z "
+    },
+    "Y": {
+      "ha": 672,
+      "x_min": 33,
+      "x_max": 639,
+      "o": "m 343 376 l 343 0 l 331 0 l 331 376 l 33 944 l 46 944 l 338 386 l 626 944 l 639 944 l 343 376 z "
+    }
+  },
+  "familyName": "Fira Sans Eight",
+  "ascender": 1299,
+  "descender": -368,
+  "underlinePosition": -104,
+  "underlineThickness": 69,
+  "boundingBox": {
+    "yMin": -486,
+    "xMin": -999,
+    "yMax": 1458,
+    "xMax": 1889
+  },
+  "resolution": 1000,
+  "original_font_information": {
+    "format": 0,
+    "copyright": "Digitized data copyright © 2012-2015, The Mozilla Foundation and Telefonica S.A.",
+    "fontFamily": "Fira Sans Eight",
+    "fontSubfamily": "Regular",
+    "uniqueID": "4.106;CTDB;FiraSans-Eight",
+    "fullName": "Fira Sans Eight",
+    "version": "Version 4.106",
+    "postScriptName": "FiraSans-Eight",
+    "trademark": "Fira Sans is a trademark of The Mozilla Corporation.",
+    "manufacturer": "Carrois Corporate GbR & Edenspiekermann AG",
+    "designer": "Carrois Corporate & Edenspiekermann AG",
+    "manufacturerURL": "http://www.carrois.com",
+    "designerURL": "http://www.carrois.com",
+    "licence": "Licensed under the Open Font License, version 1.1 or later",
+    "licenceURL": "http://scripts.sil.org/OFL",
+    "preferredFamily": "Fira Sans",
+    "preferredSubfamily": "Eight"
+  },
+  "cssFontWeight": "normal",
+  "cssFontStyle": "normal"
+}

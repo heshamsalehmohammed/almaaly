@@ -8,9 +8,9 @@ import { extend, useLoader } from '@react-three/fiber'
 extend({TextGeometry })
 
 
-const Text = forwardRef(({ children, vAlign = 'center', hAlign = 'center', size = 1, color = '#000000', ...props }, ref) => {
-    const font = useLoader(FontLoader, '/bold.json')
-    const config = useMemo(() => ({ font, size: 30, height: 50 }), [font])
+const Text = forwardRef(({ children, vAlign = 'center', hAlign = 'center', size,height,scale, color = '#000000', ...props }, ref) => {
+    const font = useLoader(FontLoader, '/three-fonts/minimized/Fira Sans Eight_Regular.json')
+    const config = useMemo(() => ({ font, size, height }), [font,size,height])
     const mesh = useRef()
     useLayoutEffect(() => {
       const size = new THREE.Vector3()
@@ -18,12 +18,12 @@ const Text = forwardRef(({ children, vAlign = 'center', hAlign = 'center', size 
       mesh.current.geometry.boundingBox.getSize(size)
       mesh.current.position.x = hAlign === 'center' ? -size.x / 2 : hAlign === 'right' ? 0 : -size.x
       mesh.current.position.y = vAlign === 'center' ? -size.y : vAlign === 'top' ? 0 : -size.y
-    }, [children])
+    }, [children,size,height])
 
 
 
     return (
-      <group ref={ref} {...props} scale={[0.1 * size, 0.1 * size, 0.1]}>
+      <group ref={ref} {...props} scale={scale}>
         <mesh ref={mesh} 
         >
           <textGeometry args={[children, config]} />

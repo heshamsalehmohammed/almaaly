@@ -66,7 +66,7 @@ function CanvasScrolledItems() {
   const mouse = useRef([0, 0]);
   return (
     <Scroll>
-      <Number mouse={mouse} hover={hover} />
+      <LogoText mouse={mouse} hover={hover} />
       <Item
         url="/images/1.jpg"
         scale={[w / 3, w / 3, 1]}
@@ -272,11 +272,17 @@ const HtmlScrolledItems = () => {
   );
 };
 
-function Number({ hover }) {
+function LogoText({ hover }) {
 
   const visible = useRef(false);
   const ref = useIntersect((isVisible) => (visible.current = isVisible));
-  const { height } = useThree((state) => state.viewport);
+  const { viewport, size } = useThree()
+  const height = viewport.height;
+
+
+  const TextScaleFactor = Math.min(1, viewport.width / 128)
+
+  console.log("TextScaleFactor: ",TextScaleFactor)
 
   useFrame((state,delta) => {
     if (ref.current) {
@@ -288,7 +294,7 @@ function Number({ hover }) {
       );
       ref.current.position.x = THREE.MathUtils.lerp(
         ref.current.position.x,
-        state.mouse.x * 3,
+        state.mouse.x * 2,
         0.1
       );
 /*       ref.current.rotation.x = THREE.MathUtils.lerp(
@@ -296,7 +302,7 @@ function Number({ hover }) {
         state.mouse.y / 2,
         0.1
       ); */
-      ref.current.rotation.y = 0.2;
+      ref.current.rotation.y = 0.01;
 
     }
   });
@@ -304,14 +310,16 @@ function Number({ hover }) {
   return (
     <group ref={ref} renderOrder={4}> {/* Assign to layer 1 */}
       <Text
-        size={10}
+        size={20 * TextScaleFactor}
+        height={5}
+        scale={[1,1, 0.1]}
         onPointerOver={() => hover(true)}
         onPointerOut={() => hover(false)}
         color="#ffffff" // Use a bright color for better Bloom effect'
         emissive="#ffffff" // Bright enough to trigger bloom
         emissiveIntensity={2.0} // Higher than the bloom threshold
       >
-        4
+        Almaaly
       </Text>
     </group>
   );
