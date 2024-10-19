@@ -452,7 +452,7 @@ a#logo {
     position: fixed;
     top: 50%;
     transform: translateY(-50%);
-    right: 0;
+    right: 8px;
     z-index: 199;
 }
 
@@ -1506,4 +1506,11 @@ body,
     font-family: arial, cursive;
     font-weight: bold;
     text-shadow: 0 0 30px #e60073;
+  }
+
+
+
+
+  .color-inherit{
+    color: inherit !important;
   }
