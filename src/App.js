@@ -11,7 +11,7 @@ import {
   Scroll,
   useScroll,
   Html,
-  useGLTF
+  useGLTF,
 } from "@react-three/drei";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -35,8 +35,15 @@ import SocialIcons from "./components/SocilaIcons";
 import { PrimeReactProvider } from "primereact/api";
 import { Button } from "primereact/button";
 
-import { Geometry, Base, Addition, Brush } from '@react-three/csg'
-import { Physics, RigidBody, CuboidCollider, InstancedRigidBodies } from '@react-three/rapier'
+
+import { Geometry, Base, Addition, Brush } from "@react-three/csg";
+import {
+  Physics,
+  RigidBody,
+  CuboidCollider,
+  InstancedRigidBodies,
+} from "@react-three/rapier";
+import Section2 from "./components/Sections/Section2";
 
 gsap.registerPlugin(ScrollTrigger);
 function Item({ url, scale, ...props }) {
@@ -90,8 +97,8 @@ function CanvasScrolledItems({ setLogoScreenPosition }) {
         setLogoScreenPosition={setLogoScreenPosition}
       />
 
-      <FancyHatsScene/>
-     {/*  <Item
+      {/* <FancyHatsScene /> */}
+      {/*  <Item
         url="/images/1.jpg"
         scale={[w / 3, w / 3, 1]}
         position={[-w / 6, -h, 0]}
@@ -278,7 +285,7 @@ const HtmlScrolledItems = ({ logoScreenPosition }) => {
                   width: "180px",
                   borderRadius: "25px",
                   background: "#fff",
-                  borderColor: "#000080",
+                  borderColor: "#fff",
                   boxShadow: "none",
                   color: "rgb(15 23 42 / 1)",
                 }}
@@ -289,7 +296,13 @@ const HtmlScrolledItems = ({ logoScreenPosition }) => {
           </Slide>
         </div>
       </div>
-     {/*  <AnimatedH1
+      <div class="row justify-content-center align-content-center vw-100 vh-100"         style={{
+          position: "absolute",
+          top: `${100}vh`,
+        }}>
+        <Section2 />
+      </div>
+      {/*  <AnimatedH1
         id="h1-all"
         style={{
           top: `100vh`,
@@ -429,44 +442,76 @@ function LogoText({ hover, setLogoScreenPosition }) {
   );
 }
 
-
-
 function Hats({ count = 200, rand = THREE.MathUtils.randFloatSpread }) {
-  const { nodes, materials } = useGLTF('/glbs/blender-threejs-journey-20k-hat-transformed.glb')
+  const { nodes, materials } = useGLTF(
+    "/glbs/blender-threejs-journey-20k-hat-transformed.glb"
+  );
   const instances = Array.from({ length: count }, (_, i) => ({
     key: i,
     position: [rand(2) + 1, 10 + i / 2, rand(2) - 2],
-    rotation: [Math.random(), Math.random(), Math.random()]
-  }))
+    rotation: [Math.random(), Math.random(), Math.random()],
+  }));
   return (
     <InstancedRigidBodies instances={instances} colliders="hull">
-      <instancedMesh receiveShadow castShadow args={[undefined, undefined, count]} dispose={null}>
+      <instancedMesh
+        receiveShadow
+        castShadow
+        args={[undefined, undefined, count]}
+        dispose={null}
+      >
         {/* Merging the hat into one clump bc instances need a single geometry to function */}
         <Geometry useGroups>
-          <Base geometry={nodes.Plane006.geometry} material={materials.Material} />
-          <Addition geometry={nodes.Plane006_1.geometry} material={materials.boxCap} />
+          <Base
+            geometry={nodes.Plane006.geometry}
+            material={materials.Material}
+          />
+          <Addition
+            geometry={nodes.Plane006_1.geometry}
+            material={materials.boxCap}
+          />
         </Geometry>
       </instancedMesh>
     </InstancedRigidBodies>
-  )
+  );
 }
 
-
-const FancyHatsScene = ()=>{
-
-
+const FancyHatsScene = () => {
   const { viewport } = useThree();
   const height = viewport.height;
+  
+  const scroll = useScroll(); // Initialize useScroll
+  const [startPhysics, setStartPhysics] = useState(false);
+  
+  const physicsStartedRef = useRef(false);
 
-  return  <Physics gravity={[0, -4, 0]}>
-  <group position={[0, -0.9 * height, 19]} rotation={[(1 * Math.PI) / 180, (160 * Math.PI) / 180, 0]}>
-    <Hats />
-    <RigidBody position={[0, -1, 0]} type="fixed" colliders="false">
-      <CuboidCollider restitution={0.1} args={[1000, 1, 1000]} />
-    </RigidBody>
-  </group>
-</Physics>
-}
+  useFrame(() => {
+    // Get the current scroll offset as a normalized value between 0 and 1
+    const scrollOffset = scroll.scroll.current;
+
+    // Check if scrollOffset has reached or surpassed 0.2
+    if (scrollOffset >= 0.05 && !physicsStartedRef.current) {
+      setStartPhysics(true);
+      physicsStartedRef.current = true; // Ensure this runs only once
+
+    }
+  });
+
+
+
+  return (
+    <Physics paused={!startPhysics} gravity={startPhysics ? [0, -4, 0] : [0, 0, 0]}>
+      <group
+        position={[0, -1.2 * height, 19]}
+        rotation={[(1 * Math.PI) / 180, (160 * Math.PI) / 180, 0]}
+      >
+        <Hats />
+        <RigidBody position={[0, -1, 0]} type="fixed" colliders="false">
+          <CuboidCollider restitution={0.1} args={[1000, 1, 1000]} />
+        </RigidBody>
+      </group>
+    </Physics>
+  );
+};
 
 /* const MINIMAL_DELTA_Y_DIFFERENCE = 1;
 let isScrolling = false;
@@ -550,9 +595,17 @@ const App = () => {
       <Header />
       <Canvas linear dpr={[1, 2]} camera={{ fov: 100, position: [0, 0, 30] }}>
         <ambientLight intensity={0.5} />
-        <directionalLight position={[0, 0, 30]} shadow-mapSize={[256, 256]} shadow-bias={-0.0001} castShadow>
-      <orthographicCamera attach="shadow-camera" args={[-10, 10, -10, 10]} />
-    </directionalLight>
+        <directionalLight
+          position={[0, 0, 30]}
+          shadow-mapSize={[256, 256]}
+          shadow-bias={-0.0001}
+          castShadow
+        >
+          <orthographicCamera
+            attach="shadow-camera"
+            args={[-10, 10, -10, 10]}
+          />
+        </directionalLight>
         <ThreeBackgroundVideo />
 
         <UpdateCameraAspect />

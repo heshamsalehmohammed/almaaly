@@ -9,6 +9,19 @@ import profileGirl from "../../assets/images/profile-girl.jpg";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 
+import galary1 from "../../assets/images/galary-1.jpeg";
+import galary2 from "../../assets/images/galary-2.jpeg";
+import galary3 from "../../assets/images/galary-3.jpeg";
+import galary4 from "../../assets/images/galary-4.jpeg";
+import {
+  Slide,
+  Fade,
+  JackInTheBox,
+  Roll,
+  Zoom,
+  Bounce,
+} from "react-awesome-reveal";
+
 const Section2 = () => {
   const facts = [
     { icon: "fa-trophy mb-3", title: "Awards Won", count: 32 },
@@ -18,15 +31,30 @@ const Section2 = () => {
     { icon: "fa-certificate  mb-3", title: "Certificates", count: 10 },
   ];
 
+  const gallery = [
+    {
+      img: galary1,
+    },
+    {
+      img: galary2,
+    },
+    {
+      img: galary3,
+    },
+    {
+      img: galary4,
+    },
+  ];
+
   const scale = (a, b, c, d, e) => {
     return ((a - b) * (e - d)) / (c - b) + d;
   };
 
   const text1 = useRef();
   const text2 = useRef();
-  const imageRef = useRef()
+  const imageRef = useRef();
 
-  useGSAP(() => {
+  /*   useGSAP(() => {
 
 
     const crazy = (e) => {
@@ -51,29 +79,51 @@ const Section2 = () => {
     return () => {
       events.forEach((event) => window.removeEventListener(event, crazy));
     };
-  });
+  }); */
 
   return (
     <div className="row w-100 justify-content-center   overflow-y-scroll overflow-y-md-hidden pt-3 pt-md-0 section2">
-      {/* About Content */}
       <div className="col-md-4 mb-3 mb-md-0 pt-3 pt-md-0  col-10">
         <div className="about-contentbox">
           <div className="   ">
-            <span>About Us</span>
-            <h2>Who are We?</h2>
-            <p>
-              Credits go to <strong>Unsplash</strong> and{" "}
-              <strong>Pexels</strong> for photos and video used in this
-              template. Vivamus tincidunt, augue rutrum convallis volutpat,
-              massa lacus tempus leo.
-            </p>
+            <div className="row mt-4 mb-4">
+              <div className="col-md-4">
+                <Slide direction="up">
+                  <i className="fas fa-graduation-cap fa-2x mb-2"></i>
+                  <h6>HOLISTIC EDUCATION</h6>{" "}
+                </Slide>
+              </div>
+              <div className="col-md-4">
+                <Slide direction="up">  <i className="fas fa-heart fa-2x mb-2"></i>
+                <h6>CARING ENVIRONMENT</h6></Slide>
+              
+              </div>
+              <div className="col-md-4">
+              <Slide direction="up">  <i className="fas fa-globe fa-2x mb-2"></i>
+                <h6>GLOBAL PERSPECTIVE</h6></Slide>
+
+              
+              </div>
+            </div>
+            <div class="row">
+              <Slide direction="up">
+              
+                <p>
+                  Credits go to <strong>Unsplash</strong> and{" "}
+                  <strong>Pexels</strong> for photos and video used in this
+                  template. Vivamus tincidunt, augue rutrum convallis volutpat,
+                  massa lacus tempus leo.
+                </p>
+              </Slide>
+            </div>
           </div>
-          {/* Facts Carousel */}
+
           <div className="facts-list mt-4 w-5 overflow-x-hidden">
             <Swiper
               grabCursor={true}
+              loop={true}
+              slidesPerView={"auto"}
               centeredSlides={true}
-              slidesPerView={3}
               pagination={{
                 clickable: true,
                 el: ".custom-pagination-facts",
@@ -82,7 +132,7 @@ const Section2 = () => {
               className=""
               initialSlide={Math.ceil(facts.length / 2)}
               autoplay={{
-                delay: 3000,
+                delay: 2000,
                 disableOnInteraction: false,
               }}
             >
@@ -106,33 +156,32 @@ const Section2 = () => {
           </div>
         </div>
       </div>
-      {/* About Image */}
+
       <div className="col-md-5 col-10 position-relative">
-        <figure className="about-img" >
-          <img src={profileGirl} className="rounded img-fluid" alt="About Me" ref={imageRef}/>
-        </figure>
-        <svg viewBox="0 0 211.9 104.6" style={{ width: '100%', height: '100%' }} >
-          <path
-            id="curve-1"
-            d="M41.3,71.4V30.9c0-7.4,6-13.5,13.5-13.5h101.7c7.4,0,13.5,6,13.5,13.5v43c0,7.4-6,13.5-13.5,13.5H54.8
-    c-7.4,0-13.5-6-13.5-13.5"
-
-          />
-          <path
-            id="curve-2"
-            d="M176.6,33.8v42c0,9.5-7.7,17.2-17.2,17.2H51.8c-9.5,0-17.2-7.7-17.2-17.2V29c0-9.5,7.7-17.2,16.2-17.2h107.6
-    c10.5,0,18.2,7.7,18.2,17.2v3.5"
-
-          />
-          <text>
-            <textPath ref={text1} xlinkHref="#curve-1" startOffset="0%" className="styled-path">
-              Here's to the crazy ones
-            </textPath>
-            <textPath ref={text2} xlinkHref="#curve-2" startOffset="75%" className="styled-path">
-              Here's to the crazy ones
-            </textPath>
-          </text>
-        </svg>
+        <div class="section2-slider-container">
+          <Swiper
+            loop={true}
+            slidesPerView={"auto"}
+            centeredSlides={true}
+            className="gallery-swiper"
+            spaceBetween={30}
+            autoplay={{
+              delay: 3000,
+              disableOnInteraction: false,
+            }}
+            modules={[Autoplay]}
+            initialSlide={Math.floor(gallery.length / 2)}
+          >
+            {gallery.map((item, index) => (
+              <SwiperSlide
+                className="gallery-slide-item text-center" // Removed ms-2 me-2
+                key={index}
+              >
+                <img src={item.img} alt={`Slide ${index + 1}`} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
       </div>
     </div>
   );

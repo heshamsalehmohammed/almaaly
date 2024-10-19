@@ -1,0 +1,19 @@
+.hesham-slider-container {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .hesham-slider-track {
+    display: flex;
+    transition: transform 0.5s ease;
+  }
+  
+  .hesham-slider-item {
+    flex: 0 0 auto;
+    transition: transform 0.3s ease;
+    /* You can add more styling as needed */
+  }
+  
