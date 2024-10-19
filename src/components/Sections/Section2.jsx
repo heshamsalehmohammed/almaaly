@@ -82,7 +82,7 @@ const Section2 = () => {
   }); */
 
   return (
-    <div className="row w-100 justify-content-center   overflow-y-scroll overflow-y-md-hidden pt-3 pt-md-0 section2">
+    <div className="row w-100 justify-content-center pt-3 pt-md-0 section2">
       <div className="col-md-4 mb-3 mb-md-0 pt-3 pt-md-0  col-10">
         <div className="about-contentbox">
           <div className="   ">

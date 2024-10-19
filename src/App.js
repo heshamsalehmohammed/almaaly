@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { PageProvider } from "./context/PageContext";
 import Header from "./components/Header";
@@ -10,7 +10,6 @@ import {
   ScrollControls,
   Scroll,
   useScroll,
-  Html,
   useGLTF,
 } from "@react-three/drei";
 import gsap from "gsap";
@@ -22,21 +21,11 @@ import "./bootstrap-addon.css";
 import "./App.css";
 import Text from "./Text";
 import Effects from "./Effects";
-import { isPositiveNumber } from "./packages/PageScroll/utils";
-import {
-  Slide,
-  Fade,
-  JackInTheBox,
-  Roll,
-  Zoom,
-  Bounce,
-} from "react-awesome-reveal";
+import { Slide, Fade } from "react-awesome-reveal";
 import SocialIcons from "./components/SocilaIcons";
-import { PrimeReactProvider } from "primereact/api";
 import { Button } from "primereact/button";
 
-
-import { Geometry, Base, Addition, Brush } from "@react-three/csg";
+import { Geometry, Base, Addition } from "@react-three/csg";
 import {
   Physics,
   RigidBody,
@@ -44,6 +33,7 @@ import {
   InstancedRigidBodies,
 } from "@react-three/rapier";
 import Section2 from "./components/Sections/Section2";
+import SecondSection from "./components/Sections/SecondSection";
 
 gsap.registerPlugin(ScrollTrigger);
 function Item({ url, scale, ...props }) {
@@ -102,47 +92,8 @@ function CanvasScrolledItems({ setLogoScreenPosition }) {
         url="/images/1.jpg"
         scale={[w / 3, w / 3, 1]}
         position={[-w / 6, -h, 0]}
-      />
-      <Item
-        url="/images/2.jpg"
-        scale={[2, w / 3, 1]}
-        position={[w / 30, -h, 0]}
-      />
-      <Item
-        url="/images/3.jpg"
-        scale={[w / 3, w / 5, 1]}
-        position={[-w / 4, -h * 1, 0]}
-      />
-      <Item
-        url="/images/4.jpg"
-        scale={[w / 5, w / 5, 1]}
-        position={[w / 4, -h * 1.2, 0]}
-      />
-      <Item
-        url="/images/5.jpg"
-        scale={[w / 5, w / 5, 1]}
-        position={[w / 10, -h * 1.75, 0]}
-      />
-      <Item
-        url="/images/6.jpg"
-        scale={[w / 3, w / 3, 1]}
-        position={[-w / 4, -h * 2, 0]}
-      />
-      <Item
-        url="/images/7.jpg"
-        scale={[w / 3, w / 5, 1]}
-        position={[-w / 4, -h * 2.6, 0]}
-      />
-      <Item
-        url="/images/8.jpg"
-        scale={[w / 2, w / 2, 1]}
-        position={[w / 4, -h * 3.1, 0]}
-      />
-      <Item
-        url="/images/12.jpg"
-        scale={[w / 2.5, w / 2, 1]}
-        position={[-w / 6, -h * 4.1, 0]}
-      /> */}
+      />*/}
+    
     </Scroll>
   );
 }
@@ -296,99 +247,25 @@ const HtmlScrolledItems = ({ logoScreenPosition }) => {
           </Slide>
         </div>
       </div>
-      <div class="row justify-content-center align-content-center vw-100 vh-100"         style={{
+      <div
+        class="row justify-content-center align-content-center vw-100 vh-100"
+        style={{
           position: "absolute",
           top: `${100}vh`,
-        }}>
+        }}
+      >
         <Section2 />
       </div>
-      {/*  <AnimatedH1
-        id="h1-all"
-        style={{
-          top: `100vh`,
-          right: "20vw",
-          fontSize: "25em",
-        }}
-        fromY={200}
-        toY={0}
-        fromOpacity={0}
-        toOpacity={1}
-        start={0}
-        end={0.2}
-        onClick={() => scrollToSection(5)}
-      >
-        all
-      </AnimatedH1>
 
-      <AnimatedH1
-        id="h1-hail"
+      <div
+        class="row justify-content-center vw-100 vh-100"
         style={{
-          top: "130vh",
-          left: "10vw",
-          fontSize: "10em",
+          position: "absolute",
+          top: `${200}vh`,
         }}
-        fromY={100}
-        toY={0}
-        fromOpacity={0}
-        toOpacity={1}
-        start={0.2}
-        end={0.4}
       >
-        hail
-      </AnimatedH1>
-
-      <AnimatedH1
-        id="h1-thee"
-        style={{
-          top: "210vh",
-          right: "10vw",
-          fontSize: "10em",
-        }}
-        fromY={100}
-        toY={0}
-        fromOpacity={0}
-        toOpacity={1}
-        start={0.4}
-        end={0.6}
-      >
-        thee,
-      </AnimatedH1>
-
-      <AnimatedH1
-        id="h1-thoth"
-        style={{
-          top: "300vh",
-          left: "10vw",
-          fontSize: "10em",
-        }}
-        fromY={100}
-        toY={0}
-        fromOpacity={0}
-        toOpacity={1}
-        start={0.6}
-        end={0.8}
-      >
-        thoth
-      </AnimatedH1>
-
-      <AnimatedH1
-        id="h1-hermes"
-        style={{
-          top: "400vh",
-          right: "10vw",
-          fontSize: "10em",
-        }}
-        fromY={100}
-        toY={0}
-        fromOpacity={0}
-        toOpacity={1}
-        start={0.8}
-        end={1.0}
-      >
-        her
-        <br />
-        mes.
-      </AnimatedH1> */}
+        <SecondSection />
+      </div>
     </Scroll>
   );
 };
@@ -442,145 +319,6 @@ function LogoText({ hover, setLogoScreenPosition }) {
   );
 }
 
-function Hats({ count = 200, rand = THREE.MathUtils.randFloatSpread }) {
-  const { nodes, materials } = useGLTF(
-    "/glbs/blender-threejs-journey-20k-hat-transformed.glb"
-  );
-  const instances = Array.from({ length: count }, (_, i) => ({
-    key: i,
-    position: [rand(2) + 1, 10 + i / 2, rand(2) - 2],
-    rotation: [Math.random(), Math.random(), Math.random()],
-  }));
-  return (
-    <InstancedRigidBodies instances={instances} colliders="hull">
-      <instancedMesh
-        receiveShadow
-        castShadow
-        args={[undefined, undefined, count]}
-        dispose={null}
-      >
-        {/* Merging the hat into one clump bc instances need a single geometry to function */}
-        <Geometry useGroups>
-          <Base
-            geometry={nodes.Plane006.geometry}
-            material={materials.Material}
-          />
-          <Addition
-            geometry={nodes.Plane006_1.geometry}
-            material={materials.boxCap}
-          />
-        </Geometry>
-      </instancedMesh>
-    </InstancedRigidBodies>
-  );
-}
-
-const FancyHatsScene = () => {
-  const { viewport } = useThree();
-  const height = viewport.height;
-  
-  const scroll = useScroll(); // Initialize useScroll
-  const [startPhysics, setStartPhysics] = useState(false);
-  
-  const physicsStartedRef = useRef(false);
-
-  useFrame(() => {
-    // Get the current scroll offset as a normalized value between 0 and 1
-    const scrollOffset = scroll.scroll.current;
-
-    // Check if scrollOffset has reached or surpassed 0.2
-    if (scrollOffset >= 0.05 && !physicsStartedRef.current) {
-      setStartPhysics(true);
-      physicsStartedRef.current = true; // Ensure this runs only once
-
-    }
-  });
-
-
-
-  return (
-    <Physics paused={!startPhysics} gravity={startPhysics ? [0, -4, 0] : [0, 0, 0]}>
-      <group
-        position={[0, -1.2 * height, 19]}
-        rotation={[(1 * Math.PI) / 180, (160 * Math.PI) / 180, 0]}
-      >
-        <Hats />
-        <RigidBody position={[0, -1, 0]} type="fixed" colliders="false">
-          <CuboidCollider restitution={0.1} args={[1000, 1, 1000]} />
-        </RigidBody>
-      </group>
-    </Physics>
-  );
-};
-
-/* const MINIMAL_DELTA_Y_DIFFERENCE = 1;
-let isScrolling = false;
-const FullPageScroll = ()=>{
-  const componentIndexRef = useRef(0);
-  const scroll = useScroll(); // Get the scroll API
-
-  const scrollPage = (section) => {
-    const totalPages = 6; // Make sure this matches your ScrollControls pages
-    const targetScroll = section / totalPages;
-    scroll.el.scrollTop = targetScroll * scroll.el.scrollHeight; // Scroll to the calculated position
-    isScrolling = false;
-  };
-
-  const scrollWindowDown = useCallback((event) => {
-    if (!isScrolling && componentIndexRef.current >= 0 && componentIndexRef.current < 5) {
-        isScrolling = true;
-        scrollPage(componentIndexRef.current + 1);
-        componentIndexRef.current++
-    }
-  }, [
-    scrollPage,
-  ]);
-
-
-  const scrollWindowUp = useCallback((event) => {
-    if (!isScrolling  && componentIndexRef.current > 0 && componentIndexRef.current <= 5) {
-        isScrolling = true;
-        scrollPage(componentIndexRef.current - 1);
-        componentIndexRef.current--
-    }
-  }, [
-    scrollPage,
-  ]);
-
-  const wheelScroll = useCallback(
-    event => {      
-      
-      if (Math.abs(event.deltaY) > MINIMAL_DELTA_Y_DIFFERENCE) {
-        if (isPositiveNumber(event.deltaY)) {
-          scrollWindowDown(event);
-        } else {
-          scrollWindowUp();
-        }
-      }
-    },
-    [scrollWindowDown, scrollWindowUp],
-  );
-
-  useEffect(()=>{
-
-    scroll.el.addEventListener('wheel',wheelScroll)
-  },[])
-
-
-  return null;
-} */
-
-function UpdateCameraAspect() {
-  const { camera, size } = useThree();
-
-  useEffect(() => {
-    // Update the camera aspect ratio when the canvas size changes
-    camera.aspect = size.width / size.height;
-    camera.updateProjectionMatrix(); // Important to apply the change
-  }, [camera, size]);
-
-  return null; // This component only updates the camera
-}
 
 const App = () => {
   const [logoScreenPosition, setLogoScreenPosition] = useState({ x: 0, y: 0 });
@@ -608,7 +346,7 @@ const App = () => {
         </directionalLight>
         <ThreeBackgroundVideo />
 
-        <UpdateCameraAspect />
+      
         <ScrollControls pages={5}>
           <Effects />
           <CanvasScrolledItems setLogoScreenPosition={setLogoScreenPosition} />
