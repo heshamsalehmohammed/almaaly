@@ -11,6 +11,7 @@ import {
   Scroll,
   useScroll,
   Html,
+  useGLTF
 } from "@react-three/drei";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -22,10 +23,20 @@ import "./App.css";
 import Text from "./Text";
 import Effects from "./Effects";
 import { isPositiveNumber } from "./packages/PageScroll/utils";
-import { Slide,Fade,JackInTheBox,Roll,Zoom,Bounce } from "react-awesome-reveal";
-import SocialIcons from './components/SocilaIcons';
+import {
+  Slide,
+  Fade,
+  JackInTheBox,
+  Roll,
+  Zoom,
+  Bounce,
+} from "react-awesome-reveal";
+import SocialIcons from "./components/SocilaIcons";
 import { PrimeReactProvider } from "primereact/api";
-import { Button } from 'primereact/button';   
+import { Button } from "primereact/button";
+
+import { Geometry, Base, Addition, Brush } from '@react-three/csg'
+import { Physics, RigidBody, CuboidCollider, InstancedRigidBodies } from '@react-three/rapier'
 
 gsap.registerPlugin(ScrollTrigger);
 function Item({ url, scale, ...props }) {
@@ -78,7 +89,9 @@ function CanvasScrolledItems({ setLogoScreenPosition }) {
         hover={hover}
         setLogoScreenPosition={setLogoScreenPosition}
       />
-      <Item
+
+      <FancyHatsScene/>
+     {/*  <Item
         url="/images/1.jpg"
         scale={[w / 3, w / 3, 1]}
         position={[-w / 6, -h, 0]}
@@ -122,7 +135,7 @@ function CanvasScrolledItems({ setLogoScreenPosition }) {
         url="/images/12.jpg"
         scale={[w / 2.5, w / 2, 1]}
         position={[-w / 6, -h * 4.1, 0]}
-      />
+      /> */}
     </Scroll>
   );
 }
@@ -216,13 +229,13 @@ const HtmlScrolledItems = ({ logoScreenPosition }) => {
   return (
     <Scroll html style={{ width: "100vw", zIndex: 10 }}>
       <div
-        className="row justify-content-center vw-100 page-1 pt-5 pt-sm-5"
+        className="row justify-content-center vw-100 page-1 pt-3"
         style={{
           position: "absolute",
           top: `${screenY}px`,
         }}
       >
-        <div className="col-12 pt-1 pt-sm-5 mt-sm-5">
+        <div className="col-12 pt-1 mt-sm-5">
           <div
             className="welcome-box"
             style={{
@@ -239,18 +252,44 @@ const HtmlScrolledItems = ({ logoScreenPosition }) => {
               </p>
             </Slide>
           </div>
-        
         </div>
-        <div class="col-6 pt-5 d-flex flex-wrap justify-content-start">
-          <Fade cascade>
-                    <Button className="pe-4 m-2" iconPos="right" style={{width: '180px',borderRadius:"25px",background:'#000080',borderColor:"#000080",boxShadow:'none'}} label="Contact Us" icon="fa-solid fa-arrow-right-long ms-0" />
-
-        
-              <Button className="pe-4 m-2" iconPos="right" style={{width: '180px',borderRadius:"25px",background:'#fff',borderColor:"#000080",boxShadow:'none',color:'rgb(15 23 42 / 1)'}} label="Join Us" icon="fa-solid fa-arrow-right-long ms-0" />
-  </Fade>
-            </div>
+        <div class="col-6 pt-4 d-flex flex-wrap justify-content-center justify-content-sm-start">
+          <Slide direction="up" delay={300}>
+            <Fade delay={300}>
+              <Button
+                className="pe-4 m-2"
+                iconPos="right"
+                style={{
+                  width: "180px",
+                  borderRadius: "25px",
+                  background: "#000080",
+                  borderColor: "#000080",
+                  boxShadow: "none",
+                }}
+                label="Contact Us"
+                icon="fa-solid fa-arrow-right-long ms-0"
+              />
+            </Fade>
+            <Fade delay={300}>
+              <Button
+                className="pe-4 m-2"
+                iconPos="right"
+                style={{
+                  width: "180px",
+                  borderRadius: "25px",
+                  background: "#fff",
+                  borderColor: "#000080",
+                  boxShadow: "none",
+                  color: "rgb(15 23 42 / 1)",
+                }}
+                label="Join Us"
+                icon="fa-solid fa-arrow-right-long ms-0"
+              />
+            </Fade>
+          </Slide>
+        </div>
       </div>
-      <AnimatedH1
+     {/*  <AnimatedH1
         id="h1-all"
         style={{
           top: `100vh`,
@@ -336,7 +375,7 @@ const HtmlScrolledItems = ({ logoScreenPosition }) => {
         her
         <br />
         mes.
-      </AnimatedH1>
+      </AnimatedH1> */}
     </Scroll>
   );
 };
@@ -353,7 +392,7 @@ function LogoText({ hover, setLogoScreenPosition }) {
     if (ref.current) {
       ref.current.position.y = THREE.MathUtils.damp(
         ref.current.position.y,
-        height / 4 + 1,
+        height / 3 + 1,
         2,
         delta
       );
@@ -388,6 +427,45 @@ function LogoText({ hover, setLogoScreenPosition }) {
       </Text>
     </group>
   );
+}
+
+
+
+function Hats({ count = 200, rand = THREE.MathUtils.randFloatSpread }) {
+  const { nodes, materials } = useGLTF('/glbs/blender-threejs-journey-20k-hat-transformed.glb')
+  const instances = Array.from({ length: count }, (_, i) => ({
+    key: i,
+    position: [rand(2) + 1, 10 + i / 2, rand(2) - 2],
+    rotation: [Math.random(), Math.random(), Math.random()]
+  }))
+  return (
+    <InstancedRigidBodies instances={instances} colliders="hull">
+      <instancedMesh receiveShadow castShadow args={[undefined, undefined, count]} dispose={null}>
+        {/* Merging the hat into one clump bc instances need a single geometry to function */}
+        <Geometry useGroups>
+          <Base geometry={nodes.Plane006.geometry} material={materials.Material} />
+          <Addition geometry={nodes.Plane006_1.geometry} material={materials.boxCap} />
+        </Geometry>
+      </instancedMesh>
+    </InstancedRigidBodies>
+  )
+}
+
+
+const FancyHatsScene = ()=>{
+
+
+  const { viewport } = useThree();
+  const height = viewport.height;
+
+  return  <Physics gravity={[0, -4, 0]}>
+  <group position={[0, -0.9 * height, 19]} rotation={[(1 * Math.PI) / 180, (160 * Math.PI) / 180, 0]}>
+    <Hats />
+    <RigidBody position={[0, -1, 0]} type="fixed" colliders="false">
+      <CuboidCollider restitution={0.1} args={[1000, 1, 1000]} />
+    </RigidBody>
+  </group>
+</Physics>
 }
 
 /* const MINIMAL_DELTA_Y_DIFFERENCE = 1;
@@ -447,6 +525,18 @@ const FullPageScroll = ()=>{
   return null;
 } */
 
+function UpdateCameraAspect() {
+  const { camera, size } = useThree();
+
+  useEffect(() => {
+    // Update the camera aspect ratio when the canvas size changes
+    camera.aspect = size.width / size.height;
+    camera.updateProjectionMatrix(); // Important to apply the change
+  }, [camera, size]);
+
+  return null; // This component only updates the camera
+}
+
 const App = () => {
   const [logoScreenPosition, setLogoScreenPosition] = useState({ x: 0, y: 0 });
 
@@ -460,18 +550,20 @@ const App = () => {
       <Header />
       <Canvas linear dpr={[1, 2]} camera={{ fov: 100, position: [0, 0, 30] }}>
         <ambientLight intensity={0.5} />
+        <directionalLight position={[0, 0, 30]} shadow-mapSize={[256, 256]} shadow-bias={-0.0001} castShadow>
+      <orthographicCamera attach="shadow-camera" args={[-10, 10, -10, 10]} />
+    </directionalLight>
         <ThreeBackgroundVideo />
 
-        
+        <UpdateCameraAspect />
         <ScrollControls pages={5}>
           <Effects />
           <CanvasScrolledItems setLogoScreenPosition={setLogoScreenPosition} />
           <HtmlScrolledItems logoScreenPosition={logoScreenPosition} />
         </ScrollControls>
       </Canvas>
-      <SocialIcons/>
+      <SocialIcons />
     </PageProvider>
-    
   );
 };
 export default App;
