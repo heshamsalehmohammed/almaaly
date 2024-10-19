@@ -462,8 +462,9 @@ const App = () => {
         <ambientLight intensity={0.5} />
         <ThreeBackgroundVideo />
 
-        <Effects />
+        
         <ScrollControls pages={5}>
+          <Effects />
           <CanvasScrolledItems setLogoScreenPosition={setLogoScreenPosition} />
           <HtmlScrolledItems logoScreenPosition={logoScreenPosition} />
         </ScrollControls>
