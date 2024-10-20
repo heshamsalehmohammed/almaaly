@@ -1,7 +1,6 @@
 import React from "react";
 import { Button } from "primereact/button";
 import SoFar from "../../assets/images/so-far.jpeg";
-
 import {
   Slide,
   Fade,
@@ -13,122 +12,90 @@ import {
 
 const ThirdSection = () => {
   return (
-    <div className="container mt-0 p-0">
-      <div className="row justify-content-center text-center">
-        <div class="col-12 col-sm-8 col-md-7 col-lg-5">
+    <div
+    class="row justify-content-center vw-100 vh-100"
+    style={{
+      position: "absolute",
+      top: `${200}vh`,
+    }}
+  >  <div className="container mt-5 p-0">
+      <div
+        className="row justify-content-center p-5 text-center"
+        style={{ backgroundColor: "#020278" }}
+      >
+        <div class="col-5">
           <Slide direction="up">
-            <h3 style={{ color: "rgb(2, 2, 120)" }} className="text-shadow-1">
-              Diverse and Comprehensive
-            </h3>
-            <h2 className="mb-4 text-shadow-1" style={{ fontWeight: "bold" }}>
-              Explore Our Programs
-            </h2>
-            <p className="mb-5 text-shadow-1 fw-bold">
-              Almaaly offers a wide range of programs designed to cater to the
-              unique interests and strengths of each student.
-            </p>
+            {" "}
+            <h2 className="text-white">Join the Almaaly Community</h2>
+            <p className="text-white">
+              Become a part of our vibrant school community and explore the
+              endless opportunities we offer. Enroll today to start your
+              journey.
+            </p>{" "}
           </Slide>
+        </div>
+
+        <div className="d-flex justify-content-center mt-4">
+          <Button
+            className="pe-4 m-2"
+            iconPos="right"
+            style={{
+              width: "180px",
+              borderRadius: "15px",
+              background: "#fff",
+              borderColor: "#fff",
+              boxShadow: "none",
+              color: "rgb(15 23 42 / 1)",
+            }}
+            label="Get Started"
+            icon="fa-solid fa-arrow-right-long ms-0"
+          />
         </div>
       </div>
 
-      <div className="row justify-content-center text-center text-shadow-1">
-        <div className="col-md-4 mb-4">
+      <div
+        className="row justify-content-center align-items-stretch p-5"
+        style={{ backgroundColor: "#fff" }}
+      >
+        <div className="col-sm-4 col-10 d-flex">
           <Zoom duration={200}>
             <Fade duration={500}>
-              <div
-                className="icon-box  text-white d-inline-flex align-items-center justify-content-center mb-3"
-                style={{
-                  width: "60px",
-                  height: "60px",
-                  backgroundColor: "rgb(2, 2, 120)",
-                  borderRadius: "10px",
-                }}
-              >
-                <i className="fas fa-school fa-2x"></i>
-              </div>
-            </Fade>
+             <img
+            src={SoFar} // replace with the correct path to the image
+            alt="Quote"
+            className="img-fluid align-self-center"
+          /> 
+          </Fade>
           </Zoom>
-
-          <Slide direction="up">
-            <h5>STEM Education</h5>
-            <p>
-              Innovative curriculum fostering critical thinking and
-              problem-solving skills.
-            </p>
-          </Slide>
+          
+        
         </div>
 
-        <div className="col-md-4 mb-4">
-          <Zoom duration={200}>
-            <Fade duration={500}>
-              <div
-                className="icon-box  text-white d-inline-flex align-items-center justify-content-center mb-3"
-                style={{
-                  width: "60px",
-                  height: "60px",
-                  backgroundColor: "rgb(2, 2, 120)",
-                  borderRadius: "10px",
-                }}
-              >
-                <i className="fas fa-theater-masks fa-2x"></i>
-              </div>
-            </Fade>
-          </Zoom>
-
-          <Slide direction="up">
-            <h5>Arts & Humanities</h5>
-            <p>Encouraging creative expression and cultural awareness.</p>
-          </Slide>
+        <div className="col-sm-4 col-10 d-flex">
+          <div className="w-100 d-flex flex-column justify-content-between text-dark ">
+            <div>
+              <Slide direction="up">
+                <p className="fs-5 text-start">
+                  Being part of Almaaly has been a transformative journey. The
+                  school's commitment to fostering a supportive and dynamic
+                  learning environment is unparalleled. The diverse programs and
+                  passionate educators have truly enriched my educational
+                  experience.
+                </p>
+              </Slide>
+            </div>
+            <div className="text-start">
+              <Slide direction="up" cascade>
+                {" "}
+                <h5>Emily Carter</h5>
+                <p className="text-muted">Almaaly Alumnus</p>
+              </Slide>
+            </div>
+          </div>
         </div>
       </div>
-      <div className="row justify-content-center text-center text-shadow-1">
-        <div className="col-md-4 mb-4">
-          <Zoom duration={200}>
-            <Fade duration={500}>
-              <div
-                className="icon-box  text-white d-inline-flex align-items-center justify-content-center mb-3"
-                style={{
-                  width: "60px",
-                  height: "60px",
-                  backgroundColor: "rgb(2, 2, 120)",
-                  borderRadius: "10px",
-                }}
-              >
-                <i className="fas fa-dumbbell fa-2x"></i>
-              </div>
-            </Fade>
-          </Zoom>
-
-          <Slide direction="up">
-            <h5>Sports & Wellness</h5>
-            <p>Promoting physical health and teamwork.</p>
-          </Slide>
-        </div>
-
-        <div className="col-md-4 mb-4">
-          <Zoom duration={200}>
-            <Fade duration={500}>
-              <div
-                className="icon-box  text-white d-inline-flex align-items-center justify-content-center mb-3"
-                style={{
-                  width: "60px",
-                  height: "60px",
-                  backgroundColor: "rgb(2, 2, 120)",
-                  borderRadius: "10px",
-                }}
-              >
-                <i className="fas fa-book fa-2x"></i>
-              </div>
-            </Fade>
-          </Zoom>
-
-          <Slide direction="up">
-            <h5>Languages & Literature</h5>
-            <p>Building communication skills and literary appreciation.</p>
-          </Slide>
-        </div>
-      </div>
-    </div>
+    </div></div>
+  
   );
 };
 

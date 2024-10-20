@@ -23,7 +23,6 @@ const Text = forwardRef(
       height,
       scale,
       color = "#000000",
-      setLogoScreenPosition,
       ...props
     },
     ref
@@ -52,17 +51,6 @@ const Text = forwardRef(
       mesh.current.position.y =
         vAlign === "center" ? -bbSize.y : vAlign === "top" ? 0 : -bbSize.y;
 
-/*       if (size) {
-        const vector = new THREE.Vector3();
-        mesh.current.getWorldPosition(vector);
-        vector.project(camera);
-
-        const screenX = (vector.x * 0.5 + 0.5) * size.width;
-        const screenY = (-vector.y * 0.5 + 0.5) * size.height;
-
-        // Update the position in state
-        setLogoScreenPosition({ x: screenX, y: screenY });
-      } */
     }, [children, size, fontSize, height]);
 
     return (

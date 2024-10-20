@@ -12,9 +12,9 @@ import {
 } from "react";
 import { useGSAP } from "@gsap/react";
 
-ScrollTrigger.config({
+/* ScrollTrigger.config({
   autoRefreshEvents: "resize,orientationchange",
-});
+}); */
 window.addEventListener("resize", () => {
   ScrollTrigger.refresh();
 });
@@ -395,7 +395,7 @@ const BottomPage = () => {
           </div>
         </div>
 
-        <WhatTheySay />
+       {/*  <WhatTheySay /> */}
       </div>
     </>
   );
