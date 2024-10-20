@@ -6,9 +6,10 @@ import SecondSection from "./Sections/SecondSection";
 import ThirdSection from "./Sections/ThirdSection";
 import { useDispatch } from "react-redux";
 import { setMouse, setNormalizedTop, setTop } from "../redux/scrollSlice";
-import _ from 'lodash'
+import _ from "lodash";
+import FifthSection from "./Sections/FifthSection";
 
- const ScrollArea = () => {
+const ScrollArea = () => {
   const dispatch = useDispatch();
   const scrollAreaRef = useRef(null);
   const bottomElementRef = useRef(null);
@@ -41,73 +42,32 @@ import _ from 'lodash'
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Handler for animating the fixed element based on scroll
-  const handleScroll = () => {
-    if (!ticking.current) {
-      window.requestAnimationFrame(() => {
-        const scrollTop = scrollAreaRef.current.scrollTop;
-        const maxScroll = maxScrollRef.current;
-        const clampedScrollTop = Math.min(scrollTop, maxScroll);
-        fixedElementRef.current.style.transform = `translateY(-${clampedScrollTop}px)`;
-        ticking.current = false;
-      });
-      ticking.current = true;
-    }
+  const onPointerMove = (e) => {
+    dispatch(
+      setMouse([
+        (e.clientX / window.innerWidth) * 2 - 1,
+        (e.clientY / window.innerHeight) * 2 - 1,
+      ])
+    );
   };
-
-  // Handler to update maxScroll on window resize
-  const handleResize = () => {
-    maxScrollRef.current = getMaxScroll();
-
-    // Adjust the transform based on the new maxScroll
-    const scrollTop = scrollAreaRef.current.scrollTop;
-    const clampedScrollTop = Math.min(scrollTop, maxScrollRef.current);
-    fixedElementRef.current.style.transform = `translateY(-${clampedScrollTop}px)`;
-  };
-
-  // Set up event listeners for scroll and resize
-  useEffect(() => {
-    const scrollArea = scrollAreaRef.current;
-
-    if (scrollArea) {
-      scrollArea.addEventListener("scroll", handleScroll);
-    }
-    window.addEventListener("resize", handleResize);
-
-    // Cleanup on unmount
-    return () => {
-      if (scrollArea) {
-        scrollArea.removeEventListener("scroll", handleScroll);
-      }
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
 
   return (
     <div
       className="scrollArea"
       ref={scrollAreaRef}
       onScroll={onScroll}
-
+      onPointerMove={onPointerMove}
     >
-      <div style={{ width: "100vw", height: `${6 * 100}vh`, zIndex: "1000" }}>
-        <div className="fixed-element">
-          <div className="fixed-element-Content" ref={fixedElementRef}>
-            <FirstSectionHtml />
-            <SecondSection />
-            <ThirdSection />
-            <FourthSection />
-          </div>
-        </div>
-
-        <BottomPage ref={bottomElementRef} scrollAreaRef={scrollAreaRef}/>
+      <div style={{ width: "100vw", height: `${15 * 100}vh`, zIndex: "1000" }}>
+        <FirstSectionHtml />
+        <SecondSection />
+        <ThirdSection />
+        <FourthSection />
+        <BottomPage ref={bottomElementRef} scrollAreaRef={scrollAreaRef} />
+        <FifthSection />
       </div>
     </div>
   );
 };
-
-
-
 
 export default ScrollArea;

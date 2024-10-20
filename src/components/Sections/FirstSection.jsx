@@ -23,12 +23,15 @@ import {
 import Text from "../../Text";
 import { useSelector } from "react-redux";
 import { selectThreeCamera, selectThreeSize, selectThreeViewport } from "../../redux/threeSlice";
+import { selectMouse } from "../../redux/scrollSlice";
 
 function LogoText() {
   const visible = useRef(false);
   const ref = useIntersect((isVisible) => (visible.current = isVisible));
   const { viewport } = useThree();
   const height = viewport.height;
+
+  const mouse = useSelector(selectMouse)
 
   const TextScaleFactor = Math.min(1, viewport.width / 128);
 
@@ -42,7 +45,7 @@ function LogoText() {
       );
       ref.current.position.x = THREE.MathUtils.lerp(
         ref.current.position.x,
-        state.mouse.x * 2,
+        mouse[0] * 2,
         0.1
       );
       /*       ref.current.rotation.x = THREE.MathUtils.lerp(
@@ -110,7 +113,7 @@ export const FirstSectionHtml = () => {
         top: `${screenY}px`,
       }}
     >
-      <div className="col-12 pt-1 mt-sm-4">
+      <div className="col-12 pt-4 mt-sm-4">
         <div
           className="welcome-box text-shadow-1"
           style={{
@@ -126,7 +129,7 @@ export const FirstSectionHtml = () => {
           </Slide>
         </div>
       </div>
-      <div className="col-6 pt-4 mt-2 d-flex flex-wrap justify-content-center justify-content-sm-start">
+      <div className="col-6 pt-4 mt-5 d-flex flex-wrap justify-content-center justify-content-sm-start">
         <Slide direction="up" delay={300}>
           <Fade delay={300}>
             <Button

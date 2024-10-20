@@ -2,7 +2,7 @@
 import * as THREE from "three";
 import videoBg from "../assets/videos/video-bg.mp4";
 import { useAspect, useVideoTexture } from "@react-three/drei";
-import { useMemo } from "react";
+import { forwardRef, useMemo } from "react";
 
 const BackgroundVideo = () => {
   return (
@@ -18,11 +18,11 @@ const BackgroundVideo = () => {
 
 
 
-function ThreeBackgroundVideo() {
+const  ThreeBackgroundVideo = forwardRef((_,ref)=> {
   const size = useAspect(1800, 1000);
 
   return (
-    <group>
+    <group ref={ref}>
       {/* Main Video Plane */}
       <mesh scale={size} position={[0, 0, -0.2]} renderOrder={1}>
         <planeGeometry />
@@ -35,7 +35,7 @@ function ThreeBackgroundVideo() {
       </mesh>
     </group>
   );
-}
+})
 
 function VideoMaterial({ url }) {
   const texture = useVideoTexture(url);

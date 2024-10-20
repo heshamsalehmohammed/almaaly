@@ -16,8 +16,7 @@ const FourthSection = () => {
     <div
       className="row justify-content-center align-content-center vw-100 vh-100"
       style={{
-        position: "absolute",
-        top: `${300}vh`,
+        position: "relative",
       }}
     >
       {" "}

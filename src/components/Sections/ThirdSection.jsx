@@ -15,8 +15,7 @@ const ThirdSection = () => {
     <div
     className="row justify-content-center vw-100 vh-100"
     style={{
-      position: "absolute",
-      top: `${200}vh`,
+      position: "relative",
     }}
   >  <div className="container mt-5 p-0">
       <div

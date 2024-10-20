@@ -50,8 +50,8 @@ const SecondSection = () => {
     <div
     className="row justify-content-center align-content-center vw-100 vh-100"
     style={{
-      position: "absolute",
-      top: `${100}vh`,
+      position: "relative",
+      marginTop:'100vh'
     }}
   >    <div className="row w-100 justify-content-center pt-3 pt-md-0 section2">
       <div className="col-md-4 mb-3 mb-md-0 pt-3 pt-md-0  col-10">

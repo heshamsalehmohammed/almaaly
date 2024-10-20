@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   top: 0,
   normalizedTop: 0,
-  threshold: 4,
+  threshold: 9,
   mouse: [0, 0],
 };
 
