@@ -1,14 +1,17 @@
-import React, { Suspense } from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
+import React, { Suspense } from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import App from './App';
+import { Provider } from "react-redux";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+import App from "./App";
+import store from "./redux/store";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-       <Suspense fallback={null}>
+    <Provider store={store}>
       <App />
-    </Suspense>
+    </Provider>
   </React.StrictMode>
 );

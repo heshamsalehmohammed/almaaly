@@ -21,6 +21,7 @@ import {
   Bounce,
 } from "react-awesome-reveal";
 import Text from "../../Text";
+import { useSelector } from "react-redux";
 
 function LogoText() {
   const visible = useRef(false);
@@ -75,7 +76,11 @@ export const FirstSectionCanvas = () => {
 };
 
 export const FirstSectionHtml = () => {
-  const { viewport, size, camera } = useThree();
+  const viewport = useSelector((state) => state.three.viewport);
+  const size = useSelector((state) => state.three.size);
+  const camera = useSelector((state) => state.three.camera);
+
+  if(!viewport || !size || !camera) return null;
 
   // Calculate font size
   const fontSize = 20 * Math.min(1, viewport.width / 128);

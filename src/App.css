@@ -1052,26 +1052,7 @@ body,
     /* Lower z-index */
 }
 
-.bottom-element {
-    height: 60000px;
-    background-color: black;
-    position: relative;
-    z-index: 3;
-    /* Higher z-index */
-    margin-top: 100vh;
-    /* Pushes it below the fixed top element */
 
-
-    --gradient-start: #144247fa !important;
-    --gradient-end: black;
-    background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
-    transition: background 0.3s ease;
-    /* Optional: Smooth transition if needed */
-
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-}
 
 
 
@@ -1581,4 +1562,58 @@ body,
     text-shadow: 0 2px 20px #000000e0;
   }
 
+
+  .scrollArea {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+  }
+  
+.fixed-element {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 400vh; /* Adjust as needed */
+    z-index: 1; /* Lower z-index */
+    pointer-events: none; /* Allows clicks to pass through if needed */
+  }
+
+
+  .fixed-element-Content {
+    position: absolute; /* Change from fixed to absolute */
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important; /* Adjust as needed */
+  z-index: 1; /* Lower z-index */
+  pointer-events: none; /* Allows clicks to pass through if needed */
+  transition: transform 0.1s linear; /* Smooth transformation */
+  }
+
+  .bottom-element {
+    height: 60000px;
+    background-color: black;
+    position: relative;
+    z-index: 3;
+    /* Higher z-index */
+    margin-top: 400vh;
+    /* Pushes it below the fixed top element */
+
+
+    --gradient-start: #144247fa !important;
+    --gradient-end: black;
+    background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+    transition: background 0.3s ease;
+    /* Optional: Smooth transition if needed */
+
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
 

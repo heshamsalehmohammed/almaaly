@@ -1,12 +1,7 @@
-import { useContext } from "react";
-import { PageContext } from "../context/PageContext";
-
 const Header = () => {
-  const { goToPage } = useContext(PageContext);
 
   const handleNavigation = (e, pageNumber) => {
     e.preventDefault();
-    goToPage(pageNumber);
   };
 
   return (
