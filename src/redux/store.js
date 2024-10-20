@@ -1,10 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import threeReducer from './threeSlice';
+import scrollReducer from './scrollSlice';
 
 const store = configureStore({
   reducer: {
     three: threeReducer,
-    // Add other reducers here if needed
+    scroll: scrollReducer,
   },
 });
 

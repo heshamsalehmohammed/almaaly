@@ -22,6 +22,7 @@ import {
 } from "react-awesome-reveal";
 import Text from "../../Text";
 import { useSelector } from "react-redux";
+import { selectThreeCamera, selectThreeSize, selectThreeViewport } from "../../redux/threeSlice";
 
 function LogoText() {
   const visible = useRef(false);
@@ -76,9 +77,9 @@ export const FirstSectionCanvas = () => {
 };
 
 export const FirstSectionHtml = () => {
-  const viewport = useSelector((state) => state.three.viewport);
-  const size = useSelector((state) => state.three.size);
-  const camera = useSelector((state) => state.three.camera);
+  const viewport = useSelector(selectThreeViewport);
+  const size = useSelector(selectThreeSize);
+  const camera = useSelector(selectThreeCamera);
 
   if(!viewport || !size || !camera) return null;
 

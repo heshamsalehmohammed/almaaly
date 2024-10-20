@@ -10,15 +10,18 @@ import {
   Vignette,
 } from "@react-three/postprocessing";
 import { BlendFunction } from "postprocessing";
+import { useSelector } from "react-redux";
+import { selectScrollNormalizedTop, selectScrollTop } from "./redux/scrollSlice";
 
 const Effects = () => {
   const vignetteRef = useRef();
-  const scroll = useScroll();
+  const scrollNormalizedTop = useSelector(selectScrollNormalizedTop);
+
   const darknessTarget = useRef(0.9); // To store the target darkness value
 
-/*   useFrame((_, delta) => {
-    // Calculate scroll progress from 50vh to 100vh
-    const scrollY = scroll.offset; // Normalized scroll value (0 to 1)
+  useFrame((_, delta) => {
+
+    const scrollY = scrollNormalizedTop; // Normalized scroll value (0 to 1)
     const start = 0.1; // Corresponds to 50vh
     const end = 0.2; // Corresponds to 100vh
 
@@ -34,7 +37,7 @@ const Effects = () => {
         delta * 5 // Damping factor (adjust for smoothness)
       );
     }
-  }); */
+  });
   return (
     <EffectComposer>
       <Bloom
