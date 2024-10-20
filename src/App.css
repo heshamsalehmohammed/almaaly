@@ -1572,48 +1572,46 @@ body,
     overflow-y: auto;
     overflow-x: hidden;
     scroll-behavior: smooth;
+    z-index: 0; 
   }
   
-.fixed-element {
+  .fixed-element {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
-    height: 400vh; /* Adjust as needed */
-    z-index: 1; /* Lower z-index */
-    pointer-events: none; /* Allows clicks to pass through if needed */
+    height: 400vh; 
+    z-index: 1;
+    pointer-events:none; 
   }
-
-
+  
   .fixed-element-Content {
-    position: absolute; /* Change from fixed to absolute */
-  top: 0;
-  left: 0;
-  width: 100% !important;
-  height: 100% !important; /* Adjust as needed */
-  z-index: 1; /* Lower z-index */
-  pointer-events: none; /* Allows clicks to pass through if needed */
-  transition: transform 0.1s linear; /* Smooth transformation */
+    position: absolute; 
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important; 
+    z-index: 2;
+    transition: transform 0.1s linear; 
+    will-change: transform;
+    transform: translateZ(0); 
   }
-
+  
   .bottom-element {
-    height: 60000px;
+    height: 500vh;
     background-color: black;
     position: relative;
-    z-index: 3;
-    /* Higher z-index */
-    margin-top: 400vh;
-    /* Pushes it below the fixed top element */
-
-
-    --gradient-start: #144247fa !important;
+    z-index: 3; 
+    margin-top: 400vh; 
+  
+    --gradient-start: rgb(2, 2, 120) !important;
     --gradient-end: black;
     background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
     transition: background 0.3s ease;
-    /* Optional: Smooth transition if needed */
-
+  
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-}
+  } 
+
 

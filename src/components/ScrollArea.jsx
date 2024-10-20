@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import BottomPage from "./BottomPage";
 import { FirstSectionHtml } from "./Sections/FirstSection";
 import FourthSection from "./Sections/FourthSection";
@@ -6,10 +6,12 @@ import SecondSection from "./Sections/SecondSection";
 import ThirdSection from "./Sections/ThirdSection";
 import { useDispatch } from "react-redux";
 import { setMouse, setNormalizedTop, setTop } from "../redux/scrollSlice";
+import _ from 'lodash'
 
-const ScrollArea = () => {
+ const ScrollArea = () => {
   const dispatch = useDispatch();
   const scrollAreaRef = useRef(null);
+  const bottomElementRef = useRef(null);
   const fixedElementRef = useRef(null);
 
   // Calculate maxScroll based on the scrollable content's height
@@ -81,23 +83,17 @@ const ScrollArea = () => {
     };
   }, []);
 
+
   return (
     <div
       className="scrollArea"
       ref={scrollAreaRef}
       onScroll={onScroll}
-      onPointerMove={(e) =>
-        dispatch(
-          setMouse([
-            (e.clientX / window.innerWidth) * 2 - 1,
-            (e.clientY / window.innerHeight) * 2 - 1,
-          ])
-        )
-      }
+
     >
-      <div style={{ width: "100vw", height: `${4 * 100}vh`, zIndex: "1000" }}>
+      <div style={{ width: "100vw", height: `${6 * 100}vh`, zIndex: "1000" }}>
         <div className="fixed-element">
-          <div class="fixed-element-Content" ref={fixedElementRef}>
+          <div className="fixed-element-Content" ref={fixedElementRef}>
             <FirstSectionHtml />
             <SecondSection />
             <ThirdSection />
@@ -105,10 +101,13 @@ const ScrollArea = () => {
           </div>
         </div>
 
-        <BottomPage />
+        <BottomPage ref={bottomElementRef} scrollAreaRef={scrollAreaRef}/>
       </div>
     </div>
   );
 };
+
+
+
 
 export default ScrollArea;

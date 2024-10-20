@@ -126,7 +126,7 @@ export const FirstSectionHtml = () => {
           </Slide>
         </div>
       </div>
-      <div class="col-6 pt-4 mt-2 d-flex flex-wrap justify-content-center justify-content-sm-start">
+      <div className="col-6 pt-4 mt-2 d-flex flex-wrap justify-content-center justify-content-sm-start">
         <Slide direction="up" delay={300}>
           <Fade delay={300}>
             <Button
@@ -141,6 +141,7 @@ export const FirstSectionHtml = () => {
               }}
               label="Contact Us"
               icon="fa-solid fa-arrow-right-long ms-0"
+              onClick={()=>{debugger}}
             />
           </Fade>
           <Fade delay={300}>

@@ -14,7 +14,7 @@ import {
 const FourthSection = () => {
   return (
     <div
-      class="row justify-content-center align-content-center vw-100 vh-100"
+      className="row justify-content-center align-content-center vw-100 vh-100"
       style={{
         position: "absolute",
         top: `${300}vh`,
@@ -23,7 +23,7 @@ const FourthSection = () => {
       {" "}
       <div className="container mt-0 p-0">
         <div className="row justify-content-center text-center">
-          <div class="col-12 col-sm-8 col-md-7 col-lg-5">
+          <div className="col-12 col-sm-8 col-md-7 col-lg-5">
             <Slide direction="up">
               <h3 style={{ color: "rgb(2, 2, 120)" }} className="text-shadow-1">
                 Diverse and Comprehensive

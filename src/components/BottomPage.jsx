@@ -22,12 +22,12 @@ window.addEventListener("resize", () => {
 // Register the ScrollTrigger plugin
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-const MainYouTubeEmbedWithAnimation = forwardRef(({ videoId }, ref) => {
+const MainYouTubeEmbedWithAnimation = forwardRef(({ videoId,scrollAreaRef }, ref) => {
   const videoResponsive = useRef();
 
   useImperativeHandle(ref, () => videoResponsive.current);
 
-/*   useGSAP(() => {
+  useGSAP(() => {
     if (!videoResponsive.current) return;
     gsap.fromTo(
       videoResponsive.current,
@@ -39,6 +39,7 @@ const MainYouTubeEmbedWithAnimation = forwardRef(({ videoId }, ref) => {
         ease: "elastic.out(1,1)",
         duration: 1.5,
         scrollTrigger: {
+          scroller:scrollAreaRef.current,
           trigger: videoResponsive.current,
           start: "top bottom",
           end: "top 60%",
@@ -58,6 +59,7 @@ const MainYouTubeEmbedWithAnimation = forwardRef(({ videoId }, ref) => {
         ease: "none",
         duration: 1.5,
         scrollTrigger: {
+          scroller:scrollAreaRef.current,
           trigger: videoResponsive.current,
           start: "top 40%",
           end: "bottom 10%",
@@ -66,7 +68,7 @@ const MainYouTubeEmbedWithAnimation = forwardRef(({ videoId }, ref) => {
         },
       }
     );
-  }); */
+  }); 
 
   return (
     <div className="main-video-responsive mt-4" ref={videoResponsive}>
@@ -100,7 +102,7 @@ const NormalYouTubeEmbedWithAnimation = forwardRef(({ videoId }, ref) => {
   );
 });
 
-const BottomPage = () => {
+const BottomPage = forwardRef(({scrollAreaRef},ref) => {
   const bottomElementRef = useRef(null); // Reference to the container
   const videoResponsiveRef = useRef(null);
   const mainWorksTitleRef = useRef();
@@ -123,7 +125,9 @@ const BottomPage = () => {
     videoTitles.video1
   );
 
-/*   const handleScroll = () => {
+  useImperativeHandle(ref, () => bottomElementRef.current);
+
+   const handleScroll = () => {
     if (
       video1Ref.current &&
       video2Ref.current &&
@@ -146,12 +150,17 @@ const BottomPage = () => {
     }
   };
 
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
+  const handleResize = ()=>{
+     ScrollTrigger.refresh();
+  }
 
+  useEffect(() => {
+    scrollAreaRef.current.addEventListener("scroll", handleScroll);
+    scrollAreaRef.current.addEventListener("resize", handleResize); 
     // Clean up the event listener on component unmount
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      scrollAreaRef.current.removeEventListener("scroll", handleScroll);
+    scrollAreaRef.current.removeEventListener("resize", handleResize); 
     };
   }, []);
 
@@ -169,6 +178,7 @@ const BottomPage = () => {
             duration: 2,
             ease: "power2.out",
             scrollTrigger: {
+              scroller:scrollAreaRef.current,
               trigger: box,
               start: "bottom bottom",
               end: "bottom 60%",
@@ -186,6 +196,7 @@ const BottomPage = () => {
             y: 0,
             ease: "elastic.out(1,1)",
             scrollTrigger: {
+              scroller:scrollAreaRef.current,
               trigger: box,
               start: "bottom bottom",
               end: "bottom 90%",
@@ -198,9 +209,10 @@ const BottomPage = () => {
 
       gsap.to(bottomElementRef.current, {
         "--gradient-start": "#F7F6F5", // Transition to white
-        "--gradient-end": "#F7F6F5", // Transition to white
+        "--gradient-end": "#39ced6", // Transition to white
         ease: "none",
         scrollTrigger: {
+          scroller:scrollAreaRef.current,
           trigger: videoResponsiveRef.current, // Use the video-responsive as the trigger
           start: "bottom 80%", // When the trigger's bottom reaches 50% of the viewport
           end: "bottom top", // When the trigger's top reaches the top of the viewport
@@ -211,6 +223,7 @@ const BottomPage = () => {
 
       gsap.to(stickyElementRef.current, {
         scrollTrigger: {
+          scroller:scrollAreaRef.current,
           trigger: stickyElementRef.current,
           start: "top top", // when sticky element hits top of the viewport
           end: "+=2350", // you can adjust this value based on how long you want it to stay sticky
@@ -223,10 +236,10 @@ const BottomPage = () => {
     },
     { scope: bottomElementRef }
   );
- */
 
 
-/*   useGSAP(
+
+  useGSAP(
     () => {
       const chars = bottomElementRef.current.querySelectorAll(
         ".works-subtitle-char"
@@ -268,7 +281,7 @@ const BottomPage = () => {
       });
     },
     { scope: bottomElementRef, dependencies: [currentWorksSubTitle] }
-  );  */
+  );  
 
   return (
     <>
@@ -295,6 +308,7 @@ const BottomPage = () => {
           <div className="col-10 col-md-8 col-lg-7">
             <MainYouTubeEmbedWithAnimation
               videoId="dQw4w9WgXcQ"
+              scrollAreaRef={scrollAreaRef}
               ref={videoResponsiveRef}
             />
           </div>
@@ -361,7 +375,7 @@ const BottomPage = () => {
       </div>
     </>
   );
-};
+});
 
 
 

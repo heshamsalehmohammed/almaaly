@@ -48,7 +48,7 @@ const SecondSection = () => {
 
   return (
     <div
-    class="row justify-content-center align-content-center vw-100 vh-100"
+    className="row justify-content-center align-content-center vw-100 vh-100"
     style={{
       position: "absolute",
       top: `${100}vh`,
@@ -76,7 +76,7 @@ const SecondSection = () => {
               
               </div>
             </div>
-            <div class="row">
+            <div className="row">
               <Slide direction="up">
               
                 <p className="fw-bold">
@@ -129,7 +129,7 @@ const SecondSection = () => {
       </div>
 
       <div className="col-md-5 col-10 position-relative">
-        <div class="section2-slider-container">
+        <div className="section2-slider-container">
           <Swiper
             loop={true}
             slidesPerView={"auto"}

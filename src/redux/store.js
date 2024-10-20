@@ -7,6 +7,10 @@ const store = configureStore({
     three: threeReducer,
     scroll: scrollReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false, // Disable serializable check
+    }),
 });
 
 export default store;

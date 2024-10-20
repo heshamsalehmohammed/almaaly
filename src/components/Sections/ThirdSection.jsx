@@ -13,7 +13,7 @@ import {
 const ThirdSection = () => {
   return (
     <div
-    class="row justify-content-center vw-100 vh-100"
+    className="row justify-content-center vw-100 vh-100"
     style={{
       position: "absolute",
       top: `${200}vh`,
@@ -23,7 +23,7 @@ const ThirdSection = () => {
         className="row justify-content-center p-5 text-center"
         style={{ backgroundColor: "#020278" }}
       >
-        <div class="col-5">
+        <div className="col-5">
           <Slide direction="up">
             {" "}
             <h2 className="text-white">Join the Almaaly Community</h2>
