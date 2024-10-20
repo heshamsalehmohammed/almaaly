@@ -85,7 +85,7 @@ const Section2 = () => {
     <div className="row w-100 justify-content-center pt-3 pt-md-0 section2">
       <div className="col-md-4 mb-3 mb-md-0 pt-3 pt-md-0  col-10">
         <div className="about-contentbox">
-          <div className="   ">
+          <div className=" text-shadow-1  ">
             <div className="row mt-4 mb-4">
               <div className="col-md-4">
                 <Slide direction="up">
@@ -108,7 +108,7 @@ const Section2 = () => {
             <div class="row">
               <Slide direction="up">
               
-                <p>
+                <p className="fw-bold">
                   Credits go to <strong>Unsplash</strong> and{" "}
                   <strong>Pexels</strong> for photos and video used in this
                   template. Vivamus tincidunt, augue rutrum convallis volutpat,

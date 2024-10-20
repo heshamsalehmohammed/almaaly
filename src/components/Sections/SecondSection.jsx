@@ -1,6 +1,14 @@
 import React from "react";
 import { Button } from "primereact/button";
 import SoFar from "../../assets/images/so-far.jpeg";
+import {
+  Slide,
+  Fade,
+  JackInTheBox,
+  Roll,
+  Zoom,
+  Bounce,
+} from "react-awesome-reveal";
 
 const SecondSection = () => {
   return (
@@ -10,11 +18,15 @@ const SecondSection = () => {
         style={{ backgroundColor: "#020278" }}
       >
         <div class="col-5">
-          <h2 className="text-white">Join the Almaaly Community</h2>
-          <p className="text-white">
-            Become a part of our vibrant school community and explore the
-            endless opportunities we offer. Enroll today to start your journey.
-          </p>
+          <Slide direction="up">
+            {" "}
+            <h2 className="text-white">Join the Almaaly Community</h2>
+            <p className="text-white">
+              Become a part of our vibrant school community and explore the
+              endless opportunities we offer. Enroll today to start your
+              journey.
+            </p>{" "}
+          </Slide>
         </div>
 
         <div className="d-flex justify-content-center mt-4">
@@ -35,35 +47,47 @@ const SecondSection = () => {
         </div>
       </div>
 
-      <div className="row justify-content-center align-items-stretch mt-5 p-5">
-  {/* Column with Image */}
-  <div className="col-sm-4 col-10 d-flex">
-    <img
-      src={SoFar} // replace with the correct path to the image
-      alt="Quote"
-      className="img-fluid align-self-center"
-    />
-  </div>
+      <div
+        className="row justify-content-center align-items-stretch p-5"
+        style={{ backgroundColor: "#fff" }}
+      >
+        <div className="col-sm-4 col-10 d-flex">
+          <Zoom duration={200}>
+            <Fade duration={500}>
+             <img
+            src={SoFar} // replace with the correct path to the image
+            alt="Quote"
+            className="img-fluid align-self-center"
+          /> 
+          </Fade>
+          </Zoom>
+          
+        
+        </div>
 
-  {/* Column with Text */}
-  <div className="col-sm-4 col-10 d-flex">
-    <div className="w-100 d-flex flex-column justify-content-between">
-      <div>
-        <p className="fs-5 text-start">
-          Being part of Almaaly has been a transformative journey. The
-          school's commitment to fostering a supportive and dynamic
-          learning environment is unparalleled. The diverse programs and
-          passionate educators have truly enriched my educational
-          experience.
-        </p>
+        <div className="col-sm-4 col-10 d-flex">
+          <div className="w-100 d-flex flex-column justify-content-between text-dark ">
+            <div>
+              <Slide direction="up">
+                <p className="fs-5 text-start">
+                  Being part of Almaaly has been a transformative journey. The
+                  school's commitment to fostering a supportive and dynamic
+                  learning environment is unparalleled. The diverse programs and
+                  passionate educators have truly enriched my educational
+                  experience.
+                </p>
+              </Slide>
+            </div>
+            <div className="text-start">
+              <Slide direction="up" cascade>
+                {" "}
+                <h5>Emily Carter</h5>
+                <p className="text-muted">Almaaly Alumnus</p>
+              </Slide>
+            </div>
+          </div>
+        </div>
       </div>
-      <div className="text-start">
-        <h5>Emily Carter</h5>
-        <p className="text-muted">Almaaly Alumnus</p>
-      </div>
-    </div>
-  </div>
-</div>
     </div>
   );
 };

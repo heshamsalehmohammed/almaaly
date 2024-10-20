@@ -34,6 +34,7 @@ import {
 } from "@react-three/rapier";
 import Section2 from "./components/Sections/Section2";
 import SecondSection from "./components/Sections/SecondSection";
+import ThirdSection from "./components/Sections/ThirdSection";
 
 gsap.registerPlugin(ScrollTrigger);
 function Item({ url, scale, ...props }) {
@@ -193,13 +194,11 @@ const HtmlScrolledItems = ({ logoScreenPosition }) => {
           top: `${screenY}px`,
         }}
       >
-        <div className="col-12 pt-1 mt-sm-5">
+        <div className="col-12 pt-1 mt-sm-4">
           <div
-            className="welcome-box"
+            className="welcome-box text-shadow-1"
             style={{
-              color: "#000",
               fontWeight: "bolder",
-              textShadow: "0 2px 20px #000000e0",
             }}
           >
             <Slide direction="up">
@@ -211,7 +210,7 @@ const HtmlScrolledItems = ({ logoScreenPosition }) => {
             </Slide>
           </div>
         </div>
-        <div class="col-6 pt-4 d-flex flex-wrap justify-content-center justify-content-sm-start">
+        <div class="col-6 pt-4 mt-2 d-flex flex-wrap justify-content-center justify-content-sm-start">
           <Slide direction="up" delay={300}>
             <Fade delay={300}>
               <Button
@@ -266,6 +265,17 @@ const HtmlScrolledItems = ({ logoScreenPosition }) => {
       >
         <SecondSection />
       </div>
+
+      <div
+        class="row justify-content-center align-content-center vw-100 vh-100"
+        style={{
+          position: "absolute",
+          top: `${300}vh`,
+        }}
+      >
+        <ThirdSection />
+      </div>
+      
     </Scroll>
   );
 };
