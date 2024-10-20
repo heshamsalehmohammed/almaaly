@@ -13,7 +13,7 @@ const ScrollArea = () => {
   const fixedElementRef = useRef(null);
 
   // Calculate maxScroll based on the scrollable content's height
-  const getMaxScroll = () => window.innerHeight * 4; // 400vh
+  const getMaxScroll = () => window.innerHeight * 3; // 400vh
 
   const maxScrollRef = useRef(getMaxScroll());
   const ticking = useRef(false);
