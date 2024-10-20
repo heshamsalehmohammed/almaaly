@@ -14,10 +14,10 @@ import { useGSAP } from "@gsap/react";
 
 /* ScrollTrigger.config({
   autoRefreshEvents: "resize,orientationchange",
-}); */
+});
 window.addEventListener("resize", () => {
   ScrollTrigger.refresh();
-});
+}); */
 
 // Register the ScrollTrigger plugin
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -27,7 +27,7 @@ const MainYouTubeEmbedWithAnimation = forwardRef(({ videoId }, ref) => {
 
   useImperativeHandle(ref, () => videoResponsive.current);
 
-  useGSAP(() => {
+/*   useGSAP(() => {
     if (!videoResponsive.current) return;
     gsap.fromTo(
       videoResponsive.current,
@@ -66,7 +66,7 @@ const MainYouTubeEmbedWithAnimation = forwardRef(({ videoId }, ref) => {
         },
       }
     );
-  });
+  }); */
 
   return (
     <div className="main-video-responsive mt-4" ref={videoResponsive}>
@@ -123,7 +123,7 @@ const BottomPage = () => {
     videoTitles.video1
   );
 
-  const handleScroll = () => {
+/*   const handleScroll = () => {
     if (
       video1Ref.current &&
       video2Ref.current &&
@@ -215,7 +215,7 @@ const BottomPage = () => {
           start: "top top", // when sticky element hits top of the viewport
           end: "+=2350", // you can adjust this value based on how long you want it to stay sticky
           pin: true, // pin the element in place
-          /* pinSpacing: false, // removes space while the element is pinned */
+          
           scrub: 1, // smooth scrolling effect
           markers: false, // set true to visualize start and end markers
         },
@@ -223,48 +223,10 @@ const BottomPage = () => {
     },
     { scope: bottomElementRef }
   );
+ */
 
-  /* 
-  useGSAP(
-    () => {
-      const chars = bottomElementRef.current.querySelectorAll(".works-subtitle-char");
 
-      // Stage 1: Initial fade-in for each character with random delay
-      const stage1Timeline = gsap.timeline();
-  
-      stage1Timeline.fromTo(
-        chars,
-        { opacity: 0 },
-        {
-          opacity: 1,
-          duration: 0.5,
-          delay: () => Math.random() * 1, // Random delay up to 1 second
-          stagger: 0.05, // Small stagger between each character animation
-          ease: "power1.out"
-        }
-      );
-  
-      // Stage 2: Infinite animation from opacity 1 to 0 and back to 1 independently
-      chars.forEach((char) => {
-        gsap.fromTo(
-          char,
-          { opacity: 1 },
-          {
-            opacity: 0.5,
-            duration: 0.2,
-            delay: Math.random() * 0.5, // Random delay up to 1 second
-            repeat: -1, // Infinite repetition
-            repeatDelay: 2, // 1-second delay between each animation cycle
-            yoyo: true, // Animate back to opacity 1
-            ease: "power1.inOut"
-          }
-        );
-      });
-    },
-    { scope: bottomElementRef,dependencies:[currentWorksSubTitle] }
-  ); */
-
-  useGSAP(
+/*   useGSAP(
     () => {
       const chars = bottomElementRef.current.querySelectorAll(
         ".works-subtitle-char"
@@ -306,7 +268,7 @@ const BottomPage = () => {
       });
     },
     { scope: bottomElementRef, dependencies: [currentWorksSubTitle] }
-  ); /**/
+  );  */
 
   return (
     <>
@@ -395,126 +357,13 @@ const BottomPage = () => {
           </div>
         </div>
 
-       {/*  <WhatTheySay /> */}
+      
       </div>
     </>
   );
 };
 
-const DURATION = 25000;
-const TAGS_PER_ROW = 5;
 
-const random = (min, max) => Math.floor(Math.random() * (max - min)) + min;
-const shuffle = (arr) => [...arr].sort(() => 0.5 - Math.random());
-
-const InfiniteLoopSlider = ({ children, duration, reverse = false }) => {
-  const innerRef = useRef(null);
-
-
-  return (
-    <div
-      className="loop-slider"
-      style={{
-        "--duration": `${duration}ms`,
-        "--direction": reverse ? "reverse" : "normal",
-      }}
-    >
-      <div className="inner" ref={innerRef}>
-        {children}
-        {children}
-      </div>
-    </div>
-  );
-};
-
-const TestimonialItem = ({ img, name, text, role }) => {
-  
-  const handleMouseEnter = (e) => {
-    gsap.to(e.currentTarget, { scale: 1.1, duration: 0.3 });
-  };
-
-  const handleMouseLeave = (e) => {
-    gsap.to(e.currentTarget, { scale: 1, duration: 0.3 });
-  };
-
-  return (
-    <div
-      className="testimonial-item ms-2 me-2 "
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      <div className="client-row">
-        <img src={img} className="rounded-circle" alt={`profile ${name}`} />
-      </div>
-      <div className="testimonial-content">
-        <h4>{name}</h4>
-        <p>"{text}"</p>
-        <span>{role}</span>
-      </div>
-    </div>
-  );
-};
-
-export const WhatTheySay = () => {
-  const testimonials = [
-    {
-      name: "Sandar",
-      role: "Managing Director",
-      img: profile01,
-      text: "Ut varius leo eu mauris lacinia, eleifend posuere urna gravida. Aenean a mattis lacus.",
-    },
-    {
-      name: "Shinn",
-      role: "CEO and Founder",
-      img: profile01,
-      text: "Nam iaculis, leo nec facilisis sollicitudin, dui massa tempus odio, vitae malesuada ante elit vitae eros.",
-    },
-    {
-      name: "Marlar",
-      role: "Chief Marketing Officer",
-      img: profile01,
-      text: "Etiam efficitur, tortor facilisis finibus semper, diam magna fringilla lectus, et fringilla felis urna posuere tortor.",
-    },
-    {
-      name: "Hesham",
-      role: "Chief Marketing Officer",
-      img: profile01,
-      text: "Etiam efficitur, tortor facilisis finibus semper, diam magna fringilla lectus, et fringilla felis urna posuere tortor.",
-    },
-  ];
-
-  return (
-    <div className="position-relative w-100">
-      <div className="row mr-0 ml-0 min-vh-100 p-3 mt-6 justify-content-center bg-dark">
-        <div className="col-md-7 col-10 pt-4">
-          <div className="bottom-element-text font-poppins-semi-bold-italic mt-5 pt-5">
-            <h1 className="mt-5 py-4 display-6 display-md-4 display-xl-3 text-transform-none">
-              What do creators say about Almaaly
-            </h1>
-          </div>
-        </div>
-        <div className="col-12 what-they-say-menu">
-          <InfiniteLoopSlider
-            duration={random(DURATION - 5000, DURATION + 5000)}
-            reverse={false}
-          >
-            {shuffle(testimonials)
-              .slice(0, TAGS_PER_ROW)
-              .map((item, index) => (
-                <TestimonialItem
-                  key={`testimonial-item${index}`}
-                  img={item.img}
-                  name={item.name}
-                  text={item.text}
-                  role={item.role}
-                />
-              ))}
-          </InfiniteLoopSlider>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 
 
