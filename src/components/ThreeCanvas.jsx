@@ -11,6 +11,8 @@ import {
   useScroll,
   useGLTF,
   Html,
+  Environment,
+  Lightformer,
 } from "@react-three/drei";
 import ThreeCanvasUpdater from "./ThreeCanvasUpdater";
 import { FirstSectionCanvas } from "./Sections/FirstSection";
@@ -30,16 +32,15 @@ const ThreeCanvasContent = () => {
   const vec = new THREE.Vector3();
   const pageLerp = useRef(scrollTop / size.height);
 
-  const pageRef = useRef()
+  const pageRef = useRef();
 
   useFrame(() => {
-    const lerpFactor = 0.2;
 
-    pageRef.current = (pageLerp.current = THREE.MathUtils.lerp(
+    pageRef.current = pageLerp.current = THREE.MathUtils.lerp(
       pageLerp.current,
       scrollTop / size.height,
-      lerpFactor
-    ));
+      0.5
+    );
     const y = pageRef.current * viewport.height;
     const sticky = threshold * viewport.height;
     group.current.position.lerp(
@@ -51,43 +52,37 @@ const ThreeCanvasContent = () => {
       0.1
     );
 
-      backgroundRef.current.position.lerp(
-        vec.set(
-          0,
-          0,
-          pageRef.current < threshold ? 0 : pageRef.current * 2.5
-        ),
-        0.1
-      );
-    
+    backgroundRef.current.position.lerp(
+      vec.set(0, 0, pageRef.current < threshold ? 0 : pageRef.current * 2.5),
+      0.1
+    );
   });
 
   return (
-   <>
-    <ThreeBackgroundVideo ref={backgroundRef}/>
-    <group ref={group}>
-      <FirstSectionCanvas />
-      <LayerCardSection />
-    </group>
-   </>
+    <>
+      <ThreeBackgroundVideo ref={backgroundRef} />
+      <group ref={group}>
+        <FirstSectionCanvas />
+        <LayerCardSection />
+      </group>
+    </>
   );
 };
 
 const ThreeCanvas = () => {
   return (
-    <Canvas linear dpr={[1, 2]} camera={{ fov: 100, position: [0, 0, 30] }}>
+    <Canvas
+      shadows
+      linear
+      dpr={[1, 2]}
+      camera={{ fov: 100, position: [0, 0, 30], near: 0.1, far: 1000 }}
+    >
       <ThreeCanvasUpdater />
+      <color attach="background" args={["#f1f1f3"]} />
       <ambientLight intensity={0.5} />
-      <pointLight position={[-10, -10, -10]} intensity={1} />
-      <spotLight
-          castShadow
-          angle={0.3}
-          penumbra={1}
-          position={[0, 10, 20]}
-          intensity={5}
-          shadow-mapSize-width={1024}
-          shadow-mapSize-height={1024}
-        />
+
+      <directionalLight position={[0, 0, 10]} intensity={1} castShadow />
+
       <Effects />
       <ThreeCanvasContent />
     </Canvas>

@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { setMouse, setNormalizedTop, setTop } from "../redux/scrollSlice";
 import _ from "lodash";
 import FifthSection from "./Sections/FifthSection";
+import FooterSection from "./Sections/FooterSection";
 
 const ScrollArea = () => {
   const dispatch = useDispatch();
@@ -58,13 +59,14 @@ const ScrollArea = () => {
       onScroll={onScroll}
       onPointerMove={onPointerMove}
     >
-      <div style={{ width: "100vw", height: `${15 * 100}vh`, zIndex: "1000" }}>
+      <div style={{ width: "100vw", height: `${9 * 100}vh`, zIndex: "1000" }}>
         <FirstSectionHtml />
         <SecondSection />
         <ThirdSection />
         <FourthSection />
         <BottomPage ref={bottomElementRef} scrollAreaRef={scrollAreaRef} />
-        <FifthSection />
+        <FifthSection scrollAreaRef={scrollAreaRef}/>
+        <FooterSection />
       </div>
     </div>
   );

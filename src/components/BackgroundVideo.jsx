@@ -42,7 +42,7 @@ function VideoMaterial({ url }) {
   return <meshBasicMaterial map={texture} toneMapped={false} />;
 }
 
-function GradientOverlayMaterial() {
+export function GradientOverlayMaterial() {
   const gradientTexture = useMemo(() => {
     const canvas = document.createElement("canvas");
     canvas.width = 2;
