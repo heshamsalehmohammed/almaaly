@@ -1313,6 +1313,10 @@ body,
     .what-they-say-menu .testimonial-item {
         width: 70vw !important;
     }
+    .main-works-subtitle h1 {
+        font-size: 2.5rem !important;
+    }
+    
 }
 
 /* Small: 576px ≤ width < 768px */
@@ -1328,6 +1332,10 @@ body,
     .what-they-say-menu .testimonial-item {
         width: 70vw !important;
     }
+    .main-works-subtitle h1 {
+        font-size: 4rem !important;
+    }
+    
 }
 
 /* Medium: 768px ≤ width < 992px */

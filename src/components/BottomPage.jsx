@@ -289,7 +289,7 @@ const BottomPage = forwardRef(({ scrollAreaRef }, ref) => {
   return (
     <>
       <div
-        className="bottom-element pt-5"
+        className="bottom-element"
         style={{
           minHeight: `${500}vh`,
         }}
@@ -314,7 +314,7 @@ const BottomPage = forwardRef(({ scrollAreaRef }, ref) => {
           ))}
         </div>
         <div className="row w-100 p-3 mt-3 mb-5 justify-content-center">
-          <div className="col-10 col-md-8 col-lg-7">
+          <div className="col-12 col-md-8 col-lg-7">
             <MainYouTubeEmbedWithAnimation
               videoId="dQw4w9WgXcQ"
               scrollAreaRef={scrollAreaRef}
@@ -326,7 +326,7 @@ const BottomPage = forwardRef(({ scrollAreaRef }, ref) => {
           className="row w-100 min-vh-100 w-100 p-3 mt-6  justify-content-center"
           ref={stickyElementRef}
         >
-          <div className="col-10 col-md-9 col-lg-8">
+          <div className="col-12 col-sm-10 col-md-9 col-lg-8">
             <div
               className="bottom-element-text mt-5 pb-3 main-works-title"
               ref={mainWorksTitleRef}
@@ -355,7 +355,7 @@ const BottomPage = forwardRef(({ scrollAreaRef }, ref) => {
         </div>
         <div className="position-relative w-100">
           <div className="row p-3 mt-5 mb-5 pt-5 pb-5 justify-content-center">
-            <div className="col-8 col-md-6 col-lg-5 pt-5 pb-5">
+            <div className="col-12 col-md-6 col-lg-5 pt-5 pb-5">
               <NormalYouTubeEmbedWithAnimation
                 videoId="dQw4w9WgXcQ"
                 ref={video1Ref}
@@ -363,7 +363,7 @@ const BottomPage = forwardRef(({ scrollAreaRef }, ref) => {
             </div>
           </div>
           <div className="row p-3 mt-5 mb-5  pt-5 pb-5 justify-content-center">
-            <div className="col-8 col-md-6 col-lg-5 pt-5 pb-5">
+            <div className="col-12 col-md-6 col-lg-5 pt-5 pb-5">
               <NormalYouTubeEmbedWithAnimation
                 videoId="dQw4w9WgXcQ"
                 ref={video2Ref}
@@ -371,7 +371,7 @@ const BottomPage = forwardRef(({ scrollAreaRef }, ref) => {
             </div>
           </div>
           <div className="row p-3 mt-5 mb-5  pt-5 pb-5 justify-content-center">
-            <div className="col-8 col-md-6 col-lg-5 pt-5 pb-5">
+            <div className="col-12 col-md-6 col-lg-5 pt-5 pb-5">
               <NormalYouTubeEmbedWithAnimation
                 videoId="dQw4w9WgXcQ"
                 ref={video3Ref}
