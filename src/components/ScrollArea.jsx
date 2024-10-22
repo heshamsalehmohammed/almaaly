@@ -14,7 +14,12 @@ const ScrollArea = () => {
   const dispatch = useDispatch();
   const scrollAreaRef = useRef(null);
   const bottomElementRef = useRef(null);
-  const fixedElementRef = useRef(null);
+  const firstSectionRef = useRef(null);
+  const secondSectionRef = useRef(null);
+  const thirdSectionRef = useRef(null);
+  const fourthSectionRef = useRef(null);
+  const fifthSectionRef = useRef(null);
+  const footerSectionRef = useRef(null);
 
   // Calculate maxScroll based on the scrollable content's height
   const getMaxScroll = () => window.innerHeight * 3; // 400vh
@@ -60,13 +65,17 @@ const ScrollArea = () => {
       onPointerMove={onPointerMove}
     >
       <div style={{ width: "100vw", height: `${9 * 100}vh`, zIndex: "1000" }}>
-        <FirstSectionHtml />
-        <SecondSection />
-        <ThirdSection />
-        <FourthSection />
-        <BottomPage ref={bottomElementRef} scrollAreaRef={scrollAreaRef} positionTop={'400vh'}/>
-        <FifthSection scrollAreaRef={scrollAreaRef}/>
-        <FooterSection />
+        <FirstSectionHtml ref={firstSectionRef} />
+        <SecondSection ref={secondSectionRef} />
+        <ThirdSection ref={thirdSectionRef} />
+        <FourthSection ref={fourthSectionRef} />
+        <BottomPage
+          ref={bottomElementRef}
+          scrollAreaRef={scrollAreaRef}
+          positionTop={"400vh"}
+        />
+        <FifthSection ref={fifthSectionRef} scrollAreaRef={scrollAreaRef} />
+        <FooterSection ref={footerSectionRef} />
       </div>
     </div>
   );
