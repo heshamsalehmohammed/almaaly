@@ -27,19 +27,17 @@ import {
   selectThreeSize,
   selectThreeViewport,
 } from "../../redux/threeSlice";
-import { selectMouse } from "../../redux/scrollSlice";
 
-function LogoText() {
+function LogoText({domRef}) {
   const visible = useRef(false);
   const ref = useIntersect((isVisible) => (visible.current = isVisible));
   const { viewport } = useThree();
   const height = viewport.height;
 
-  const mouse = useSelector(selectMouse);
-
   const TextScaleFactor = Math.min(1, viewport.width / 128);
 
   useFrame((state, delta) => {
+    const mouse =  domRef.current.domStateRef.current.mouse
     if (ref.current) {
       ref.current.position.y = THREE.MathUtils.damp(
         ref.current.position.y,
@@ -77,10 +75,8 @@ function LogoText() {
   );
 }
 
-export const FirstSectionCanvas = () => {
-  const mouse = useRef([0, 0]);
-
-  return <LogoText />;
+export const FirstSectionCanvas = ({domRef}) => {
+  return <LogoText domRef={domRef}/>;
 };
 
 export const FirstSectionHtml = forwardRef((props, ref) => {

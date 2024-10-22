@@ -18,42 +18,47 @@ import ThreeCanvasUpdater from "./ThreeCanvasUpdater";
 import { FirstSectionCanvas } from "./Sections/FirstSection";
 import Effects from "../Effects";
 import { useSelector } from "react-redux";
-import { selectScrollTop, selectThreshold } from "../redux/scrollSlice";
+import {  selectThreshold } from "../redux/scrollSlice";
 import LayerCardSection from "./Sections/LayerCardSection";
 
-const ThreeCanvasContent = () => {
+const ThreeCanvasContent = ({ domRef }) => {
   const group = useRef();
   const backgroundRef = useRef();
   const { viewport, size } = useThree();
 
-  const scrollTop = useSelector(selectScrollTop);
   const threshold = useSelector(selectThreshold);
-
   const vec = new THREE.Vector3();
-  const pageLerp = useRef(scrollTop / size.height);
-
-  const pageRef = useRef();
 
   useFrame(() => {
-
-    pageRef.current = pageLerp.current = THREE.MathUtils.lerp(
-      pageLerp.current,
+    let scrollTop =  domRef?.current?.domStateRef?.current?.scrollTop ?? 0;
+    let pageLerp = scrollTop / size.height;
+    let page = pageLerp = THREE.MathUtils.lerp(
+      pageLerp,
       scrollTop / size.height,
       0.5
     );
-    const y = pageRef.current * viewport.height;
-    const sticky = threshold * viewport.height;
+
+
+    
+    let y = page * viewport.height;
+    let sticky = threshold * viewport.height;
+
+
+
+
+
+
     group.current.position.lerp(
       vec.set(
         0,
-        pageRef.current < threshold ? y : sticky,
-        pageRef.current < threshold ? 0 : pageRef.current * 2.5
+        page < threshold ? y : sticky,
+        page < threshold ? 0 : page * 2.5
       ),
       0.1
     );
 
     backgroundRef.current.position.lerp(
-      vec.set(0, 0, pageRef.current < threshold ? 0 : pageRef.current * 2.5),
+      vec.set(0, 0, page < threshold ? 0 : page * 2.5),
       0.1
     );
   });
@@ -62,14 +67,14 @@ const ThreeCanvasContent = () => {
     <>
       <ThreeBackgroundVideo ref={backgroundRef} />
       <group ref={group}>
-        <FirstSectionCanvas />
-        <LayerCardSection />
+        <FirstSectionCanvas domRef={domRef} />
+        <LayerCardSection domRef={domRef} />
       </group>
     </>
   );
 };
 
-const ThreeCanvas = () => {
+const ThreeCanvas = ({ domRef }) => {
   return (
     <Canvas
       shadows
@@ -83,8 +88,8 @@ const ThreeCanvas = () => {
 
       <directionalLight position={[0, 0, 10]} intensity={1} castShadow />
 
-      <Effects />
-      <ThreeCanvasContent />
+      <Effects domRef={domRef} />
+      <ThreeCanvasContent domRef={domRef} />
     </Canvas>
   );
 };

@@ -19,12 +19,16 @@ import {
   Detailed,
   Environment,
   MeshDistortMaterial,
-  Html
+  Html,
 } from "@react-three/drei";
 import { useSelector } from "react-redux";
-import { selectMouse, selectScrollTop, selectThreshold } from "../../redux/scrollSlice";
-import { Geometry, Base, Addition, Brush } from '@react-three/csg'
-import ContactUs from './ContactUs';
+import {
+  selectMouse,
+  selectScrollTop,
+  selectThreshold,
+} from "../../redux/scrollSlice";
+import { Geometry, Base, Addition, Brush } from "@react-three/csg";
+import ContactUs from "./ContactUs";
 
 function projectYToScene(y, unit = "px", camera, viewport, size) {
   let yInPixels = y;
@@ -84,23 +88,26 @@ function Layercard({
   color,
   map,
   textScaleFactor,
+  domRef
 }) {
   const ref = useRef();
   const { viewport, size } = useThree();
 
-  const scrollTop = useSelector(selectScrollTop);
-  const scrollThreshold = useSelector(selectThreshold);
+  const threshold = useSelector(selectThreshold);
 
-  const pageLerp = useRef(scrollTop / size.height);
+  
   useFrame(() => {
-    const page = (pageLerp.current = THREE.MathUtils.lerp(
-      pageLerp.current,
+    
+    let scrollTop =  domRef?.current?.domStateRef?.current?.scrollTop ?? 0
+    let pageLerp = scrollTop / size.height;
+    let page = (pageLerp = THREE.MathUtils.lerp(
+      pageLerp,
       scrollTop / size.height,
       0.15
     ));
     if (depth >= 0)
       ref.current.opacity =
-        page < scrollThreshold * 1.7 ? 1 : 1 - (page - scrollThreshold * 1.7);
+        page < threshold * 1.7 ? 1 : 1 - (page - threshold * 1.7);
   });
 
   return (
@@ -134,152 +141,25 @@ function Layercard({
   );
 }
 
-function Hats({
-  speed = 1,
-  count = 8000,
-  position= [0,0,0],
-  easing = (x) => Math.sqrt(1 - Math.pow(x - 1, 2)),
-}) {
-  const { viewport, camera } = useThree();
-  const { width, height } = viewport.getCurrentViewport(camera, [0, 0, -position[2]]);
-  const { nodes, materials } = useGLTF("/glbs/blender-threejs-journey-20k-hat-transformed.glb");
 
-  // Reference to the InstancedMesh
-  const meshRef = useRef();
-
-  // Initialize instance data
-  const instances = useMemo(() => {
-    const temp = [];
-    for (let i = 0; i < count; i++) {
-      const z = Math.round(easing(i / count) * position[2]);
-      temp.push({
-        index: i,
-        z,
-        speed,
-        // Randomly distribute along Y
-        y: (THREE.MathUtils.randFloatSpread(height * 2.5) + height / 2.5) - height / 4,
-        // Random X position
-        x: THREE.MathUtils.randFloatSpread(width/3),
-        // Spin speed
-        spin: THREE.MathUtils.randFloat(8, 12),
-        // Random rotations
-        rX: Math.random() * Math.PI,
-        rZ: Math.random() * Math.PI,
-      });
-    }
-    return temp;
-  }, [count, position[2], easing, height, width, speed]);
-
-  // Create a separate array to store per-instance data
-  const instanceData = useRef(instances);
-
-  useEffect(() => {
-    // Set initial matrix for each instance
-    instanceData.current.forEach((data, i) => {
-      const matrix = new THREE.Matrix4();
-      matrix.setPosition(data.x, data.y, -data.z);
-      matrix.makeRotationFromEuler(new THREE.Euler(data.rX, 0, data.rZ));
-      meshRef.current.setMatrixAt(i, matrix);
-    });
-    meshRef.current.instanceMatrix.needsUpdate = true;
-  }, []);
-
-  useFrame((state, delta) => {
-    instanceData.current.forEach((data, i) => {
-      // Update position
-      data.y += delta * data.speed;
-      if (data.y > height/5 * (data.index === 0 ? 4 : 1)) {
-        data.y = -(height/5 * (data.index === 0 ? 4 : 1));
-      }
-
-      // Update rotations
-      data.rX += delta / data.spin;
-      data.rZ += delta / data.spin;
-
-      // Optional: Update rotation around Y axis for some effect
-      const rotationY = Math.sin(data.index * 1000 + state.clock.elapsedTime / 10) * Math.PI;
-
-      // Create a new matrix
-      const matrix = new THREE.Matrix4();
-      const position = new THREE.Vector3(
-        data.index === 0 ? 0 : data.x,
-        data.y,
-        -data.z
-      );
-      const rotation = new THREE.Euler(data.rX, rotationY, data.rZ);
-
-      matrix.compose(position, new THREE.Quaternion().setFromEuler(rotation), new THREE.Vector3(1, 1, 1));
-
-      // Update the instance matrix
-      meshRef.current.setMatrixAt(i, matrix);
-    });
-    // Indicate that the instance matrix needs to be updated
-    meshRef.current.instanceMatrix.needsUpdate = true;
-  });
-
-  return (
-    <>
-      <instancedMesh ref={meshRef} args={[null, null, count]}>
-        <bufferGeometry attach="geometry" {...nodes.Plane006_1.geometry} />
-        <meshStandardMaterial
-          attach="material"
-          {...materials.boxCap}
-
-        />
-      </instancedMesh>
-     
-    </>
-  );
-}
-
-
-
-function Hat(props) {
-  const group = useRef()
-  const shadow = useRef()
-  const { nodes, materials } = useGLTF("/glbs/blender-threejs-journey-20k-hat-transformed.glb");
-
-const mouse = useSelector(selectMouse)
-
-  useFrame(({ clock }) => {
-    const t = (1 + Math.sin(clock.getElapsedTime() * 1.5)) / 2
-    group.current.position.y = t / 3
-    group.current.rotation.x = group.current.rotation.z += 0.005
-    group.current.position.x = THREE.MathUtils.lerp(group.current.position.x, mouse[0] / 2, 0.05)
-    group.current.position.z = THREE.MathUtils.lerp(group.current.position.z, mouse[1] / 4, 0.03)
-  })
-
-
-  useEffect(() => {
-    materials.Material = new THREE.MeshStandardMaterial({ color: materials.Material.color });
-    materials.boxCap = new THREE.MeshStandardMaterial({ color: materials.boxCap.color });
-  }, [materials]);
-  return (
-    <group {...props} dispose={null}>
-      <group ref={group}>
-        <mesh castShadow receiveShadow renderOrder={1} emissive="#ffffff" // Bright enough to trigger bloom
-        emissiveIntensity={2.0} // Higher than the bloom threshold
-        > 
-        <Geometry useGroups >
-          <Base geometry={nodes.Plane006.geometry} material={materials.Material} />
-          <Addition geometry={nodes.Plane006_1.geometry} material={materials.boxCap} />
-        </Geometry>
-
-        </mesh>
-     
-      </group>
-    </group>
-  )
-}
-
-
-const LayerCardSection = () => {
+const LayerCardSection = ({ domRef }) => {
   const { viewport, size, camera } = useThree();
   const [bW, bH] = useAspect(1920, 800, 0.5);
   const texture = useLoader(THREE.TextureLoader, "/students.jpg");
   const scale = Math.min(1, viewport.width / 128);
 
-  const positionTop = projectYToScene(900, "vh", camera, viewport, size);
+  let scrollTop =  domRef?.current?.domStateRef?.current?.scrollTop ?? 0;
+  let y = 900;
+  let yUnit = "vh";
+
+  if (domRef?.current?.bottomElementRef?.current) {
+    const { bottom } =
+      domRef.current.bottomElementRef.current.getBoundingClientRect();
+    y = bottom + scrollTop;
+    yUnit = "px";
+  }
+
+  const positionTop = projectYToScene(y, yUnit, camera, viewport, size);
 
   return (
     <Flex
@@ -288,7 +168,7 @@ const LayerCardSection = () => {
       size={[viewport.width, viewport.height, 0]}
     >
       <Box dir="row" width="100%" height="100%" align="center" justify="center">
-        <Box >
+        <Box>
           <Layercard
             depth={0}
             color={"#cccccc"}

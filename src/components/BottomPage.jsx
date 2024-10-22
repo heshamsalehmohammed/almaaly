@@ -12,8 +12,7 @@ import {
   useState,
 } from "react";
 import { useGSAP } from "@gsap/react";
-import { selectScrollTop } from "../redux/scrollSlice";
-import { useSelector } from "react-redux";
+
 
 /* ScrollTrigger.config({
   autoRefreshEvents: "resize,orientationchange",
@@ -119,7 +118,6 @@ const BottomPage = forwardRef(({ scrollAreaRef }, ref) => {
   const video2Ref = useRef();
   const video3Ref = useRef();
 
-  const ScrollTop = useSelector(selectScrollTop);
 
   const videoTitles = {
     video1: "SCARLETT'S PHOTO GALLERY",
@@ -162,11 +160,11 @@ const BottomPage = forwardRef(({ scrollAreaRef }, ref) => {
 
   useEffect(() => {
     scrollAreaRef.current.addEventListener("scroll", handleScroll);
-    scrollAreaRef.current.addEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize);
     // Clean up the event listener on component unmount
     return () => {
       scrollAreaRef.current.removeEventListener("scroll", handleScroll);
-      scrollAreaRef.current.removeEventListener("resize", handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 

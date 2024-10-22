@@ -38,6 +38,6 @@ export const { setViewport, setSize, setCamera, setThreeData } = threeSlice.acti
 export const selectThreeViewport = (state) => state.three.viewport;
 export const selectThreeSize = (state) => state.three.size;
 export const selectThreeCamera = (state) => state.three.camera;
-export const selectThree = (state) => state.three;
+
 
 export default threeSlice.reducer;

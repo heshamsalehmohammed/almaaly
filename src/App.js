@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import Header from "./components/Header";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
@@ -17,11 +17,13 @@ const App = () => {
       "url('https://raw.githubusercontent.com/chenglou/react-motion/master/demos/demo8-draggable-list/cursor.png') 39 39, auto";
   }, []);
 
+  const domRef = useRef()
+
   return (
     <>
       <Header />
-      <ThreeCanvas />
-      <ScrollArea />
+      <ThreeCanvas domRef={domRef}/>
+      <ScrollArea ref={domRef}/>
       <SocialIcons />
     </>
   );
