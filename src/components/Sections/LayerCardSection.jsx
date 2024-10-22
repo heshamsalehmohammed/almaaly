@@ -7,6 +7,8 @@ import React, {
   useCallback,
   useLayoutEffect,
   useMemo,
+  forwardRef,
+  useImperativeHandle,
 } from "react";
 import { Canvas, useThree, useFrame, useLoader } from "@react-three/fiber";
 import { Flex, Box, useFlexSize, useReflow } from "@react-three/flex";
@@ -22,11 +24,7 @@ import {
   Html,
 } from "@react-three/drei";
 import { useSelector } from "react-redux";
-import {
-  selectMouse,
-  selectScrollTop,
-  selectThreshold,
-} from "../../redux/scrollSlice";
+
 import { Geometry, Base, Addition, Brush } from "@react-three/csg";
 import ContactUs from "./ContactUs";
 
@@ -79,7 +77,7 @@ function Text({
   );
 }
 
-function Layercard({
+const Layercard = forwardRef(({
   depth,
   boxWidth,
   boxHeight,
@@ -89,34 +87,15 @@ function Layercard({
   map,
   textScaleFactor,
   domRef
-}) {
-  const ref = useRef();
-  const { viewport, size } = useThree();
-
-  const threshold = useSelector(selectThreshold);
-
-  
-  useFrame(() => {
-    
-    let scrollTop =  domRef?.current?.domStateRef?.current?.scrollTop ?? 0
-    let pageLerp = scrollTop / size.height;
-    let page = (pageLerp = THREE.MathUtils.lerp(
-      pageLerp,
-      scrollTop / size.height,
-      0.15
-    ));
-    if (depth >= 0)
-      ref.current.opacity =
-        page < threshold * 1.7 ? 1 : 1 - (page - threshold * 1.7);
-  });
+},ref) =>{
+  const { viewport } = useThree();
 
   return (
-    <>
+    <group ref={ref}>
       <mesh position={[boxWidth / 2, -boxHeight / 2, depth]}>
         {/* Update planeBufferGeometry to PlaneGeometry */}
         <planeGeometry args={[boxWidth, boxHeight]} />
         <meshBasicMaterial
-          ref={ref}
           color={color}
           map={map}
           toneMapped={false}
@@ -137,13 +116,14 @@ function Layercard({
       >
         {text}
       </Text>
-    </>
+    </group>
   );
-}
+})
 
 
-const LayerCardSection = ({ domRef }) => {
+const LayerCardSection = forwardRef(({ domRef },ref) => {
   const { viewport, size, camera } = useThree();
+  const layerCardRef = useRef();
   const [bW, bH] = useAspect(1920, 800, 0.5);
   const texture = useLoader(THREE.TextureLoader, "/students.jpg");
   const scale = Math.min(1, viewport.width / 128);
@@ -159,16 +139,26 @@ const LayerCardSection = ({ domRef }) => {
     yUnit = "px";
   }
 
-  const positionTop = projectYToScene(y, yUnit, camera, viewport, size);
+  const positionTopRef = useRef(projectYToScene(y, yUnit, camera, viewport, size));
+
+  useLayoutEffect(() => {
+    positionTopRef.current = projectYToScene(y, yUnit, camera, viewport, size)
+  }, [])
+
+  useImperativeHandle(ref, () => ({
+    positionTop: positionTopRef.current -bH,
+    layerCardRef
+  }));
+  
 
   return (
     <Flex
       dir="column"
-      position={[-viewport.width / 2, positionTop, 0]}
+      position={[-viewport.width / 2, positionTopRef.current, 0]}
       size={[viewport.width, viewport.height, 0]}
     >
-      <Box dir="row" width="100%" height="100%" align="center" justify="center">
-        <Box>
+      <Box dir="row" width="100%" height="100%" align="center" justify="center" >
+        <Box >
           <Layercard
             depth={0}
             color={"#cccccc"}
@@ -180,13 +170,12 @@ const LayerCardSection = ({ domRef }) => {
             boxHeight={bH}
             map={texture}
             textScaleFactor={6 * scale}
+            ref={layerCardRef}
           />
-          <pointLight position={[bW / 2, -bH / 2, 10]} intensity={1.5} />
-          {/* <Hat  position={[bW / 2, -bH / 2, -2]}/> */}
         </Box>
       </Box>
     </Flex>
   );
-};
+});
 
 export default LayerCardSection;

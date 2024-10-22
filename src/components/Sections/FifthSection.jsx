@@ -31,7 +31,7 @@ const FifthSection = forwardRef(({ scrollAreaRef },ref) => {
       scrollTrigger: {
         scroller: scrollAreaRef.current,
         trigger: fifthElementContainerRef.current,
-        start: "=2500",
+        start: "=1000",
         scrub: 1, // smooth scrolling effect
         markers: false, // set true to visualize start and end markers
       },

@@ -17,64 +17,91 @@ import {
 import ThreeCanvasUpdater from "./ThreeCanvasUpdater";
 import { FirstSectionCanvas } from "./Sections/FirstSection";
 import Effects from "../Effects";
-import { useSelector } from "react-redux";
-import {  selectThreshold } from "../redux/scrollSlice";
 import LayerCardSection from "./Sections/LayerCardSection";
 
 const ThreeCanvasContent = ({ domRef }) => {
   const group = useRef();
   const backgroundRef = useRef();
-  const { viewport, size } = useThree();
+  const smoothScroll = useRef(0);
+  const layerCardSectionRef = useRef()
 
-  const threshold = useSelector(selectThreshold);
+  const { viewport, size } = useThree();
   const vec = new THREE.Vector3();
 
-  useFrame(() => {
-    let scrollTop =  domRef?.current?.domStateRef?.current?.scrollTop ?? 0;
-    let pageLerp = scrollTop / size.height;
-    let page = pageLerp = THREE.MathUtils.lerp(
-      pageLerp,
-      scrollTop / size.height,
-      0.5
+
+  useFrame((state, delta) => {
+    const scrollEl = domRef?.current?.scrollAreaRef?.current;
+
+    if (!scrollEl) return
+
+    const scrollTop = scrollEl.scrollTop;
+    const scrollHeight = scrollEl.scrollHeight;
+    const clientHeight = scrollEl.clientHeight;
+    const scrollableHeight = scrollHeight - clientHeight;
+    const scrollCurrent = scrollTop / scrollableHeight;
+
+    const pages = scrollHeight / clientHeight;
+    const totalDistance = viewport.height * (pages - 1);
+
+    // Damping factor
+    const dampingFactor = 100;
+
+    // Smoothly interpolate the scroll offset
+    smoothScroll.current = THREE.MathUtils.damp(
+      smoothScroll.current,
+      scrollCurrent,
+      dampingFactor,
+      delta
     );
 
 
-    
-    let y = page * viewport.height;
-    let sticky = threshold * viewport.height;
 
-
-
-
-
+    const positionTop = layerCardSectionRef.current.positionTop;
+    const threshold = -positionTop / totalDistance;
+  
+    // Positions
+    const yPosition =
+      smoothScroll.current < threshold
+        ? smoothScroll.current * totalDistance
+        : threshold * totalDistance;
+    const zScrollFactor = 250; // Adjust as needed
+    const zPosition =
+      smoothScroll.current < threshold
+        ? 0
+        : (smoothScroll.current - threshold) * zScrollFactor;
 
     group.current.position.lerp(
       vec.set(
         0,
-        page < threshold ? y : sticky,
-        page < threshold ? 0 : page * 2.5
+         yPosition,
+         zPosition
       ),
-      0.1
+      0.2
     );
 
-    backgroundRef.current.position.lerp(
-      vec.set(0, 0, page < threshold ? 0 : page * 2.5),
-      0.1
-    );
+     backgroundRef.current.position.lerp(
+      vec.set(0, 0, smoothScroll.current < threshold ? 0 : zPosition),
+      0.2
+    ); 
   });
 
   return (
     <>
       <ThreeBackgroundVideo ref={backgroundRef} />
+      {/* my scrollable group */}
       <group ref={group}>
         <FirstSectionCanvas domRef={domRef} />
-        <LayerCardSection domRef={domRef} />
+        <LayerCardSection domRef={domRef} ref={layerCardSectionRef}/>
       </group>
     </>
   );
 };
 
 const ThreeCanvas = ({ domRef }) => {
+
+
+
+
   return (
     <Canvas
       shadows
