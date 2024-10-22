@@ -275,7 +275,7 @@ const mouse = useSelector(selectMouse)
 
 const LayerCardSection = () => {
   const { viewport, size, camera } = useThree();
-  const [bW, bH] = useAspect(1920, 700, 0.5);
+  const [bW, bH] = useAspect(1920, 800, 0.5);
   const texture = useLoader(THREE.TextureLoader, "/students.jpg");
   const scale = Math.min(1, viewport.width / 128);
 
