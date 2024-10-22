@@ -20,21 +20,19 @@ const ThirdSection = forwardRef((props, ref) => {
         minHeight: `${100}vh`,
       }}
     >
-      {" "}
       <div className="container mt-5 p-0">
         <div
-          className="row justify-content-center p-5 text-center"
+          className="row justify-content-center p-1 p-sm-5 pt-5 pb-5 text-center"
           style={{ backgroundColor: "#020278" }}
         >
-          <div className="col-5">
+          <div className="col-sm-5 col-10">
             <Slide direction="up">
-              {" "}
               <h2 className="text-white">Join the Almaaly Community</h2>
               <p className="text-white">
                 Become a part of our vibrant school community and explore the
                 endless opportunities we offer. Enroll today to start your
                 journey.
-              </p>{" "}
+              </p>
             </Slide>
           </div>
 
@@ -60,23 +58,24 @@ const ThirdSection = forwardRef((props, ref) => {
           className="row justify-content-center align-items-stretch p-5"
           style={{ backgroundColor: "#fff" }}
         >
-          <div className="col-sm-4 col-10 d-flex">
+          <div className="col-xl-4 col-lg-5 col-md-6 col-sm-8 col-12 d-flex">
             <Zoom duration={200}>
               <Fade duration={500}>
                 <img
                   src={SoFar} // replace with the correct path to the image
                   alt="Quote"
                   className="img-fluid align-self-center"
+                  style={{minHeight:'400px'}}
                 />
               </Fade>
             </Zoom>
           </div>
 
-          <div className="col-sm-4 col-10 d-flex">
-            <div className="w-100 d-flex flex-column justify-content-between text-dark ">
+          <div className="col-xl-4 col-lg-5 col-md-6 col-sm-8 col-10 d-flex">
+            <div className="w-100 d-flex flex-column justify-content-between text-dark text-sm-start text-center">
               <div>
                 <Slide direction="up">
-                  <p className="fs-5 text-start">
+                  <p className="fs-5 mt-4 mt-md-0">
                     Being part of Almaaly has been a transformative journey. The
                     school's commitment to fostering a supportive and dynamic
                     learning environment is unparalleled. The diverse programs
@@ -85,11 +84,10 @@ const ThirdSection = forwardRef((props, ref) => {
                   </p>
                 </Slide>
               </div>
-              <div className="text-start">
+              <div className="">
                 <Slide direction="up" cascade>
-                  {" "}
-                  <h5>Emily Carter</h5>
-                  <p className="text-muted">Almaaly Alumnus</p>
+                  <h5 className="mb-0">Emily Carter</h5>
+                  <p className="text-muted mt-0">Almaaly Alumnus</p>
                 </Slide>
               </div>
             </div>
