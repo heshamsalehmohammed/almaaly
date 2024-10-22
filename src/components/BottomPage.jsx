@@ -118,7 +118,7 @@ const BottomPage = forwardRef(({ scrollAreaRef }, ref) => {
   const video2Ref = useRef();
   const video3Ref = useRef();
 
-  const ScrollTop = useSelector(selectScrollTop)
+  const ScrollTop = useSelector(selectScrollTop);
 
   const videoTitles = {
     video1: "SCARLETT'S PHOTO GALLERY",
@@ -291,7 +291,7 @@ const BottomPage = forwardRef(({ scrollAreaRef }, ref) => {
       <div
         className="bottom-element"
         style={{
-          minHeight: `${500}vh`,
+          
         }}
         ref={bottomElementRef}
       >
@@ -306,7 +306,7 @@ const BottomPage = forwardRef(({ scrollAreaRef }, ref) => {
               key={index}
             >
               <div>
-                <h1 className="py-4 display-6 display-md-4 display-xl-3 text-transform-none">
+                <h1 className={`${index!=2 ?'pb-4':''} display-6 display-md-4 display-xl-3 text-transform-none`}>
                   {text}
                 </h1>
               </div>
@@ -326,9 +326,9 @@ const BottomPage = forwardRef(({ scrollAreaRef }, ref) => {
           className="row w-100 min-vh-100 w-100 p-3 mt-6  justify-content-center"
           ref={stickyElementRef}
         >
-          <div className="col-12 col-sm-10 col-md-9 col-lg-8">
+          <div className="col-12 col-sm-10 col-md-9 col-lg-8 d-flex flex-column">
             <div
-              className="bottom-element-text mt-5 pb-3 main-works-title"
+              className="bottom-element-text mt-5 main-works-title"
               ref={mainWorksTitleRef}
             >
               <div>
@@ -338,7 +338,7 @@ const BottomPage = forwardRef(({ scrollAreaRef }, ref) => {
               </div>
             </div>
             <div
-              className="bottom-element-text mt-5 py-5 main-works-subtitle"
+              className="bottom-element-text mt-auto mb-auto main-works-subtitle"
               ref={mainWorksSubTitleRef}
             >
               <div>
@@ -355,7 +355,7 @@ const BottomPage = forwardRef(({ scrollAreaRef }, ref) => {
         </div>
         <div className="position-relative w-100">
           <div className="row p-3 mt-5 mb-5 pt-5 pb-5 justify-content-center">
-            <div className="col-12 col-md-6 col-lg-5 pt-5 pb-5">
+            <div className="col-11 col-md-6 col-lg-5 pt-5 pb-5">
               <NormalYouTubeEmbedWithAnimation
                 videoId="dQw4w9WgXcQ"
                 ref={video1Ref}
@@ -363,7 +363,7 @@ const BottomPage = forwardRef(({ scrollAreaRef }, ref) => {
             </div>
           </div>
           <div className="row p-3 mt-5 mb-5  pt-5 pb-5 justify-content-center">
-            <div className="col-12 col-md-6 col-lg-5 pt-5 pb-5">
+            <div className="col-11 col-md-6 col-lg-5 pt-5 pb-5">
               <NormalYouTubeEmbedWithAnimation
                 videoId="dQw4w9WgXcQ"
                 ref={video2Ref}
@@ -371,7 +371,7 @@ const BottomPage = forwardRef(({ scrollAreaRef }, ref) => {
             </div>
           </div>
           <div className="row p-3 mt-5 mb-5  pt-5 pb-5 justify-content-center">
-            <div className="col-12 col-md-6 col-lg-5 pt-5 pb-5">
+            <div className="col-11 col-md-6 col-lg-5 pt-5 pb-5">
               <NormalYouTubeEmbedWithAnimation
                 videoId="dQw4w9WgXcQ"
                 ref={video3Ref}

@@ -1299,6 +1299,13 @@ body,
 }
 
 
+.main-works-title {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
 
 /* Extra Small: <576px */
 @media (max-width: 575.98px) {
