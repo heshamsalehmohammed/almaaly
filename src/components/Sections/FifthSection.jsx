@@ -25,7 +25,6 @@ const FifthSection = forwardRef(({ scrollAreaRef },ref) => {
     gsap.set(fifthElementContainerRef.current, { opacity: 0 });
 
     gsap.to(fifthElementContainerRef.current, {
-      scale:1,
       opacity: 0.75,
       duration: 1, // ad00", // when sticky element hits top of the viewport
       scrub: 1,
@@ -56,8 +55,7 @@ const FifthSection = forwardRef(({ scrollAreaRef },ref) => {
       ref={fifthElementContainerRef}
       className="row justify-content-center align-content-center vw-100 vh-100"
       style={{
-        position: "absolute",
-        top: "900vh",
+        minHeight: `${100}vh`,
         background: "linear-gradient(to bottom, #4096ee 0%, #39ced6 100%)",
       }}
     >

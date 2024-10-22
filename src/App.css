@@ -1582,10 +1582,8 @@ body,
 }
 
 .bottom-element {
-    position: absolute;
     width: 100vw;
     z-index: 3;
-
     background-color: black;
     --gradient-start: rgb(2, 2, 120) !important;
     --gradient-end: black;

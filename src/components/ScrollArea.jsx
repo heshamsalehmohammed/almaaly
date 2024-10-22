@@ -72,6 +72,7 @@ const ScrollArea = () => {
         <BottomPage
           ref={bottomElementRef}
           scrollAreaRef={scrollAreaRef}
+          elementBeforeRef={fourthSectionRef}
           positionTop={"400vh"}
         />
         <FifthSection ref={fifthSectionRef} scrollAreaRef={scrollAreaRef} />

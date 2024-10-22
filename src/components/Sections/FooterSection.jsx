@@ -17,8 +17,6 @@ const FooterSection = forwardRef(({ scrollAreaRef }, ref) => {
       ref={ref}
       className="row justify-content-center align-content-center vw-100"
       style={{
-        position: "absolute",
-        top: "1300vh",
         background: "linear-gradient(to bottom, #4096ee 0%, #39ced6 100%)",
       }}
     >

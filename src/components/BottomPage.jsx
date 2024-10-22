@@ -7,10 +7,13 @@ import {
   forwardRef,
   useEffect,
   useImperativeHandle,
+  useLayoutEffect,
   useRef,
   useState,
 } from "react";
 import { useGSAP } from "@gsap/react";
+import { selectScrollTop } from "../redux/scrollSlice";
+import { useSelector } from "react-redux";
 
 /* ScrollTrigger.config({
   autoRefreshEvents: "resize,orientationchange",
@@ -104,7 +107,7 @@ const NormalYouTubeEmbedWithAnimation = forwardRef(({ videoId }, ref) => {
   );
 });
 
-const BottomPage = forwardRef(({ scrollAreaRef,positionTop }, ref) => {
+const BottomPage = forwardRef(({ scrollAreaRef }, ref) => {
   const bottomElementRef = useRef(null); // Reference to the container
   const videoResponsiveRef = useRef(null);
   const mainWorksTitleRef = useRef();
@@ -115,7 +118,7 @@ const BottomPage = forwardRef(({ scrollAreaRef,positionTop }, ref) => {
   const video2Ref = useRef();
   const video3Ref = useRef();
 
-  const works = [];
+  const ScrollTop = useSelector(selectScrollTop)
 
   const videoTitles = {
     video1: "SCARLETT'S PHOTO GALLERY",
@@ -289,7 +292,6 @@ const BottomPage = forwardRef(({ scrollAreaRef,positionTop }, ref) => {
         className="bottom-element pt-5"
         style={{
           minHeight: `${500}vh`,
-          top:`${positionTop}`
         }}
         ref={bottomElementRef}
       >
