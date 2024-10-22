@@ -71,7 +71,7 @@ const ThirdSection = forwardRef((props, ref) => {
             </Zoom>
           </div>
 
-          <div className="col-xl-4 col-lg-5 col-md-6 col-sm-8 col-10 d-flex">
+          <div className="col-xl-4 col-lg-5 col-md-6 col-sm-8 col-12 d-flex">
             <div className="w-100 d-flex flex-column justify-content-between text-dark text-sm-start text-center">
               <div>
                 <Slide direction="up">

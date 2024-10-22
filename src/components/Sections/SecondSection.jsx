@@ -56,22 +56,22 @@ const SecondSection = forwardRef((props,ref) => {
       marginTop:'100vh'
     }}
   >    <div className="row w-100 justify-content-center pt-3 pt-md-0 section2">
-      <div className="col-md-4 mb-3 mb-md-0 pt-3 pt-md-0  col-10">
+      <div className="col-md-4 mb-3 mb-md-0 pt-3 pt-md-0  col-120">
         <div className="about-contentbox">
           <div className=" text-shadow-1  ">
             <div className="row mt-4 mb-4">
-              <div className="col-md-4">
+              <div className="col-md-4 mb-4 mb-sm-0">
                 <Slide direction="up">
                   <i className="fas fa-graduation-cap fa-2x mb-2"></i>
                   <h6>HOLISTIC EDUCATION</h6>{" "}
                 </Slide>
               </div>
-              <div className="col-md-4">
+              <div className="col-md-4 mb-4 mb-sm-0">
                 <Slide direction="up">  <i className="fas fa-heart fa-2x mb-2"></i>
                 <h6>CARING ENVIRONMENT</h6></Slide>
               
               </div>
-              <div className="col-md-4">
+              <div className="col-md-4 mb-4 mb-sm-0">
               <Slide direction="up">  <i className="fas fa-globe fa-2x mb-2"></i>
                 <h6>GLOBAL PERSPECTIVE</h6></Slide>
 
@@ -130,7 +130,7 @@ const SecondSection = forwardRef((props,ref) => {
         </div>
       </div>
 
-      <div className="col-md-5 col-10 position-relative">
+      <div className="col-md-5 col-12 position-relative p-0 p-sm-1">
         <div className="section2-slider-container">
           <Swiper
             loop={true}

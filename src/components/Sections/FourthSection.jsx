@@ -21,10 +21,9 @@ const FourthSection = forwardRef((props, ref) => {
         minHeight: `${100}vh`,
       }}
     >
-      {" "}
       <div className="container mt-0 p-0">
-        <div className="row justify-content-center text-center">
-          <div className="col-12 col-sm-8 col-md-7 col-lg-5">
+        <div className="row justify-content-center text-center mt-5 mt-sm-0">
+          <div className="col-11 col-sm-8 col-md-7 col-lg-5">
             <Slide direction="up">
               <h3 style={{ color: "rgb(2, 2, 120)" }} className="text-shadow-1">
                 Diverse and Comprehensive
@@ -41,7 +40,7 @@ const FourthSection = forwardRef((props, ref) => {
         </div>
 
         <div className="row justify-content-center text-center text-shadow-1">
-          <div className="col-md-4 mb-4">
+          <div className="col-md-4 col-8 mb-4">
             <Zoom duration={200}>
               <Fade duration={500}>
                 <div
@@ -67,7 +66,7 @@ const FourthSection = forwardRef((props, ref) => {
             </Slide>
           </div>
 
-          <div className="col-md-4 mb-4">
+          <div className="col-md-4 col-8 mb-4">
             <Zoom duration={200}>
               <Fade duration={500}>
                 <div
@@ -91,7 +90,7 @@ const FourthSection = forwardRef((props, ref) => {
           </div>
         </div>
         <div className="row justify-content-center text-center text-shadow-1">
-          <div className="col-md-4 mb-4">
+          <div className="col-md-4 col-8 mb-4">
             <Zoom duration={200}>
               <Fade duration={500}>
                 <div
@@ -114,7 +113,7 @@ const FourthSection = forwardRef((props, ref) => {
             </Slide>
           </div>
 
-          <div className="col-md-4 mb-4">
+          <div className="col-md-4 col-8 mb-4">
             <Zoom duration={200}>
               <Fade duration={500}>
                 <div
