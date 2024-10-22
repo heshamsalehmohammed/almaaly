@@ -1301,7 +1301,7 @@ body,
 
 .main-works-title {
     position: absolute;
-    top: 10%;
+    top: 5vh;
     left: 50%;
     transform: translateX(-50%);
   }
@@ -1593,6 +1593,7 @@ body,
     overflow-y: auto;
     overflow-x: hidden;
     scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
     z-index: 0;
 }
 
@@ -1607,4 +1608,9 @@ body,
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
+}
+
+
+.bottom-page-sticky-element{
+    will-change: transform;
 }

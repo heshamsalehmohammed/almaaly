@@ -62,17 +62,17 @@ const SecondSection = forwardRef((props,ref) => {
             <div className="row mt-4 mb-4">
               <div className="col-md-4 mb-4 mb-sm-0">
                 <Slide direction="up">
-                  <i className="fas fa-graduation-cap fa-2x mb-2"></i>
+                  <i className="fas fa-graduation-cap fa-2x mb-4"></i>
                   <h6>HOLISTIC EDUCATION</h6>{" "}
                 </Slide>
               </div>
               <div className="col-md-4 mb-4 mb-sm-0">
-                <Slide direction="up">  <i className="fas fa-heart fa-2x mb-2"></i>
+                <Slide direction="up">  <i className="fas fa-heart fa-2x mb-4"></i>
                 <h6>CARING ENVIRONMENT</h6></Slide>
               
               </div>
               <div className="col-md-4 mb-4 mb-sm-0">
-              <Slide direction="up">  <i className="fas fa-globe fa-2x mb-2"></i>
+              <Slide direction="up">  <i className="fas fa-globe fa-2x mb-4"></i>
                 <h6>GLOBAL PERSPECTIVE</h6></Slide>
 
               

@@ -113,6 +113,7 @@ const BottomPage = forwardRef(({ scrollAreaRef }, ref) => {
   const mainWorksTitleRef = useRef();
   const mainWorksSubTitleRef = useRef();
   const stickyElementRef = useRef();
+  const lastRowRef = useRef();
 
   const video1Ref = useRef();
   const video2Ref = useRef();
@@ -226,20 +227,44 @@ const BottomPage = forwardRef(({ scrollAreaRef }, ref) => {
         },
       });
 
-      gsap.to(stickyElementRef.current, {
-        scrollTrigger: {
-          scroller: scrollAreaRef.current,
-          trigger: stickyElementRef.current,
-          start: "top top", // when sticky element hits top of the viewport
-          end: "+=2350", // you can adjust this value based on how long you want it to stay sticky
-          pin: true, // pin the element in place
-
-          scrub: 1, // smooth scrolling effect
-          markers: false, // set true to visualize start and end markers
+      ScrollTrigger.matchMedia({
+        // Desktop and above
+        "(min-width: 768px)": function() {
+          gsap.to(stickyElementRef.current, {
+            scrollTrigger: {
+              scroller: scrollAreaRef.current,
+              trigger: stickyElementRef.current,
+              start: "top top", 
+              endTrigger: lastRowRef.current,
+              end: "center center", 
+              pin: true, 
+              scrub: 1, // Smooth scrolling on desktop
+              markers: false,
+              anticipatePin: 1,
+            },
+          });
         },
+        // Mobile devices
+        "(max-width: 767px)": function() {
+          gsap.to(stickyElementRef.current, {
+            scrollTrigger: {
+              scroller: scrollAreaRef.current,
+              trigger: stickyElementRef.current,
+              start: "top top", 
+              endTrigger: lastRowRef.current,
+              end: "center center", 
+              pin: true, 
+              pinType: 'transform',
+              pinReparent: true,
+              fastScrollEnd: true,
+              scrub: false, // Disable smooth scroll on mobile for better performance
+              markers: false,
+              anticipatePin: 1,
+            },
+          });
+        }
       });
-    },
-    { scope: bottomElementRef }
+    }
   );
 
   useGSAP(
@@ -313,7 +338,7 @@ const BottomPage = forwardRef(({ scrollAreaRef }, ref) => {
             </div>
           ))}
         </div>
-        <div className="row w-100 p-3 mt-3 mb-5 justify-content-center">
+        <div className="row w-100 p-1 mt-1 mb-5 justify-content-center">
           <div className="col-12 col-md-8 col-lg-7">
             <MainYouTubeEmbedWithAnimation
               videoId="dQw4w9WgXcQ"
@@ -323,7 +348,7 @@ const BottomPage = forwardRef(({ scrollAreaRef }, ref) => {
           </div>
         </div>
         <div
-          className="row w-100 min-vh-100 w-100 p-3 mt-6  justify-content-center"
+          className="row w-100 min-vh-100 w-100 p-3 mt-6  justify-content-center bottom-page-sticky-element"
           ref={stickyElementRef}
         >
           <div className="col-12 col-sm-10 col-md-9 col-lg-8 d-flex flex-column">
@@ -370,7 +395,7 @@ const BottomPage = forwardRef(({ scrollAreaRef }, ref) => {
               />
             </div>
           </div>
-          <div className="row p-3 mt-5 mb-5  pt-5 pb-5 justify-content-center">
+          <div className="row p-3 mt-5 mb-5  pt-5 pb-5 justify-content-center" ref={lastRowRef}>
             <div className="col-11 col-md-6 col-lg-5 pt-5 pb-5">
               <NormalYouTubeEmbedWithAnimation
                 videoId="dQw4w9WgXcQ"
