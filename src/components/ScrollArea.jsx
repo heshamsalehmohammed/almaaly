@@ -64,7 +64,7 @@ const ScrollArea = () => {
         <SecondSection />
         <ThirdSection />
         <FourthSection />
-        <BottomPage ref={bottomElementRef} scrollAreaRef={scrollAreaRef} />
+        <BottomPage ref={bottomElementRef} scrollAreaRef={scrollAreaRef} positionTop={'400vh'}/>
         <FifthSection scrollAreaRef={scrollAreaRef}/>
         <FooterSection />
       </div>

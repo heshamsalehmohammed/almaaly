@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import { Button } from "primereact/button";
 import SoFar from "../../assets/images/so-far.jpeg";
 
@@ -11,12 +11,14 @@ import {
   Bounce,
 } from "react-awesome-reveal";
 
-const FourthSection = () => {
+const FourthSection = forwardRef((props, ref) => {
   return (
     <div
-      className="row justify-content-center align-content-center vw-100 vh-100"
+      ref={ref}
+      className="row justify-content-center align-content-center vw-100"
       style={{
         position: "relative",
+        minHeight: `${100}vh`,
       }}
     >
       {" "}
@@ -138,6 +140,6 @@ const FourthSection = () => {
       </div>
     </div>
   );
-};
+});
 
 export default FourthSection;

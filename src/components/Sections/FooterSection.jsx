@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { forwardRef, useRef } from "react";
 
 import "./FooterSection.css";
 
@@ -11,15 +11,10 @@ import {
   Bounce,
 } from "react-awesome-reveal";
 
-const FooterSection = ({ scrollAreaRef }) => {
-
-
-
-
-
-  
+const FooterSection = forwardRef(({ scrollAreaRef }, ref) => {
   return (
     <div
+      ref={ref}
       className="row justify-content-center align-content-center vw-100"
       style={{
         position: "absolute",
@@ -152,6 +147,6 @@ const FooterSection = ({ scrollAreaRef }) => {
       </footer>
     </div>
   );
-};
+});
 
 export default FooterSection;

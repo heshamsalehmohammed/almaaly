@@ -1,6 +1,6 @@
 // src/components/Section2.js
 
-import React, { useEffect, useRef } from "react";
+import React, { forwardRef, useEffect, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -22,7 +22,7 @@ import {
   Bounce,
 } from "react-awesome-reveal";
 
-const SecondSection = () => {
+const SecondSection = forwardRef((props,ref) => {
   const facts = [
     { icon: "fa-trophy mb-3", title: "Awards Won", count: 32 },
     { icon: "fa-graduation-cap  mb-3", title: "Degrees", count: 4 },
@@ -48,9 +48,11 @@ const SecondSection = () => {
 
   return (
     <div
-    className="row justify-content-center align-content-center vw-100 vh-100"
+    ref={ref}
+    className="row justify-content-center align-content-center vw-100"
     style={{
       position: "relative",
+      minHeight:`${100}vh`,
       marginTop:'100vh'
     }}
   >    <div className="row w-100 justify-content-center pt-3 pt-md-0 section2">
@@ -157,6 +159,6 @@ const SecondSection = () => {
     </div></div>
 
   );
-};
+});
 
 export default SecondSection;

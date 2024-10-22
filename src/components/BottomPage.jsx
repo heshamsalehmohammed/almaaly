@@ -22,68 +22,70 @@ window.addEventListener("resize", () => {
 // Register the ScrollTrigger plugin
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-const MainYouTubeEmbedWithAnimation = forwardRef(({ videoId,scrollAreaRef }, ref) => {
-  const videoResponsive = useRef();
+const MainYouTubeEmbedWithAnimation = forwardRef(
+  ({ videoId, scrollAreaRef }, ref) => {
+    const videoResponsive = useRef();
 
-  useImperativeHandle(ref, () => videoResponsive.current);
+    useImperativeHandle(ref, () => videoResponsive.current);
 
-  useGSAP(() => {
-    if (!videoResponsive.current) return;
-    gsap.fromTo(
-      videoResponsive.current,
-      {
-        y: 150,
-      },
-      {
-        y: 0,
-        ease: "elastic.out(1,1)",
-        duration: 1.5,
-        scrollTrigger: {
-          scroller:scrollAreaRef.current,
-          trigger: videoResponsive.current,
-          start: "top bottom",
-          end: "top 60%",
-          toggleActions: "play none none reset",
-          // markers:true
+    useGSAP(() => {
+      if (!videoResponsive.current) return;
+      gsap.fromTo(
+        videoResponsive.current,
+        {
+          y: 150,
         },
-      }
-    );
+        {
+          y: 0,
+          ease: "elastic.out(1,1)",
+          duration: 1.5,
+          scrollTrigger: {
+            scroller: scrollAreaRef.current,
+            trigger: videoResponsive.current,
+            start: "top bottom",
+            end: "top 60%",
+            toggleActions: "play none none reset",
+            // markers:true
+          },
+        }
+      );
 
-    gsap.fromTo(
-      videoResponsive.current,
-      {
-        scale: 1,
-      },
-      {
-        scale: 0.6,
-        ease: "none",
-        duration: 1.5,
-        scrollTrigger: {
-          scroller:scrollAreaRef.current,
-          trigger: videoResponsive.current,
-          start: "top 40%",
-          end: "bottom 10%",
-          scrub: true,
-          // markers:true
+      gsap.fromTo(
+        videoResponsive.current,
+        {
+          scale: 1,
         },
-      }
-    );
-  }); 
+        {
+          scale: 0.6,
+          ease: "none",
+          duration: 1.5,
+          scrollTrigger: {
+            scroller: scrollAreaRef.current,
+            trigger: videoResponsive.current,
+            start: "top 40%",
+            end: "bottom 10%",
+            scrub: true,
+            // markers:true
+          },
+        }
+      );
+    });
 
-  return (
-    <div className="main-video-responsive mt-4" ref={videoResponsive}>
-      <iframe
-        width="100%"
-        height="720"
-        src={`https://www.youtube.com/embed/${videoId}`}
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-        title="Embedded YouTube Video"
-      />
-    </div>
-  );
-});
+    return (
+      <div className="main-video-responsive mt-4" ref={videoResponsive}>
+        <iframe
+          width="100%"
+          height="720"
+          src={`https://www.youtube.com/embed/${videoId}`}
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          title="Embedded YouTube Video"
+        />
+      </div>
+    );
+  }
+);
 
 const NormalYouTubeEmbedWithAnimation = forwardRef(({ videoId }, ref) => {
   return (
@@ -102,7 +104,7 @@ const NormalYouTubeEmbedWithAnimation = forwardRef(({ videoId }, ref) => {
   );
 });
 
-const BottomPage = forwardRef(({scrollAreaRef},ref) => {
+const BottomPage = forwardRef(({ scrollAreaRef,positionTop }, ref) => {
   const bottomElementRef = useRef(null); // Reference to the container
   const videoResponsiveRef = useRef(null);
   const mainWorksTitleRef = useRef();
@@ -127,7 +129,7 @@ const BottomPage = forwardRef(({scrollAreaRef},ref) => {
 
   useImperativeHandle(ref, () => bottomElementRef.current);
 
-   const handleScroll = () => {
+  const handleScroll = () => {
     if (
       video1Ref.current &&
       video2Ref.current &&
@@ -150,17 +152,17 @@ const BottomPage = forwardRef(({scrollAreaRef},ref) => {
     }
   };
 
-  const handleResize = ()=>{
-     ScrollTrigger.refresh();
-  }
+  const handleResize = () => {
+    ScrollTrigger.refresh();
+  };
 
   useEffect(() => {
     scrollAreaRef.current.addEventListener("scroll", handleScroll);
-    scrollAreaRef.current.addEventListener("resize", handleResize); 
+    scrollAreaRef.current.addEventListener("resize", handleResize);
     // Clean up the event listener on component unmount
     return () => {
       scrollAreaRef.current.removeEventListener("scroll", handleScroll);
-    scrollAreaRef.current.removeEventListener("resize", handleResize); 
+      scrollAreaRef.current.removeEventListener("resize", handleResize);
     };
   }, []);
 
@@ -178,7 +180,7 @@ const BottomPage = forwardRef(({scrollAreaRef},ref) => {
             duration: 2,
             ease: "power2.out",
             scrollTrigger: {
-              scroller:scrollAreaRef.current,
+              scroller: scrollAreaRef.current,
               trigger: box,
               start: "bottom bottom",
               end: "bottom 60%",
@@ -196,7 +198,7 @@ const BottomPage = forwardRef(({scrollAreaRef},ref) => {
             y: 0,
             ease: "elastic.out(1,1)",
             scrollTrigger: {
-              scroller:scrollAreaRef.current,
+              scroller: scrollAreaRef.current,
               trigger: box,
               start: "bottom bottom",
               end: "bottom 90%",
@@ -212,7 +214,7 @@ const BottomPage = forwardRef(({scrollAreaRef},ref) => {
         "--gradient-end": "#39ced6", // Transition to white
         ease: "none",
         scrollTrigger: {
-          scroller:scrollAreaRef.current,
+          scroller: scrollAreaRef.current,
           trigger: videoResponsiveRef.current, // Use the video-responsive as the trigger
           start: "bottom 80%", // When the trigger's bottom reaches 50% of the viewport
           end: "bottom top", // When the trigger's top reaches the top of the viewport
@@ -223,12 +225,12 @@ const BottomPage = forwardRef(({scrollAreaRef},ref) => {
 
       gsap.to(stickyElementRef.current, {
         scrollTrigger: {
-          scroller:scrollAreaRef.current,
+          scroller: scrollAreaRef.current,
           trigger: stickyElementRef.current,
           start: "top top", // when sticky element hits top of the viewport
           end: "+=2350", // you can adjust this value based on how long you want it to stay sticky
           pin: true, // pin the element in place
-          
+
           scrub: 1, // smooth scrolling effect
           markers: false, // set true to visualize start and end markers
         },
@@ -236,8 +238,6 @@ const BottomPage = forwardRef(({scrollAreaRef},ref) => {
     },
     { scope: bottomElementRef }
   );
-
-
 
   useGSAP(
     () => {
@@ -281,11 +281,18 @@ const BottomPage = forwardRef(({scrollAreaRef},ref) => {
       });
     },
     { scope: bottomElementRef, dependencies: [currentWorksSubTitle] }
-  );  
+  );
 
   return (
     <>
-      <div className="bottom-element pt-5" ref={bottomElementRef}>
+      <div
+        className="bottom-element pt-5"
+        style={{
+          minHeight: `${500}vh`,
+          top:`${positionTop}`
+        }}
+        ref={bottomElementRef}
+      >
         <div className="d-flex w-100 flex-column text-white text-start mb-2 p-5">
           {[
             "An AI web designer & developer by your side.",
@@ -370,16 +377,9 @@ const BottomPage = forwardRef(({scrollAreaRef},ref) => {
             </div>
           </div>
         </div>
-
-      
       </div>
     </>
   );
 });
-
-
-
-
-
 
 export default BottomPage;

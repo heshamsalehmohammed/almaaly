@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { forwardRef, useRef } from "react";
 import * as THREE from "three";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import {
@@ -22,7 +22,11 @@ import {
 } from "react-awesome-reveal";
 import Text from "../../Text";
 import { useSelector } from "react-redux";
-import { selectThreeCamera, selectThreeSize, selectThreeViewport } from "../../redux/threeSlice";
+import {
+  selectThreeCamera,
+  selectThreeSize,
+  selectThreeViewport,
+} from "../../redux/threeSlice";
 import { selectMouse } from "../../redux/scrollSlice";
 
 function LogoText() {
@@ -31,7 +35,7 @@ function LogoText() {
   const { viewport } = useThree();
   const height = viewport.height;
 
-  const mouse = useSelector(selectMouse)
+  const mouse = useSelector(selectMouse);
 
   const TextScaleFactor = Math.min(1, viewport.width / 128);
 
@@ -79,12 +83,12 @@ export const FirstSectionCanvas = () => {
   return <LogoText />;
 };
 
-export const FirstSectionHtml = () => {
+export const FirstSectionHtml = forwardRef((props, ref) => {
   const viewport = useSelector(selectThreeViewport);
   const size = useSelector(selectThreeSize);
   const camera = useSelector(selectThreeCamera);
 
-  if(!viewport || !size || !camera) return null;
+  if (!viewport || !size || !camera) return null;
 
   // Calculate font size
   const fontSize = 20 * Math.min(1, viewport.width / 128);
@@ -107,6 +111,7 @@ export const FirstSectionHtml = () => {
 
   return (
     <div
+      ref={ref}
       className="row justify-content-center vw-100 page-1 pt-3"
       style={{
         position: "absolute",
@@ -144,7 +149,9 @@ export const FirstSectionHtml = () => {
               }}
               label="Contact Us"
               icon="fa-solid fa-arrow-right-long ms-0"
-              onClick={()=>{debugger}}
+              onClick={() => {
+                debugger;
+              }}
             />
           </Fade>
           <Fade delay={300}>
@@ -167,4 +174,4 @@ export const FirstSectionHtml = () => {
       </div>
     </div>
   );
-};
+});

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { forwardRef, useImperativeHandle, useRef } from "react";
 import { Button } from "primereact/button";
 import SoFar from "../../assets/images/so-far.jpeg";
 
@@ -16,8 +16,10 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-const FifthSection = ({ scrollAreaRef }) => {
+const FifthSection = forwardRef(({ scrollAreaRef },ref) => {
   const fifthElementContainerRef = useRef();
+
+  useImperativeHandle(ref, () => fifthElementContainerRef.current);
 
   useGSAP(() => {
     gsap.set(fifthElementContainerRef.current, { opacity: 0 });
@@ -62,6 +64,6 @@ const FifthSection = ({ scrollAreaRef }) => {
       <ContactUs />
     </div>
   );
-};
+});
 
 export default FifthSection;
