@@ -113,7 +113,8 @@ const FourthSection = forwardRef((props, ref) => {
             </Slide>
           </div>
 
-          <div className="col-md-4 col-8 mb-4">
+          <div className="col-md-4 col-8
+           mb-4">
             <Zoom duration={200}>
               <Fade duration={500}>
                 <div

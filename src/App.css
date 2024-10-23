@@ -368,13 +368,13 @@ video {
 /*==============================================
 02. HEADER CSS
 ================================================*/
-#header {
+.header {
     padding: 20px 0;
     position: fixed;
     left: 0;
     right: 0;
     top: 0;
-    z-index: 999;
+    z-index: 999999;
 }
 
 .container-fluid {
@@ -400,10 +400,6 @@ a#logo {
     -ms-flex-direction: row;
     -webkit-flex-direction: row;
     flex-direction: row;
-}
-
-.navbar-nav li {
-    margin-left: 30px;
 }
 
 .navbar-nav li a {
