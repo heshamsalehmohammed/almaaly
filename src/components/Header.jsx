@@ -86,7 +86,7 @@ const Header = () => {
           </Slide>
         </div>
       </header>
-      <div className={`menu-container ${showMenu?'active':'deactive'}`}>
+      {showMenu && <div className={`menu-container ${showMenu?'active':'deactive'}`}>
         <div className="overlay" />
         <div className="menu-items">
           <ul className="p-0 display-1">
@@ -99,7 +99,7 @@ const Header = () => {
             ))}
           </ul>
         </div>
-      </div>
+      </div>}
     </>
   );
 };

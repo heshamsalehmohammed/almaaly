@@ -133,24 +133,27 @@ const SecondSection = forwardRef((props,ref) => {
       <div className="col-md-5 col-12 position-relative p-0 p-sm-1">
         <div className="section2-slider-container">
           <Swiper
-            loop={true}
             slidesPerView={"auto"}
             centeredSlides={true}
             className="gallery-swiper"
             spaceBetween={30}
-            autoplay={{
+               loop={true}
+          autoplay={{
               delay: 3000,
               disableOnInteraction: false,
-            }}
+            }} 
             modules={[Autoplay]}
             initialSlide={Math.floor(gallery.length / 2)}
           >
             {gallery.map((item, index) => (
               <SwiperSlide
-                className="gallery-slide-item text-center" // Removed ms-2 me-2
+                className="gallery-slide-item text-center active" // Removed ms-2 me-2
                 key={index}
               >
+
+
                 <img src={item.img} alt={`Slide ${index + 1}`} />
+                
               </SwiperSlide>
             ))}
           </Swiper>
