@@ -1,4 +1,4 @@
-import React, { forwardRef, useImperativeHandle, useRef } from "react";
+import React, { forwardRef, useEffect, useImperativeHandle, useRef } from "react";
 import { Button } from "primereact/button";
 import SoFar from "../../assets/images/so-far.jpeg";
 
@@ -16,46 +16,62 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-const FifthSection = forwardRef(({ scrollAreaRef },ref) => {
+const FifthSection = forwardRef(({ scrollAreaRef,threeSceneRef },ref) => {
   const fifthElementContainerRef = useRef();
 
   useImperativeHandle(ref, () => fifthElementContainerRef.current);
 
   useGSAP(() => {
-    gsap.set(fifthElementContainerRef.current, { opacity: 0 });
-
-    gsap.to(fifthElementContainerRef.current, {
-      opacity: 0.75,
-      duration: 1, // ad00", // when sticky element hits top of the viewport
-      scrub: 1,
-      scrollTrigger: {
-        scroller: scrollAreaRef.current,
-        trigger: fifthElementContainerRef.current,
-        start: "=1000",
-        scrub: 1, // smooth scrolling effect
-        markers: false, // set true to visualize start and end markers
+    ScrollTrigger.matchMedia({
+      // Desktop
+      "(min-width: 1024px)": function () {
+        // Set initial opacity
+        gsap.set(fifthElementContainerRef.current, { opacity: 0 });
+  
+        // Animation 1: Opacity animation
+        gsap.to(fifthElementContainerRef.current, {
+          opacity: 0.75,
+          duration: 1,
+          scrub: 1,
+          scrollTrigger: {
+            scroller: scrollAreaRef.current,
+            trigger: fifthElementContainerRef.current,
+            start: "=1000",
+            scrub: 1,
+            markers: false,
+          },
+        });
+  
+        // Animation 2: Pinning element
+        gsap.to(fifthElementContainerRef.current, {
+          scrollTrigger: {
+            scroller: scrollAreaRef.current,
+            trigger: fifthElementContainerRef.current,
+            start: "top top",
+            end: "+=2000",
+            pin: true,
+            scrub: 1,
+            markers: false,
+          },
+        });
       },
+  
+      // Mobile
+      "(max-width: 1023px)": function () {
+        gsap.set(fifthElementContainerRef.current, { opacity: 0.75 });
+        // No animation on mobile
+        // Optionally, you can reset styles or add mobile-specific animations here
+      }
     });
-
-    gsap.to(fifthElementContainerRef.current, {
-      scrollTrigger: {
-        scroller: scrollAreaRef.current,
-        trigger: fifthElementContainerRef.current,
-        start: "top top", // when sticky element hits top of the viewport
-        end: "+=3000",
-        pin: true, // pin the element in place
-        scrub: 1, // smooth scrolling effect
-        markers: false, // set true to visualize start and end markers
-      },
-    });
-  }, {});
+  }, []);
 
   return (
     <div
       ref={fifthElementContainerRef}
-      className="row justify-content-center align-content-center vw-100 vh-100"
+      className="row justify-content-center align-content-center vw-100 p-0 m-0"
       style={{
         minHeight: `${100}vh`,
+/*         marginTop:`${100}vh`, */
         background: "linear-gradient(to bottom, #4096ee 0%, #39ced6 100%)",
       }}
     >

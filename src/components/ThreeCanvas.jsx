@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useLayoutEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import Header from "./Header";
 import { ThreeBackgroundVideo } from "./BackgroundVideo";
@@ -18,71 +18,74 @@ import ThreeCanvasUpdater from "./ThreeCanvasUpdater";
 import { FirstSectionCanvas } from "./Sections/FirstSection";
 import Effects from "../Effects";
 import LayerCardSection from "./Sections/LayerCardSection";
+import ContactUs from "./Sections/ContactUs";
 
-const ThreeCanvasContent = ({ domRef }) => {
+const ThreeCanvasContent = ({ domRef, sceneStateRef }) => {
   const group = useRef();
   const backgroundRef = useRef();
   const smoothScroll = useRef(0);
-  const layerCardSectionRef = useRef()
-
+  const layerCardRef = useRef();
   const { viewport, size } = useThree();
+
+  useLayoutEffect(() => {
+    sceneStateRef.current.scenePages =
+      domRef.current.domStateRef.current.domPages;
+    sceneStateRef.current.clientHeight = viewport.height;
+    sceneStateRef.current.scrollHeight =
+      viewport.height * domRef.current.domStateRef.current.domPages;
+    sceneStateRef.current.scrollableHeight =
+      viewport.height * (domRef.current.domStateRef.current.domPages - 1);
+    sceneStateRef.current.threshold =
+      -layerCardRef.current.startScenePositionForScrollingZ /
+      sceneStateRef.current.scrollableHeight;
+  }, [viewport, domRef.current.domStateRef.current.domPages]);
+
   const vec = new THREE.Vector3();
 
-
   useFrame((state, delta) => {
-    const scrollEl = domRef?.current?.scrollAreaRef?.current;
-
-    if (!scrollEl) return
-
-    const scrollTop = scrollEl.scrollTop;
-    const scrollHeight = scrollEl.scrollHeight;
-    const clientHeight = scrollEl.clientHeight;
-    const scrollableHeight = scrollHeight - clientHeight;
-    const scrollCurrent = scrollTop / scrollableHeight;
-
-    const pages = scrollHeight / clientHeight;
-    const totalDistance = viewport.height * (pages - 1);
-
+    if (!domRef.current) return;
     // Damping factor
     const dampingFactor = 100;
 
     // Smoothly interpolate the scroll offset
     smoothScroll.current = THREE.MathUtils.damp(
       smoothScroll.current,
-      scrollCurrent,
+      domRef.current.domStateRef.current.normalizedScrollTop,
       dampingFactor,
       delta
     );
 
-
-
-    const positionTop = layerCardSectionRef.current.positionTop;
-    const threshold = -positionTop / totalDistance;
-  
     // Positions
-    const yPosition =
-      smoothScroll.current < threshold
-        ? smoothScroll.current * totalDistance
-        : threshold * totalDistance;
-    const zScrollFactor = 250; // Adjust as needed
-    const zPosition =
-      smoothScroll.current < threshold
+    sceneStateRef.current.yPosition =
+      smoothScroll.current < sceneStateRef.current.threshold
+        ? smoothScroll.current * sceneStateRef.current.scrollableHeight
+        : sceneStateRef.current.threshold *
+          sceneStateRef.current.scrollableHeight;
+
+    sceneStateRef.current.zPosition =
+      smoothScroll.current < sceneStateRef.current.threshold
         ? 0
-        : (smoothScroll.current - threshold) * zScrollFactor;
+        : (smoothScroll.current - sceneStateRef.current.threshold) *
+          sceneStateRef.current.zScrollFactor;
 
     group.current.position.lerp(
       vec.set(
         0,
-         yPosition,
-         zPosition
+        sceneStateRef.current.yPosition,
+        sceneStateRef.current.zPosition
       ),
       0.2
     );
-
-     backgroundRef.current.position.lerp(
-      vec.set(0, 0, smoothScroll.current < threshold ? 0 : zPosition),
+    backgroundRef.current.position.lerp(
+      vec.set(
+        0,
+        0,
+        smoothScroll.current < sceneStateRef.current.threshold
+          ? 0
+          : sceneStateRef.current.zPosition
+      ),
       0.2
-    ); 
+    );
   });
 
   return (
@@ -91,16 +94,36 @@ const ThreeCanvasContent = ({ domRef }) => {
       {/* my scrollable group */}
       <group ref={group}>
         <FirstSectionCanvas domRef={domRef} />
-        <LayerCardSection domRef={domRef} ref={layerCardSectionRef}/>
+        <LayerCardSection
+          domRef={domRef}
+          sceneStateRef={sceneStateRef}
+          ref={layerCardRef}
+        />
       </group>
     </>
   );
 };
 
-const ThreeCanvas = ({ domRef }) => {
+const ThreeCanvas = forwardRef(({ domRef },ref) => {
 
+  const canvasRef = useRef();
+  const sceneStateRef = useRef({
+    scrollableHeight: 0,
+    scrollHeight: 0,
+    clientHeight: 0,
+    scenePages: 0,
+    threshold: 0,
+    yPosition: 0,
+    zPosition: 0,
+    zScrollFactor: 250,
+  });
 
-
+  useImperativeHandle(ref, () => {
+    return {
+      canvasRef,
+      sceneStateRef,
+    };
+  });
 
   return (
     <Canvas
@@ -115,10 +138,10 @@ const ThreeCanvas = ({ domRef }) => {
 
       <directionalLight position={[0, 0, 10]} intensity={1} castShadow />
 
-      <Effects domRef={domRef} />
-      <ThreeCanvasContent domRef={domRef} />
+      <Effects domRef={domRef} sceneStateRef={sceneStateRef} />
+      <ThreeCanvasContent domRef={domRef} sceneStateRef={sceneStateRef} />
     </Canvas>
   );
-};
+});
 
 export default ThreeCanvas;

@@ -18,12 +18,13 @@ const App = () => {
   }, []);
 
   const domRef = useRef()
+  const threeSceneRef = useRef()
 
   return (
     <>
       <Header />
-      <ThreeCanvas domRef={domRef}/>
-      <ScrollArea ref={domRef}/>
+      <ThreeCanvas ref={threeSceneRef} domRef={domRef}/>
+      <ScrollArea ref={domRef} threeSceneRef={threeSceneRef}/>
       <SocialIcons />
     </>
   );

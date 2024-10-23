@@ -12,16 +12,16 @@ import {
 import { BlendFunction } from "postprocessing";
 import { useSelector } from "react-redux";
 
-const Effects = ({domRef}) => {
+const Effects = ({domRef,sceneStateRef}) => {
   const vignetteRef = useRef();
 
   const darknessTarget = useRef(0.9); // To store the target darkness value
 
   useFrame((_, delta) => {
-
+ 
     const scrollY = domRef.current.domStateRef.current.normalizedScrollTop; // Normalized scroll value (0 to 1)
-    const start = 0.1; // Corresponds to 50vh
-    const end = 0.2; // Corresponds to 100vh
+    const start = 0.5 * sceneStateRef.current.clientHeight / sceneStateRef.current.scrollableHeight; // Corresponds to 50vh
+    const end = sceneStateRef.current.clientHeight / sceneStateRef.current.scrollableHeight; // Corresponds to 100vh
 
     // Interpolate darkness between 0.9 and 0
     const progress = (scrollY - start) / (end - start);

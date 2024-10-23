@@ -3,6 +3,7 @@ import {
   useCallback,
   useEffect,
   useImperativeHandle,
+  useLayoutEffect,
   useRef,
   useState,
 } from "react";
@@ -16,7 +17,7 @@ import _ from "lodash";
 import FifthSection from "./Sections/FifthSection";
 import FooterSection from "./Sections/FooterSection";
 
-const ScrollArea = forwardRef((props, ref) => {
+const ScrollArea = forwardRef(({threeSceneRef}, ref) => {
   const scrollAreaRef = useRef(null);
   const bottomElementRef = useRef(null);
   const firstSectionRef = useRef(null);
@@ -26,11 +27,22 @@ const ScrollArea = forwardRef((props, ref) => {
   const fifthSectionRef = useRef(null);
   const footerSectionRef = useRef(null);
   const domStateRef = useRef({
-    scrollTop: 0,
+    scrollTop:0,
     normalizedScrollTop: 0,
-    threshold: 9,
+    scrollableHeight: 0,
+    scrollHeight:0,
+    clientHeight:0,
+    domPages: 0,
     mouse: [0, 0],
   })
+
+  useLayoutEffect(() => {
+    domStateRef.current.scrollHeight = scrollAreaRef.current.scrollHeight;
+    domStateRef.current.clientHeight = scrollAreaRef.current.clientHeight;
+    domStateRef.current.scrollableHeight = scrollAreaRef.current.scrollHeight - scrollAreaRef.current.clientHeight
+    domStateRef.current.domPages = scrollAreaRef.current.scrollHeight / scrollAreaRef.current.clientHeight
+  }, []);
+
 
   useImperativeHandle(ref, () => ({
     scrollAreaRef,
@@ -44,31 +56,18 @@ const ScrollArea = forwardRef((props, ref) => {
     domStateRef
   }));
 
-  // Calculate maxScroll based on the scrollable content's height
-  const getMaxScroll = () => window.innerHeight * 3; // 400vh
-
-  const maxScrollRef = useRef(getMaxScroll());
-  const ticking = useRef(false);
-
   // Handler to update top and normalizedTop
   const onScroll = (e) => {
     const scrollTop = e.target.scrollTop;
-    const maxScroll = maxScrollRef.current;
-
-    // Calculate normalizedTop, clamped between 0 and 1
-    const normalizedTop = Math.min(scrollTop / maxScroll, 1);
-
-    // Dispatch actions to update Redux store
+    const normalizedTop = Math.min(scrollTop / domStateRef.current.scrollableHeight, 1);
     domStateRef.current.scrollTop = scrollTop;
     domStateRef.current.normalizedScrollTop = normalizedTop;
   };
 
-  // Initial dispatch to set top and normalizedTop on mount
   useEffect(() => {
     if (scrollAreaRef.current) {
       onScroll({ target: scrollAreaRef.current });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onPointerMove = (e) => {
@@ -77,6 +76,21 @@ const ScrollArea = forwardRef((props, ref) => {
       (e.clientY / window.innerHeight) * 2 - 1,
     ];
   };
+
+
+  const handleResize =() => {
+    domStateRef.current.scrollHeight = scrollAreaRef.current.scrollHeight;
+    domStateRef.current.clientHeight = scrollAreaRef.current.clientHeight;
+    domStateRef.current.scrollableHeight = scrollAreaRef.current.scrollHeight - scrollAreaRef.current.clientHeight
+    domStateRef.current.domPages = scrollAreaRef.current.scrollHeight / scrollAreaRef.current.clientHeight
+  }
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
     <div
@@ -96,7 +110,7 @@ const ScrollArea = forwardRef((props, ref) => {
           elementBeforeRef={fourthSectionRef}
           positionTop={"400vh"}
         />
-        <FifthSection ref={fifthSectionRef} scrollAreaRef={scrollAreaRef} />
+        <FifthSection ref={fifthSectionRef} scrollAreaRef={scrollAreaRef} threeSceneRef={threeSceneRef}/>
         <FooterSection ref={footerSectionRef} />
       </div>
     </div>

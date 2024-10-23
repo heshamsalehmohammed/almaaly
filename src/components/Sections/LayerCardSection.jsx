@@ -77,79 +77,106 @@ function Text({
   );
 }
 
-const Layercard = forwardRef(({
-  depth,
-  boxWidth,
-  boxHeight,
-  text,
-  textColor,
-  color,
-  map,
-  textScaleFactor,
-  domRef
-},ref) =>{
-  const { viewport } = useThree();
+const Layercard = forwardRef(
+  (
+    {
+      depth,
+      boxWidth,
+      boxHeight,
+      text,
+      textColor,
+      color,
+      map,
+      textScaleFactor,
+      domRef,
+    },
+    ref
+  ) => {
+    const { viewport } = useThree();
 
-  return (
-    <group ref={ref}>
-      <mesh position={[boxWidth / 2, -boxHeight / 2, depth]}>
-        {/* Update planeBufferGeometry to PlaneGeometry */}
-        <planeGeometry args={[boxWidth, boxHeight]} />
-        <meshBasicMaterial
-          color={color}
-          map={map}
-          toneMapped={false}
-          transparent
-          opacity={1}
-        />
-      </mesh>
-      <Text
-        bold
-        position={[boxWidth / 2, -boxHeight / 2, depth + 1.5]}
-        maxWidth={(viewport.width / 3) * 1}
-        anchorX="center"
-        anchorY="middle"
-        fontSize={0.6 * textScaleFactor}
-        lineHeight={1}
-        letterSpacing={-0.05}
-        color={textColor}
-      >
-        {text}
-      </Text>
-    </group>
-  );
-})
+    return (
+      <group ref={ref}>
+        <mesh position={[boxWidth / 2, -boxHeight / 2, depth]}>
+          {/* Update planeBufferGeometry to PlaneGeometry */}
+          <planeGeometry args={[boxWidth, boxHeight]} />
+          <meshBasicMaterial
+            color={color}
+            map={map}
+            toneMapped={false}
+            transparent
+            opacity={1}
+          />
+        </mesh>
+        <Text
+          bold
+          position={[boxWidth / 2, -boxHeight / 2, depth + 1.5]}
+          maxWidth={(viewport.width / 3) * 1}
+          anchorX="center"
+          anchorY="middle"
+          fontSize={0.6 * textScaleFactor}
+          lineHeight={1}
+          letterSpacing={-0.05}
+          color={textColor}
+        >
+          {text}
+        </Text>
+      </group>
+    );
+  }
+);
 
-
-const LayerCardSection = forwardRef(({ domRef },ref) => {
+const LayerCardSection = forwardRef(({ domRef,sceneStateRef }, ref) => {
   const { viewport, size, camera } = useThree();
   const layerCardRef = useRef();
   const [bW, bH] = useAspect(1920, 800, 0.5);
   const texture = useLoader(THREE.TextureLoader, "/students.jpg");
   const scale = Math.min(1, viewport.width / 128);
 
-  let scrollTop =  domRef?.current?.domStateRef?.current?.scrollTop ?? 0;
+  // initial value will be overwritten 3la tool
   let y = 900;
   let yUnit = "vh";
 
+
+
+
+
+  // when first render
   if (domRef?.current?.bottomElementRef?.current) {
     const { bottom } =
       domRef.current.bottomElementRef.current.getBoundingClientRect();
-    y = bottom + scrollTop;
+    y = bottom;
     yUnit = "px";
   }
+  const positionTopRef = useRef(
+    projectYToScene(y, yUnit, camera, viewport, size)
+  );
+  // end when first render
 
-  const positionTopRef = useRef(projectYToScene(y, yUnit, camera, viewport, size));
+
+
+
 
   useLayoutEffect(() => {
-    positionTopRef.current = projectYToScene(y, yUnit, camera, viewport, size)
-  }, [])
+    /* first section height will be always 100vh i.e. 1 size.height */
+    const h1 = size.height 
+    const { height: h2 } =
+      domRef.current.secondSectionRef.current.getBoundingClientRect();
+    const { height: h3 } =
+      domRef.current.thirdSectionRef.current.getBoundingClientRect();
+    const { height: h4 } =
+      domRef.current.fourthSectionRef.current.getBoundingClientRect();
+    const { height: h5 } =
+      domRef.current.bottomElementRef.current.getBoundingClientRect();
+    y = h1 + h2 + h3 + h4 + h5;
+    positionTopRef.current = projectYToScene(y, yUnit, camera, viewport, size);
+  }, [size]);
 
-  useImperativeHandle(ref, () => ({
-    positionTop: positionTopRef.current -bH,
-    layerCardRef
-  }));
-  
+  useImperativeHandle(ref, () => {
+    return {
+      startScenePositionForScrollingZ: positionTopRef.current - bH,
+      layerCardRef,
+    };
+  });
 
   return (
     <Flex
@@ -157,8 +184,8 @@ const LayerCardSection = forwardRef(({ domRef },ref) => {
       position={[-viewport.width / 2, positionTopRef.current, 0]}
       size={[viewport.width, viewport.height, 0]}
     >
-      <Box dir="row" width="100%" height="100%" align="center" justify="center" >
-        <Box >
+      <Box dir="row" width="100%" height="100%" align="center" justify="center">
+        <Box>
           <Layercard
             depth={0}
             color={"#cccccc"}
@@ -172,6 +199,7 @@ const LayerCardSection = forwardRef(({ domRef },ref) => {
             textScaleFactor={6 * scale}
             ref={layerCardRef}
           />
+
         </Box>
       </Box>
     </Flex>
