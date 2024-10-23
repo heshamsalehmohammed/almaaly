@@ -12,9 +12,8 @@ const contactUsRef = useRef()
 
   return (
     <div className=" row w-100 justify-content-center  mt-5 mb-5 " ref={contactUsRef}>
-      <div className="col-12">
-        <span>Contact</span>
-        <h2>Get In Touch!</h2>
+      <div className="col-12 mb-3">
+        <h1>Get In Touch!</h1>
       </div>
 
       <div className="row justify-content-center">
