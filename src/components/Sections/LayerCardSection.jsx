@@ -125,7 +125,7 @@ const Layercard = forwardRef(
   }
 );
 
-const LayerCardSection = forwardRef(({ domRef,sceneStateRef }, ref) => {
+const LayerCardSection = forwardRef(({ domRef, sceneStateRef }, ref) => {
   const { viewport, size, camera } = useThree();
   const layerCardRef = useRef();
   const [bW, bH] = useAspect(1920, 800, 0.5);
@@ -135,10 +135,6 @@ const LayerCardSection = forwardRef(({ domRef,sceneStateRef }, ref) => {
   // initial value will be overwritten 3la tool
   let y = 900;
   let yUnit = "vh";
-
-
-
-
 
   // when first render
   if (domRef?.current?.bottomElementRef?.current) {
@@ -152,13 +148,9 @@ const LayerCardSection = forwardRef(({ domRef,sceneStateRef }, ref) => {
   );
   // end when first render
 
-
-
-
-
   useLayoutEffect(() => {
     /* first section height will be always 100vh i.e. 1 size.height */
-    const h1 = size.height 
+    const h1 = size.height;
     const { height: h2 } =
       domRef.current.secondSectionRef.current.getBoundingClientRect();
     const { height: h3 } =
@@ -168,10 +160,13 @@ const LayerCardSection = forwardRef(({ domRef,sceneStateRef }, ref) => {
     const { height: h5 } =
       domRef.current.bottomElementRef.current.getBoundingClientRect();
 
-      const { height: h6 } =
+    const { height: h6 } =
       domRef.current.studentsGallarySectionRef.current.getBoundingClientRect();
-      
-    y = h1 + h2 + h3 + h4 + h5 + h6;
+
+    const { height: h7 } =
+      domRef.current.quotesSectionRef.current.getBoundingClientRect();
+
+    y = h1 + h2 + h3 + h4 + h5 + h6 + h7;
     positionTopRef.current = projectYToScene(y, yUnit, camera, viewport, size);
   }, [size]);
 
@@ -203,7 +198,6 @@ const LayerCardSection = forwardRef(({ domRef,sceneStateRef }, ref) => {
             textScaleFactor={6 * scale}
             ref={layerCardRef}
           />
-
         </Box>
       </Box>
     </Flex>

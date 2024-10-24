@@ -17,6 +17,7 @@ import _ from "lodash";
 import FifthSection from "./Sections/FifthSection";
 import FooterSection from "./Sections/FooterSection";
 import StudentsGallarySection from "./Sections/StudentsGallarySection";
+import QuotesSection from "./Sections/QuotesSection";
 
 const ScrollArea = forwardRef(({threeSceneRef}, ref) => {
   const scrollAreaRef = useRef(null);
@@ -24,7 +25,8 @@ const ScrollArea = forwardRef(({threeSceneRef}, ref) => {
   const firstSectionRef = useRef(null);
   const secondSectionRef = useRef(null);
   const thirdSectionRef = useRef(null);
-  const studentsGallarySectionRef = useRef();
+  const studentsGallarySectionRef = useRef(null);
+  const quotesSectionRef = useRef(null)
   const fourthSectionRef = useRef(null);
   const fifthSectionRef = useRef(null);
   const footerSectionRef = useRef(null);
@@ -54,6 +56,7 @@ const ScrollArea = forwardRef(({threeSceneRef}, ref) => {
     thirdSectionRef,
     studentsGallarySectionRef,
     fourthSectionRef,
+    quotesSectionRef,
     fifthSectionRef,
     footerSectionRef,
     domStateRef
@@ -108,6 +111,7 @@ const ScrollArea = forwardRef(({threeSceneRef}, ref) => {
         <ThirdSection ref={thirdSectionRef} />
         <StudentsGallarySection ref={studentsGallarySectionRef} scrollAreaRef={scrollAreaRef} />
         <FourthSection ref={fourthSectionRef} />
+        <QuotesSection ref={quotesSectionRef} scrollAreaRef={scrollAreaRef}/>
         <BottomPage
           ref={bottomElementRef}
           scrollAreaRef={scrollAreaRef}

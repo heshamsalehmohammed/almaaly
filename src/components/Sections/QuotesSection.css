@@ -1,0 +1,15 @@
+.quotes-section {}
+
+
+
+
+
+.quotes-section .quotes-img {
+    border-radius: 25px;
+    object-fit: cover;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    min-width: 225px;
+    min-height: 225px;
+}

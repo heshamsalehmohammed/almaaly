@@ -159,7 +159,7 @@ const StudentsGallarySection = forwardRef(({ scrollAreaRef }, ref) => {
                   className="student-gallary-img-container"
                   ref={addToRefs}
                 >
-                  <img src={item.img} alt={`Slide ${index + 1}`} />
+                  <img src={item.img} />
                 </div>
               );
             })}
