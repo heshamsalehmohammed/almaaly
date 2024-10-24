@@ -16,6 +16,7 @@ import { useDispatch } from "react-redux";
 import _ from "lodash";
 import FifthSection from "./Sections/FifthSection";
 import FooterSection from "./Sections/FooterSection";
+import StudentsGallarySection from "./Sections/StudentsGallarySection";
 
 const ScrollArea = forwardRef(({threeSceneRef}, ref) => {
   const scrollAreaRef = useRef(null);
@@ -23,6 +24,7 @@ const ScrollArea = forwardRef(({threeSceneRef}, ref) => {
   const firstSectionRef = useRef(null);
   const secondSectionRef = useRef(null);
   const thirdSectionRef = useRef(null);
+  const studentsGallarySectionRef = useRef();
   const fourthSectionRef = useRef(null);
   const fifthSectionRef = useRef(null);
   const footerSectionRef = useRef(null);
@@ -50,6 +52,7 @@ const ScrollArea = forwardRef(({threeSceneRef}, ref) => {
     firstSectionRef,
     secondSectionRef,
     thirdSectionRef,
+    studentsGallarySectionRef,
     fourthSectionRef,
     fifthSectionRef,
     footerSectionRef,
@@ -103,6 +106,7 @@ const ScrollArea = forwardRef(({threeSceneRef}, ref) => {
         <FirstSectionHtml ref={firstSectionRef} />
         <SecondSection ref={secondSectionRef} />
         <ThirdSection ref={thirdSectionRef} />
+        <StudentsGallarySection ref={studentsGallarySectionRef} scrollAreaRef={scrollAreaRef} />
         <FourthSection ref={fourthSectionRef} />
         <BottomPage
           ref={bottomElementRef}

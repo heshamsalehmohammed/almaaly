@@ -167,7 +167,11 @@ const LayerCardSection = forwardRef(({ domRef,sceneStateRef }, ref) => {
       domRef.current.fourthSectionRef.current.getBoundingClientRect();
     const { height: h5 } =
       domRef.current.bottomElementRef.current.getBoundingClientRect();
-    y = h1 + h2 + h3 + h4 + h5;
+
+      const { height: h6 } =
+      domRef.current.studentsGallarySectionRef.current.getBoundingClientRect();
+      
+    y = h1 + h2 + h3 + h4 + h5 + h6;
     positionTopRef.current = projectYToScene(y, yUnit, camera, viewport, size);
   }, [size]);
 
