@@ -39,6 +39,7 @@ const Quote = forwardRef(({ img, top }, ref) => {
         borderRadius: "25px",
         position: "absolute",
         top,
+        
       }}
     >
       <div className=" col-10 col-md-6">
@@ -53,10 +54,10 @@ const Quote = forwardRef(({ img, top }, ref) => {
           <div className="" style={{opacity: '0.7'}}>Andrew Lockhead, President and Co-founder</div>
         </div>
       </div>
-      <div className="col-10 col-md-6">
-       
-          <img className="quotes-img mt-3 mt-sm-0 mb-3 mb-sm-0" src={img} />
-        
+      <div className="col-10 col-md-6 ">
+        <div className="quotes-img-container mt-3 mt-sm-0 mb-3 mb-sm-0">
+          <img src={img} />
+        </div>
       </div>
     </div>
   );
@@ -71,37 +72,97 @@ const QuotesSection = forwardRef(({ scrollAreaRef }, ref) => {
 
   useImperativeHandle(ref, () => quotesSectionRef.current);
 
-
-
-  useGSAP(() => {
-
-    setTimeout(()=>{
-      gsap.set(quote2Ref.current, {
-        position: 'absolute',
-        top: `0`,
-      });
+  const applyGsapSet = () => {
+    gsap.set(quote1Ref.current, {
+      position: 'absolute',
+      top: '0',
+    });
+    if (window.matchMedia('(max-width: 575.98px)').matches) {
 
       gsap.set(quote2Ref.current, {
         position: 'absolute',
-        top: `calc(${quote1Ref.current.offsetHeight}px + 10vh)`,
+        top: `100vh`,
       });
-
+  
       gsap.set(quote3Ref.current, {
         position: 'absolute',
-        top: `calc(${quote1Ref.current.offsetHeight + quote2Ref.current.offsetHeight}px + 20vh)`,
+        top: `200vh`,
       });
-
+  
       gsap.set(quote4Ref.current, {
         position: 'absolute',
-        top: `calc(${quote1Ref.current.offsetHeight + quote2Ref.current.offsetHeight + quote3Ref.current.offsetHeight}px + 30vh)`,
+        top: `300vh`,
       });
-
+  
       gsap.set(quotesSectionRef.current, {
-
-        height: `calc(${quote1Ref.current.offsetHeight + quote2Ref.current.offsetHeight + quote3Ref.current.offsetHeight + quote4Ref.current.offsetHeight}px + 40vh)`,
+        height: `400vh`,
       });
-    },300)
+    } else if (window.matchMedia('(min-width: 576px) and (max-width: 767.98px)').matches) {
+      // Small devices (sm)
 
+      gsap.set(quote2Ref.current, {
+        position: 'absolute',
+        top: `100vh`,
+      });
+  
+      gsap.set(quote3Ref.current, {
+        position: 'absolute',
+        top: `200vh`,
+      });
+  
+      gsap.set(quote4Ref.current, {
+        position: 'absolute',
+        top: `300vh`,
+      });
+  
+      gsap.set(quotesSectionRef.current, {
+        height: `400vh`,
+      });
+    } else if (window.matchMedia('(min-width: 768px) and (max-width: 991.98px)').matches) {
+      // Medium devices (md)
+      gsap.set(quote2Ref.current, {
+        position: 'absolute',
+        top: `90vh`,
+      });
+  
+      gsap.set(quote3Ref.current, {
+        position: 'absolute',
+        top: `180vh`,
+      });
+  
+      gsap.set(quote4Ref.current, {
+        position: 'absolute',
+        top: `270vh`,
+      });
+  
+      gsap.set(quotesSectionRef.current, {
+        height: `360vh`,
+      });
+    } else if (window.matchMedia('(min-width: 992px)').matches) {
+      // Large devices and above (lg, xl)
+      gsap.set(quote2Ref.current, {
+        position: 'absolute',
+        top: `80vh`,
+      });
+  
+      gsap.set(quote3Ref.current, {
+        position: 'absolute',
+        top: `160vh`,
+      });
+  
+      gsap.set(quote4Ref.current, {
+        position: 'absolute',
+        top: `240vh`,
+      });
+  
+      gsap.set(quotesSectionRef.current, {
+        height: `320vh`,
+      });
+    }
+  };
+
+  useGSAP(() => {
+    applyGsapSet();
 
     // animate quote 1
 
@@ -114,6 +175,8 @@ const QuotesSection = forwardRef(({ scrollAreaRef }, ref) => {
         endTrigger: quote4Ref.current,
         end: "center center",
         pin: true,
+        pinType: window.matchMedia('(max-width: 767px)').matches? 'fixed':undefined,
+        fastScrollEnd:  window.matchMedia('(max-width: 767px)').matches? true :undefined,
         pinSpacing: true,
         markers: false,
       },
@@ -144,6 +207,8 @@ const QuotesSection = forwardRef(({ scrollAreaRef }, ref) => {
         end: "center center",
         pin: true,
         pinSpacing: true,
+        pinType: window.matchMedia('(max-width: 767px)').matches? 'fixed':undefined,
+        fastScrollEnd:  window.matchMedia('(max-width: 767px)').matches? true :undefined,
         markers: false,
       },
     });
@@ -173,6 +238,8 @@ const QuotesSection = forwardRef(({ scrollAreaRef }, ref) => {
         end: "center center",
         pin: true,
         pinSpacing: true,
+        pinType: window.matchMedia('(max-width: 767px)').matches? 'fixed':undefined,
+        fastScrollEnd:  window.matchMedia('(max-width: 767px)').matches? true :undefined,
         markers: false,
       },
     });
@@ -204,7 +271,7 @@ const QuotesSection = forwardRef(({ scrollAreaRef }, ref) => {
       <div className="container mt-0 p-0 quotes-section">
         <div className="row justify-content-center text-center mt-5 mt-sm-0 ms-0 me-0 px-3">
           <div
-            className="col-11 col-sm-10 col-md-9 col-lg-8"
+            className="col-11 col-sm-10 col-md-9 col-lg-8 col-xl-7"
             style={{ position: "relative" }}
           >
             <Quote ref={quote1Ref} img={quote1}  />

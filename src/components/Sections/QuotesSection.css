@@ -1,15 +1,17 @@
 .quotes-section {}
 
 
-
-
-
-.quotes-section .quotes-img {
+.quotes-section .quotes-img-container {
     border-radius: 25px;
-    object-fit: cover;
-    width: 100%;
-    height: auto;
-    max-width: 100%;
+    overflow: hidden;
     min-width: 225px;
     min-height: 225px;
+    max-width: 450px;
+    max-height: 450px;
+}
+
+
+.quotes-section .quotes-img-container img {
+    width: 100%;
+    height: 100%;
 }

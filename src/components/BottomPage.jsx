@@ -252,10 +252,9 @@ const BottomPage = forwardRef(({ scrollAreaRef }, ref) => {
               endTrigger: lastRowRef.current,
               end: "center center", 
               pin: true, 
-              pinType: 'transform',
-              pinReparent: true,
+              pinType: 'fixed',
               fastScrollEnd: true,
-              scrub: false, // Disable smooth scroll on mobile for better performance
+              scrub: 1, // Smooth scrolling on desktop
               markers: false,
               anticipatePin: 1,
             },
@@ -339,7 +338,7 @@ const BottomPage = forwardRef(({ scrollAreaRef }, ref) => {
         <div className="row w-100 p-1 mt-1 mb-5 justify-content-center">
           <div className="col-12 col-md-8 col-lg-8 col-xl-7">
             <MainYouTubeEmbedWithAnimation
-              videoId="dQw4w9WgXcQ"
+              videoId="M5QjjUgkC48"
               scrollAreaRef={scrollAreaRef}
               ref={videoResponsiveRef}
             />
@@ -356,7 +355,7 @@ const BottomPage = forwardRef(({ scrollAreaRef }, ref) => {
             >
               <div>
                 <h1 className="py-5 display-6 display-md-5 display-lg-4  display-xl-3 fw-bold text-dark font-protest-strike">
-                  My Work
+                  Our Events
                 </h1>
               </div>
             </div>
@@ -380,7 +379,7 @@ const BottomPage = forwardRef(({ scrollAreaRef }, ref) => {
           <div className="row p-3 mt-5 mb-5 pt-5 pb-5 justify-content-center">
             <div className="col-11 col-md-6 col-lg-6 col-xl-5 pt-5 pb-5">
               <NormalYouTubeEmbedWithAnimation
-                videoId="dQw4w9WgXcQ"
+                videoId="x_3zGg9658c"
                 ref={video1Ref}
               />
             </div>
@@ -388,7 +387,7 @@ const BottomPage = forwardRef(({ scrollAreaRef }, ref) => {
           <div className="row p-3 mt-5 mb-5  pt-5 pb-5 justify-content-center">
             <div className="col-11 col-md-6 col-lg-6 col-xl-5 pt-5 pb-5">
               <NormalYouTubeEmbedWithAnimation
-                videoId="dQw4w9WgXcQ"
+                videoId="CXy_r4U9oTQ"
                 ref={video2Ref}
               />
             </div>
@@ -396,7 +395,7 @@ const BottomPage = forwardRef(({ scrollAreaRef }, ref) => {
           <div className="row p-3 mt-5 mb-5  pt-5 pb-5 justify-content-center" ref={lastRowRef}>
             <div className="col-11 col-md-6 col-lg-6 col-xl-5 pt-5 pb-5">
               <NormalYouTubeEmbedWithAnimation
-                videoId="dQw4w9WgXcQ"
+                videoId="HiwnB2aV7P0"
                 ref={video3Ref}
               />
             </div>
