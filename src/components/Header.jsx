@@ -57,7 +57,7 @@ const Header = forwardRef(({domRef,threeSceneRef},ref) => {
         const { height: h7 } =
           domRef.current.quotesSectionRef.current.getBoundingClientRect();
 
-          const h8 = 2000;
+          const h8 = window.matchMedia('(min-width: 1024px)').matches?2000:0;
 
          const y = h1 + h2 + h3 + h4 + h5 + h6 + h7 +h8;
 
