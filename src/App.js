@@ -22,7 +22,7 @@ const App = () => {
 
   return (
     <>
-      <Header />
+      <Header domRef={domRef} threeSceneRef={threeSceneRef}/>
       <ThreeCanvas ref={threeSceneRef} domRef={domRef}/>
       <ScrollArea ref={domRef} threeSceneRef={threeSceneRef}/>
       <SocialIcons />

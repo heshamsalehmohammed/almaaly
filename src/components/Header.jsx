@@ -7,16 +7,58 @@ import {
   Zoom,
   Bounce,
 } from "react-awesome-reveal";
-import './Header.css'
+import "./Header.css";
 
-const Header = () => {
+const Header = ({domRef}) => {
   const [isMobile, setIsMobile] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
 
   const navItems = [
-    { label: "Home", onClick: (e) => e.preventDefault() },
-    { label: "About Us", onClick: (e) => e.preventDefault() },
-    { label: "Contact Us", onClick: (e) => e.preventDefault() },
+    {
+      label: "Home",
+      onClick: (e) => {
+        e.preventDefault();
+        setShowMenu(false);
+        domRef.current.scrollAreaRef.current.scrollTop = 0;
+      },
+    },
+    {
+      label: "About Us",
+      onClick: (e) => {
+        e.preventDefault();
+        setShowMenu(false);
+        domRef.current.scrollAreaRef.current.scrollTop = window.innerHeight;
+      },
+    },
+    {
+      label: "Contact Us",
+      onClick: (e) => {
+        e.preventDefault();
+        setShowMenu(false);
+
+        const h1 =  window.innerHeight;
+        const { height: h2 } =
+          domRef.current.secondSectionRef.current.getBoundingClientRect();
+        const { height: h3 } =
+          domRef.current.thirdSectionRef.current.getBoundingClientRect();
+        const { height: h4 } =
+          domRef.current.fourthSectionRef.current.getBoundingClientRect();
+        const { height: h5 } =
+          domRef.current.bottomElementRef.current.getBoundingClientRect();
+    
+        const { height: h6 } =
+          domRef.current.studentsGallarySectionRef.current.getBoundingClientRect();
+    
+        const { height: h7 } =
+          domRef.current.quotesSectionRef.current.getBoundingClientRect();
+
+          const h8 = 2000;
+
+         const y = h1 + h2 + h3 + h4 + h5 + h6 + h7 +h8;
+
+         domRef.current.scrollAreaRef.current.scrollTop = y;
+      },
+    },
   ];
 
   // Function to check the window width and update state
@@ -31,10 +73,9 @@ const Header = () => {
     return () => window.removeEventListener("resize", handleResize); // Cleanup listener on unmount
   }, []);
 
-
-  const toggleShowMenu = ()=>{
-    setShowMenu((prev)=> !prev)
-  }
+  const toggleShowMenu = () => {
+    setShowMenu((prev) => !prev);
+  };
 
   return (
     <>
@@ -86,20 +127,22 @@ const Header = () => {
           </Slide>
         </div>
       </header>
-      {showMenu && <div className={`menu-container ${showMenu?'active':'deactive'}`}>
-        <div className="overlay" />
-        <div className="menu-items">
-          <ul className="p-0 display-1">
-            {navItems.map((item, index) => (
-              <li key={`nav-menu-item-${index}`} className="mb-3" >
-                <a href="#" onClick={item.onClick}>
-                  {item.label}
-                </a>
-              </li>
-            ))}
-          </ul>
+      {showMenu && (
+        <div className={`menu-container ${showMenu ? "active" : "deactive"}`}>
+          <div className="overlay" />
+          <div className="menu-items">
+            <ul className="p-0 display-1">
+              {navItems.map((item, index) => (
+                <li key={`nav-menu-item-${index}`} className="mb-3">
+                  <a href="#" onClick={item.onClick}>
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-      </div>}
+      )}
     </>
   );
 };

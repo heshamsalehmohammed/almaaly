@@ -51,7 +51,11 @@ const StudentsGallarySection = forwardRef(({ scrollAreaRef }, ref) => {
 
   const calculateAnimationPropsBasedOnMEdiaQuery = (animationProps)=>{
 
-    if(window.innerWidth > 1200) return animationProps;
+    if(window.innerWidth > 1200) return {
+      scale:animationProps.scale,
+      xPercent:animationProps.xPercent,
+      yPercent:animationProps.yPercent
+    };
 
 
     const scaleFactor = (window.innerWidth/1200)*1.3

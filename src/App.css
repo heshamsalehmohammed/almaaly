@@ -1548,7 +1548,7 @@ body,
     transition: transform 0.3s;
 }
 
-.gallery-swiper .swiper-slide-next::after,.gallery-swiper .swiper-slide-prev::after {
+/* .gallery-swiper .swiper-slide-next::after,.gallery-swiper .swiper-slide-prev::after {
     content: '';
     position: absolute;
     top: 0;
@@ -1559,7 +1559,7 @@ body,
     z-index: 1000;
     box-shadow: rgb(32 11 191) 0px 12px 10px 10px;
 }
-
+ */
 .gallery-slide-item img {
     width: 100%;
     height: auto;

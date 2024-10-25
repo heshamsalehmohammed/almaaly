@@ -32,7 +32,7 @@ const Text = forwardRef(
       "/three-fonts/minimized/Fira Sans Eight_Regular.json"
     );
     const config = useMemo(
-      () => ({ font, size: fontSize, height }),
+      () => ({ font, size: fontSize, depth:height }),
       [font, fontSize, height]
     );
     const { size, camera } = useThree();

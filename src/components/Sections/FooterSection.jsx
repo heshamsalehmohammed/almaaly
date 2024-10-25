@@ -108,7 +108,7 @@ const FooterSection = forwardRef(({ scrollAreaRef }, ref) => {
           <div className="row text-center">
             <div className="col-md-4 box">
               <span className="copyright quick-links">
-                Copyright &copy; Your Website {new Date().getFullYear()}
+                Copyright &copy; Almaaly {new Date().getFullYear()}
               </span>
             </div>
             <div className="col-md-4 box">
