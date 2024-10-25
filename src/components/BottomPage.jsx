@@ -1,4 +1,4 @@
-import AnimatedCanvas from "./AnimatedCanvas";
+
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
