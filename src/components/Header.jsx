@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import {
   Slide,
   Fade,
@@ -9,31 +9,36 @@ import {
 } from "react-awesome-reveal";
 import "./Header.css";
 
-const Header = ({domRef}) => {
+const Header = forwardRef(({domRef,threeSceneRef},ref) => {
   const [isMobile, setIsMobile] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
 
   const navItems = [
     {
+      id: 'home',
       label: "Home",
       onClick: (e) => {
-        e.preventDefault();
+        e?.preventDefault();
         setShowMenu(false);
         domRef.current.scrollAreaRef.current.scrollTop = 0;
       },
+      deleted:false
     },
     {
+      id:'aboutUs',
       label: "About Us",
       onClick: (e) => {
-        e.preventDefault();
+        e?.preventDefault();
         setShowMenu(false);
         domRef.current.scrollAreaRef.current.scrollTop = window.innerHeight;
       },
+      deleted:false
     },
     {
+      id:'contactUs',
       label: "Contact Us",
       onClick: (e) => {
-        e.preventDefault();
+        e?.preventDefault();
         setShowMenu(false);
 
         const h1 =  window.innerHeight;
@@ -58,8 +63,19 @@ const Header = ({domRef}) => {
 
          domRef.current.scrollAreaRef.current.scrollTop = y;
       },
+      deleted:false
     },
   ];
+
+
+  useImperativeHandle(ref, () => {
+    return {
+      goTo :(sectionId)=>{
+        const navItemToClick = navItems.find(ni => ni.id === sectionId)
+        navItemToClick.onClick();
+      }
+    }
+  });
 
   // Function to check the window width and update state
   const handleResize = () => {
@@ -105,7 +121,7 @@ const Header = ({domRef}) => {
                 }}
               >
                 {!isMobile && // Only show these items if not mobile
-                  navItems.map((item, index) => (
+                  navItems.filter(nv => !nv.deleted).map((item, index) => (
                     <li key={`nav-bar-item-${index}`} className="mx-3">
                       <a href="#" onClick={item.onClick}>
                         {item.label}
@@ -132,7 +148,7 @@ const Header = ({domRef}) => {
           <div className="overlay" />
           <div className="menu-items">
             <ul className="p-0 display-1">
-              {navItems.map((item, index) => (
+              {navItems.filter(nv => !nv.deleted).map((item, index) => (
                 <li key={`nav-menu-item-${index}`} className="mb-3">
                   <a href="#" onClick={item.onClick}>
                     {item.label}
@@ -145,6 +161,6 @@ const Header = ({domRef}) => {
       )}
     </>
   );
-};
+});
 
 export default Header;

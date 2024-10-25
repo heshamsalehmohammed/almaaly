@@ -79,7 +79,7 @@ export const FirstSectionCanvas = ({domRef}) => {
   return <LogoText domRef={domRef}/>;
 };
 
-export const FirstSectionHtml = forwardRef((props, ref) => {
+export const FirstSectionHtml = forwardRef(({headerRef}, ref) => {
   const viewport = useSelector(selectThreeViewport);
   const size = useSelector(selectThreeSize);
   const camera = useSelector(selectThreeCamera);
@@ -146,7 +146,7 @@ export const FirstSectionHtml = forwardRef((props, ref) => {
               label="Contact Us"
               icon="fa-solid fa-arrow-right-long ms-0"
               onClick={() => {
-                debugger;
+                headerRef.current.goTo('contactUs')
               }}
             />
           </Fade>

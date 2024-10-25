@@ -19,7 +19,7 @@ import FooterSection from "./Sections/FooterSection";
 import StudentsGallarySection from "./Sections/StudentsGallarySection";
 import QuotesSection from "./Sections/QuotesSection";
 
-const ScrollArea = forwardRef(({threeSceneRef}, ref) => {
+const ScrollArea = forwardRef(({threeSceneRef,headerRef}, ref) => {
   const scrollAreaRef = useRef(null);
   const bottomElementRef = useRef(null);
   const firstSectionRef = useRef(null);
@@ -106,7 +106,7 @@ const ScrollArea = forwardRef(({threeSceneRef}, ref) => {
       onPointerMove={onPointerMove}
     >
       <div style={{ width: "100vw", zIndex: "1000" }}>
-        <FirstSectionHtml ref={firstSectionRef} />
+        <FirstSectionHtml ref={firstSectionRef} headerRef={headerRef}/>
         <SecondSection ref={secondSectionRef} />
         <ThirdSection ref={thirdSectionRef} />
         <StudentsGallarySection ref={studentsGallarySectionRef} scrollAreaRef={scrollAreaRef} />

@@ -17,14 +17,15 @@ const App = () => {
       "url('https://raw.githubusercontent.com/chenglou/react-motion/master/demos/demo8-draggable-list/cursor.png') 39 39, auto";
   }, []);
 
+  const headerRef = useRef();
   const domRef = useRef()
   const threeSceneRef = useRef()
 
   return (
     <>
-      <Header domRef={domRef} threeSceneRef={threeSceneRef}/>
+      <Header ref={headerRef} domRef={domRef} threeSceneRef={threeSceneRef}/>
       <ThreeCanvas ref={threeSceneRef} domRef={domRef}/>
-      <ScrollArea ref={domRef} threeSceneRef={threeSceneRef}/>
+      <ScrollArea ref={domRef} threeSceneRef={threeSceneRef} headerRef={headerRef}/>
       <SocialIcons />
     </>
   );
