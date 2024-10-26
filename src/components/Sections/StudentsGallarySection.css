@@ -9,15 +9,24 @@
   border-radius: 25px;
   overflow: hidden;
   position: absolute;
-  left: 50%;
-  right: 50%;
-  transform: translate(-50%,-50%);
   z-index: 10;
 }
+
+.student-gallary-img-container img {
+  display: block;       /* Removes extra inline space */
+  width: 100%;          /* Ensures full container width */
+  height: 100%;         /* Ensures full container height */
+  object-fit: cover;    /* Crops to fill container without distortion */
+}
+
+
 
  .student-gallary-img-container:hover {
   z-index: 100 !important;
 }
+
+
+
 
 
 
