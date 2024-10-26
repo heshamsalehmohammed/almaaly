@@ -22,12 +22,12 @@ const FifthSection = forwardRef(({ scrollAreaRef,threeSceneRef },ref) => {
   useImperativeHandle(ref, () => fifthElementContainerRef.current);
 
   useGSAP(() => {
-    ScrollTrigger.matchMedia({
+/*     ScrollTrigger.matchMedia({
       // Desktop
-      "(min-width: 1024px)": function () {
+      "(min-width: 1024px)": function () { */
         // Set initial opacity
         gsap.set(fifthElementContainerRef.current, { opacity: 0 });
-  
+   
         // Animation 1: Opacity animation
         gsap.to(fifthElementContainerRef.current, {
           opacity: 0.75,
@@ -36,7 +36,7 @@ const FifthSection = forwardRef(({ scrollAreaRef,threeSceneRef },ref) => {
           scrollTrigger: {
             scroller: scrollAreaRef.current,
             trigger: fifthElementContainerRef.current,
-            start: "=1000",
+            start: `+=${window.innerHeight-10}`,
             scrub: 1,
             markers: false,
           },
@@ -48,13 +48,13 @@ const FifthSection = forwardRef(({ scrollAreaRef,threeSceneRef },ref) => {
             scroller: scrollAreaRef.current,
             trigger: fifthElementContainerRef.current,
             start: "top top",
-            end: "+=2000",
+            end: `+=${window.innerHeight}`,
             pin: true,
             scrub: 1,
             markers: false,
           },
         });
-      },
+/*       },
   
       // Mobile
       "(max-width: 1023px)": function () {
@@ -62,7 +62,7 @@ const FifthSection = forwardRef(({ scrollAreaRef,threeSceneRef },ref) => {
         // No animation on mobile
         // Optionally, you can reset styles or add mobile-specific animations here
       }
-    });
+    }); */
   }, []);
 
   return (

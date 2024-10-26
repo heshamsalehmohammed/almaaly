@@ -35,9 +35,12 @@ const ThreeCanvasContent = ({ domRef, sceneStateRef }) => {
       viewport.height * domRef.current.domStateRef.current.domPages;
     sceneStateRef.current.scrollableHeight =
       viewport.height * (domRef.current.domStateRef.current.domPages - 1);
+      sceneStateRef.current.startScenePositionForScrollingZ = layerCardRef.current.startScenePositionForScrollingZ;
     sceneStateRef.current.threshold =
       -layerCardRef.current.startScenePositionForScrollingZ /
       sceneStateRef.current.scrollableHeight;
+
+      sceneStateRef.current.zScrollFactor = 30 * (domRef.current.domStateRef.current.domPages - 1);
   }, [viewport, domRef.current.domStateRef.current.domPages]);
 
   const vec = new THREE.Vector3();
@@ -65,8 +68,7 @@ const ThreeCanvasContent = ({ domRef, sceneStateRef }) => {
     sceneStateRef.current.zPosition =
       smoothScroll.current < sceneStateRef.current.threshold
         ? 0
-        : (smoothScroll.current - sceneStateRef.current.threshold) *
-          sceneStateRef.current.zScrollFactor;
+        : (smoothScroll.current - sceneStateRef.current.threshold) * sceneStateRef.current.zScrollFactor;
 
     group.current.position.lerp(
       vec.set(
@@ -91,7 +93,6 @@ const ThreeCanvasContent = ({ domRef, sceneStateRef }) => {
   return (
     <>
       <ThreeBackgroundVideo ref={backgroundRef} />
-      {/* my scrollable group */}
       <group ref={group}>
         <FirstSectionCanvas domRef={domRef} />
         <LayerCardSection
@@ -106,12 +107,12 @@ const ThreeCanvasContent = ({ domRef, sceneStateRef }) => {
 
 const ThreeCanvas = forwardRef(({ domRef },ref) => {
 
-  const canvasRef = useRef();
   const sceneStateRef = useRef({
     scrollableHeight: 0,
     scrollHeight: 0,
     clientHeight: 0,
     scenePages: 0,
+    startScenePositionForScrollingZ:0,
     threshold: 0,
     yPosition: 0,
     zPosition: 0,
@@ -120,14 +121,12 @@ const ThreeCanvas = forwardRef(({ domRef },ref) => {
 
   useImperativeHandle(ref, () => {
     return {
-      canvasRef,
       sceneStateRef,
     };
   });
 
   return (
     <Canvas
-      ref={canvasRef}
       shadows
       linear
       dpr={[1, 2]}

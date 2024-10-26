@@ -26,7 +26,7 @@ import {
 
 import ContactUs from "./ContactUs";
 
-function projectYToScene(y, unit = "px", camera, viewport, size) {
+export const projectYToScene = (y, unit = "px", camera, viewport, size) => {
   let yInPixels = y;
 
   // Convert 'vh' to pixels if necessary
@@ -53,6 +53,32 @@ function projectYToScene(y, unit = "px", camera, viewport, size) {
 
   return yInScene;
 }
+
+export const projectYToDOM = (yInScene, unit = "px", camera, viewport, size) => {
+  // Calculate the distance from the camera to the scene (assuming objects are at z = 0)
+  const cameraPosition = new THREE.Vector3();
+  camera.getWorldPosition(cameraPosition);
+  const distance = cameraPosition.length(); // Distance from origin to camera
+
+  // Calculate the vertical field of view in radians
+  const fov = (camera.fov * Math.PI) / 180;
+
+  // Calculate the height of the viewport at the given distance
+  const viewportHeightAtDistance = 2 * Math.tan(fov / 2) * distance;
+
+  // Calculate normalized device coordinate (NDC) Y
+  const ndcY = (2 * yInScene) / viewportHeightAtDistance;
+
+  // Convert NDC Y to pixel Y
+  const yInPixels = ((-ndcY + 1) * size.height) / 2;
+
+  // Convert pixels to 'vh' if necessary
+  if (unit === "vh") {
+    return (yInPixels / size.height) * 100;
+  }
+
+  return yInPixels;
+};
 
 function Text({
   bold = false,
