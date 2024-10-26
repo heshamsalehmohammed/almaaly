@@ -11,12 +11,6 @@ import ScrollArea from "./components/ScrollArea";
 
 
 const App = () => {
-
-  useEffect(() => {
-    document.body.style.cursor =
-      "url('https://raw.githubusercontent.com/chenglou/react-motion/master/demos/demo8-draggable-list/cursor.png') 39 39, auto";
-  }, []);
-
   const headerRef = useRef();
   const domRef = useRef()
   const threeSceneRef = useRef()

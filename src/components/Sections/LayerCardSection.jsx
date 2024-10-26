@@ -23,9 +23,7 @@ import {
   MeshDistortMaterial,
   Html,
 } from "@react-three/drei";
-import { useSelector } from "react-redux";
 
-import { Geometry, Base, Addition, Brush } from "@react-three/csg";
 import ContactUs from "./ContactUs";
 
 function projectYToScene(y, unit = "px", camera, viewport, size) {

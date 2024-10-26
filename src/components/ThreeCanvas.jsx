@@ -127,6 +127,7 @@ const ThreeCanvas = forwardRef(({ domRef },ref) => {
 
   return (
     <Canvas
+      ref={canvasRef}
       shadows
       linear
       dpr={[1, 2]}
