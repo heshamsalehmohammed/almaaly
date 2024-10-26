@@ -49,16 +49,18 @@ const StudentsGallarySection = forwardRef(({ scrollAreaRef }, ref) => {
   };
 
   const calculateAnimationPropsBasedOnMEdiaQuery = (animationProps) => {
-    if (window.innerWidth > 1200)
-      return animationProps;
-
-    const scaleFactor = (window.innerWidth / 1200) * 1.3;
-    let scale = animationProps.scale * scaleFactor;
 
 
+
+    const xToCenter = animationProps.normalizedXtoC * window.innerWidth;
+    const yToCenter = animationProps.normalizedYtoC * window.innerHeight;
+
+    const x = xToCenter - (animationProps.scale * 500)/2;
+    const y = yToCenter - (animationProps.scale * 500)/2;
     return {
-      ...animationProps,
-      scale
+      x,
+      y,
+      scale: animationProps.scale
     };
   };
 
@@ -71,7 +73,7 @@ const StudentsGallarySection = forwardRef(({ scrollAreaRef }, ref) => {
           y: window.innerHeight/2- imageRef.offsetHeight /4
         });
       });
-/**/ 
+
       imageRefs.current.forEach((imageRef, index) => {
         let animationProps = {};
 
@@ -79,60 +81,79 @@ const StudentsGallarySection = forwardRef(({ scrollAreaRef }, ref) => {
           case 0:
             animationProps = calculateAnimationPropsBasedOnMEdiaQuery({
               scale: 0.8,
-              x: 0,
-              y: 0,
+              normalizedXtoC: 0.1875,
+              normalizedYtoC: 0.2757,
+/*               x: 160,
+              y: 46 */
             });
             break;
-/*           case 1:
+         case 1:
             animationProps = calculateAnimationPropsBasedOnMEdiaQuery({
               scale: 0.85,
-              xPercent: 50,
-              yPercent: -100,
+/*               x: 1250,
+              y: 8.5, */
+              normalizedXtoC: 0.7552,
+              normalizedYtoC: 0.2337,
             });
             break;
-          case 2:
+           case 2:
             animationProps = calculateAnimationPropsBasedOnMEdiaQuery({
               scale: 0.8,
-              xPercent: -150,
-              yPercent: 10,
+/*               x: 160,
+              y: 486, */
+              normalizedXtoC: 0.1875,
+              normalizedYtoC: 0.769,
             });
             break;
-          case 3:
+           case 3:
             animationProps = calculateAnimationPropsBasedOnMEdiaQuery({
               scale: 0.85,
-              xPercent: 50,
-              yPercent: 10,
+/*               x: 1250,
+              y: 476, */
+              normalizedXtoC: 0.7552,
+              normalizedYtoC: 0.7578,
             });
             break;
+
+
+
 
           case 4:
             animationProps = calculateAnimationPropsBasedOnMEdiaQuery({
               scale: 0.75,
-              xPercent: -70,
-              yPercent: -100,
+              /* x: 600,
+              y: 60, */
+              normalizedXtoC: 0.41667,
+              normalizedYtoC: 0.2,
             });
             break;
           case 5:
             animationProps = calculateAnimationPropsBasedOnMEdiaQuery({
               scale: 0.8,
-              xPercent: 5,
-              yPercent: -50,
+/*               x: 880,
+              y: 210, */
+              normalizedXtoC: 0.5625,
+              normalizedYtoC: 0.2914,
             });
             break;
           case 6:
             animationProps = calculateAnimationPropsBasedOnMEdiaQuery({
               scale: 0.8,
-              xPercent: -100,
-              yPercent: -15,
+/*               x: 500,
+              y: 370, */
+              normalizedXtoC: 0.36458,
+              normalizedYtoC: 0.639,
             });
             break;
           case 7:
             animationProps = calculateAnimationPropsBasedOnMEdiaQuery({
               scale: 0.8,
-              xPercent: -40,
-              yPercent: 10,
+              /* x: 800,
+              y: 470, */
+              normalizedXtoC: 0.5208,
+              normalizedYtoC: 0.7511,
             });
-            break; */
+            break; 
         }
 
         gsap.to(imageRef, {
