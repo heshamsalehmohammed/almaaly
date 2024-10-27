@@ -3,6 +3,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { useRef, useState } from "react";
 import emailjs from 'emailjs-com';
+import { Button } from "primereact/button";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -95,16 +96,27 @@ const ContactUs = ({ scrollAreaRef }) => {
               <textarea
                 className="form-control"
                 name="message"
-                id="message"
+                id="messagep"
                 required
                 placeholder="Message"
                 value={formData.message}
                 onChange={handleChange}
               />
             </div>
-            <button className="btn w-100" type="submit" disabled={loading}>
-              Submit
-            </button>
+            <Button
+              type="submit" disabled={loading}
+              className=""
+              style={{
+                width: "100%",
+                borderRadius: "15px",
+                background: "#fff",
+                borderColor: "#fff",
+                boxShadow: "none",
+                color: "rgb(15 23 42 / 1)",
+              }}
+              label={loading?'... Submitting':'Submit'}
+            />
+
           </form>
           <div id="form-messages" className="mt-3">
             {error && <p style={{ color: "red" }}>{error}</p>}

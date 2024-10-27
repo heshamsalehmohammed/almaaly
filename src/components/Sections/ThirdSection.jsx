@@ -65,7 +65,7 @@ const ThirdSection = forwardRef((props, ref) => {
                   src={SoFar} // replace with the correct path to the image
                   alt="Quote"
                   className="img-fluid align-self-center"
-                  style={{minHeight:'400px'}}
+                  style={{minHeight:'400px',borderRadius:'15px'}}
                 />
               </Fade>
             </Zoom>

@@ -5,7 +5,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Autoplay, Pagination } from "swiper/modules";
-import profileGirl from "../../assets/images/profile-girl.jpg";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 

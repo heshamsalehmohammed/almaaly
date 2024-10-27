@@ -2,7 +2,6 @@
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import profile01 from "../assets/images/profile-01.jpg";
 import {
   forwardRef,
   useEffect,
@@ -14,14 +13,6 @@ import {
 import { useGSAP } from "@gsap/react";
 
 
-/* ScrollTrigger.config({
-  autoRefreshEvents: "resize,orientationchange",
-});
-window.addEventListener("resize", () => {
-  ScrollTrigger.refresh();
-}); */
-
-// Register the ScrollTrigger plugin
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const MainYouTubeEmbedWithAnimation = forwardRef(
@@ -194,7 +185,7 @@ const BottomPage = forwardRef(({ scrollAreaRef }, ref) => {
         gsap.fromTo(
           box,
           {
-            y: 75,
+            y: 80,
           },
           {
             y: 0,
