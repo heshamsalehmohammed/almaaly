@@ -1,25 +1,16 @@
 // src/components/Section2.js
 
-import React, { forwardRef, useEffect, useRef } from "react";
+import { forwardRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Autoplay, Pagination } from "swiper/modules";
-import { gsap } from "gsap";
-import { useGSAP } from "@gsap/react";
 
 import galary1 from "../../assets/images/galary-1.jpeg";
 import galary2 from "../../assets/images/galary-2.jpeg";
 import galary3 from "../../assets/images/galary-3.jpeg";
 import galary4 from "../../assets/images/galary-4.jpeg";
-import {
-  Slide,
-  Fade,
-  JackInTheBox,
-  Roll,
-  Zoom,
-  Bounce,
-} from "react-awesome-reveal";
+import { Slide } from "react-awesome-reveal";
 
 const SecondSection = forwardRef((props,ref) => {
   const facts = [

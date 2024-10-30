@@ -1,30 +1,8 @@
 import * as THREE from "three";
-import React, {
-  Suspense,
-  useEffect,
-  useRef,
-  useState,
-  useCallback,
-  useLayoutEffect,
-  useMemo,
-  forwardRef,
-  useImperativeHandle,
-} from "react";
-import { Canvas, useThree, useFrame, useLoader } from "@react-three/fiber";
-import { Flex, Box, useFlexSize, useReflow } from "@react-three/flex";
-import {
-  Loader,
-  Line,
-  useAspect,
-  Text as TextImpl,
-  useGLTF,
-  Detailed,
-  Environment,
-  MeshDistortMaterial,
-  Html,
-} from "@react-three/drei";
-
-import ContactUs from "./ContactUs";
+import { useRef, useLayoutEffect, forwardRef, useImperativeHandle } from "react";
+import { useThree, useLoader } from "@react-three/fiber";
+import { Flex, Box, useReflow } from "@react-three/flex";
+import { useAspect, Text as TextImpl } from "@react-three/drei";
 
 export const projectYToScene = (y, unit = "px", camera, viewport, size) => {
   let yInPixels = y;

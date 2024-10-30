@@ -1,24 +1,11 @@
-import { forwardRef, useEffect, useImperativeHandle, useLayoutEffect, useRef, useState } from "react";
+import { forwardRef, useImperativeHandle, useLayoutEffect, useRef } from "react";
 import * as THREE from "three";
-import Header from "./Header";
 import { ThreeBackgroundVideo } from "./BackgroundVideo";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import {
-  useIntersect,
-  Image,
-  ScrollControls,
-  Scroll,
-  useScroll,
-  useGLTF,
-  Html,
-  Environment,
-  Lightformer,
-} from "@react-three/drei";
 import ThreeCanvasUpdater from "./ThreeCanvasUpdater";
 import { FirstSectionCanvas } from "./Sections/FirstSection";
 import Effects from "../Effects";
 import LayerCardSection from "./Sections/LayerCardSection";
-import ContactUs from "./Sections/ContactUs";
 
 const ThreeCanvasContent = ({ domRef, sceneStateRef }) => {
   const group = useRef();

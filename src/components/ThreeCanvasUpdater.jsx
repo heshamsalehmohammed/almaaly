@@ -8,11 +8,10 @@ const ThreeCanvasUpdater = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // Dispatch the updated Three.js data to the Redux store
     dispatch(setThreeData({ viewport, size, camera }));
   }, [viewport, size, camera, dispatch]);
 
-  return null; // This component doesn't render anything
+  return null;
 };
 
 export default ThreeCanvasUpdater;

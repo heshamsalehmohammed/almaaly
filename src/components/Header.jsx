@@ -1,12 +1,5 @@
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
-import {
-  Slide,
-  Fade,
-  JackInTheBox,
-  Roll,
-  Zoom,
-  Bounce,
-} from "react-awesome-reveal";
+import { Slide } from "react-awesome-reveal";
 import "./Header.css";
 
 const Header = forwardRef(({domRef,threeSceneRef},ref) => {
@@ -123,7 +116,7 @@ const Header = forwardRef(({domRef,threeSceneRef},ref) => {
                 {!isMobile && // Only show these items if not mobile
                   navItems.filter(nv => !nv.deleted).map((item, index) => (
                     <li key={`nav-bar-item-${index}`} className="mx-3">
-                      <a href="#" onClick={item.onClick}>
+                      <a onClick={item.onClick}>
                         {item.label}
                       </a>
                     </li>
@@ -150,7 +143,7 @@ const Header = forwardRef(({domRef,threeSceneRef},ref) => {
             <ul className="p-0 display-1">
               {navItems.filter(nv => !nv.deleted).map((item, index) => (
                 <li key={`nav-menu-item-${index}`} className="mb-3">
-                  <a href="#" onClick={item.onClick}>
+                  <a onClick={item.onClick}>
                     {item.label}
                   </a>
                 </li>

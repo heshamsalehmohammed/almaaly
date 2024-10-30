@@ -1,15 +1,6 @@
-import React, { forwardRef, useRef } from "react";
+import { forwardRef } from "react";
 
 import "./FooterSection.css";
-
-import {
-  Slide,
-  Fade,
-  JackInTheBox,
-  Roll,
-  Zoom,
-  Bounce,
-} from "react-awesome-reveal";
 
 const FooterSection = forwardRef(({ scrollAreaRef }, ref) => {
   return (

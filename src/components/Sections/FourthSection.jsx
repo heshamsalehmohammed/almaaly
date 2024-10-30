@@ -1,15 +1,6 @@
-import React, { forwardRef } from "react";
-import { Button } from "primereact/button";
-import SoFar from "../../assets/images/so-far.jpeg";
+import { forwardRef } from "react";
 
-import {
-  Slide,
-  Fade,
-  JackInTheBox,
-  Roll,
-  Zoom,
-  Bounce,
-} from "react-awesome-reveal";
+import { Slide, Fade, Zoom } from "react-awesome-reveal";
 
 const FourthSection = forwardRef((props, ref) => {
   return (

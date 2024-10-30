@@ -1,15 +1,4 @@
-import React, { forwardRef, useLayoutEffect, useRef } from "react";
-import { Button } from "primereact/button";
-import SoFar from "../../assets/images/so-far.jpeg";
-
-import {
-  Slide,
-  Fade,
-  JackInTheBox,
-  Roll,
-  Zoom,
-  Bounce,
-} from "react-awesome-reveal";
+import { forwardRef, useRef } from "react";
 import "./StudentsGallarySection.css";
 
 import student1 from "../../assets/images/student-1.png";
@@ -216,7 +205,7 @@ gsap.registerPlugin(ScrollTrigger);
       })}
     </div>
   );
-}); 
+});
 
 
 /* const StudentsGallarySection = forwardRef(({ scrollAreaRef }, ref) => {

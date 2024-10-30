@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -36,11 +36,26 @@ console.log('%c' + developedBy, 'color: green; font-size:12px;')
   console.log('%chttps://www.linkedin.com/in/heshamsalehmohammed/','color: green; font-size:30px;')
 })();
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </React.StrictMode>
-);
+
+
+const container = document.getElementById("root");
+
+if (container.hasChildNodes()) {
+  ReactDOM.hydrateRoot(
+    container,
+    <React.StrictMode>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </React.StrictMode>
+  );
+} else {
+  const root = ReactDOM.createRoot(container);
+  root.render(
+    <React.StrictMode>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </React.StrictMode>
+  );
+}

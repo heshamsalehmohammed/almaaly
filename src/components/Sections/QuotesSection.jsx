@@ -1,21 +1,4 @@
-import React, {
-  forwardRef,
-  useEffect,
-  useImperativeHandle,
-  useLayoutEffect,
-  useRef,
-} from "react";
-import { Button } from "primereact/button";
-import SoFar from "../../assets/images/so-far.jpeg";
-
-import {
-  Slide,
-  Fade,
-  JackInTheBox,
-  Roll,
-  Zoom,
-  Bounce,
-} from "react-awesome-reveal";
+import { forwardRef, useImperativeHandle, useRef } from "react";
 import "./QuotesSection.css";
 
 import quote1 from "../../assets/images/quote-1.jpeg";
@@ -57,7 +40,7 @@ const Quote = forwardRef(({ img, top }, ref) => {
       </div>
       <div className="col-10 col-md-6 ">
         <div className="quotes-img-container mt-3 mt-sm-0 mb-3 mb-sm-0">
-          <img src={img} />
+          <img src={img} alt="quote person"/>
         </div>
       </div>
     </div>

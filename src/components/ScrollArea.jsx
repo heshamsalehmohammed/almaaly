@@ -1,19 +1,9 @@
-import {
-  forwardRef,
-  useCallback,
-  useEffect,
-  useImperativeHandle,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
+import { forwardRef, useEffect, useImperativeHandle, useLayoutEffect, useRef } from "react";
 import BottomPage from "./BottomPage";
 import { FirstSectionHtml } from "./Sections/FirstSection";
 import FourthSection from "./Sections/FourthSection";
 import SecondSection from "./Sections/SecondSection";
 import ThirdSection from "./Sections/ThirdSection";
-import { useDispatch } from "react-redux";
-import _ from "lodash";
 import FifthSection from "./Sections/FifthSection";
 import FooterSection from "./Sections/FooterSection";
 import StudentsGallarySection from "./Sections/StudentsGallarySection";

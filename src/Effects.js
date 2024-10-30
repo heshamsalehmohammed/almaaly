@@ -1,8 +1,7 @@
 import * as THREE from "three";
-import React, { useRef, useMemo, useEffect } from "react";
-import { extend, useThree, useFrame } from "@react-three/fiber";
+import { useRef } from "react";
+import { useFrame } from "@react-three/fiber";
 
-import { useScroll } from "@react-three/drei";
 import {
   EffectComposer,
   Bloom,
@@ -10,7 +9,6 @@ import {
   Vignette,
 } from "@react-three/postprocessing";
 import { BlendFunction } from "postprocessing";
-import { useSelector } from "react-redux";
 
 const Effects = ({domRef,sceneStateRef}) => {
   const vignetteRef = useRef();

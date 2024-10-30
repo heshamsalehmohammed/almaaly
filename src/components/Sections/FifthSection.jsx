@@ -1,15 +1,4 @@
-import React, { forwardRef, useEffect, useImperativeHandle, useRef } from "react";
-import { Button } from "primereact/button";
-import SoFar from "../../assets/images/so-far.jpeg";
-
-import {
-  Slide,
-  Fade,
-  JackInTheBox,
-  Roll,
-  Zoom,
-  Bounce,
-} from "react-awesome-reveal";
+import { forwardRef, useImperativeHandle, useRef } from "react";
 import ContactUs from "./ContactUs";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";

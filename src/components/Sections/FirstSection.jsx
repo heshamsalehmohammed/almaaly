@@ -1,25 +1,9 @@
-import React, { forwardRef, useRef } from "react";
+import { forwardRef, useRef } from "react";
 import * as THREE from "three";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import {
-  useIntersect,
-  Image,
-  ScrollControls,
-  Scroll,
-  useScroll,
-  useGLTF,
-  Html,
-} from "@react-three/drei";
+import { useFrame, useThree } from "@react-three/fiber";
+import { useIntersect } from "@react-three/drei";
 import { Button } from "primereact/button";
-import SoFar from "../../assets/images/so-far.jpeg";
-import {
-  Slide,
-  Fade,
-  JackInTheBox,
-  Roll,
-  Zoom,
-  Bounce,
-} from "react-awesome-reveal";
+import { Slide, Fade } from "react-awesome-reveal";
 import Text from "../../Text";
 import { useSelector } from "react-redux";
 import {

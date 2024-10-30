@@ -1,11 +1,5 @@
 import * as THREE from "three";
-import React, {
-  forwardRef,
-  useLayoutEffect,
-  useRef,
-  useMemo,
-  useEffect,
-} from "react";
+import { forwardRef, useLayoutEffect, useRef, useMemo } from "react";
 import { FontLoader } from "three/examples/jsm/loaders/FontLoader";
 import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry";
 
@@ -35,7 +29,7 @@ const Text = forwardRef(
       () => ({ font, size: fontSize, depth:height }),
       [font, fontSize, height]
     );
-    const { size, camera } = useThree();
+    const { size } = useThree();
 
     const mesh = useRef();
     useLayoutEffect(() => {
@@ -51,7 +45,7 @@ const Text = forwardRef(
       mesh.current.position.y =
         vAlign === "center" ? -bbSize.y : vAlign === "top" ? 0 : -bbSize.y;
 
-    }, [children, size, fontSize, height]);
+    }, [children, size, fontSize, height,hAlign,vAlign]);
 
     return (
       <group ref={ref} {...props} scale={scale}>
