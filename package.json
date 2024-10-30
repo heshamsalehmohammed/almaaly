@@ -1,5 +1,6 @@
 {
   "name": "almaaly",
+  "homepage": "https://www.almaaly.edu.eg",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

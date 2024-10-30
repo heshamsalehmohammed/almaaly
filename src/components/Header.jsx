@@ -1,39 +1,42 @@
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
+import { Helmet } from "react-helmet";
 import { Slide } from "react-awesome-reveal";
+import config from "../config";
 import "./Header.css";
 
-const Header = forwardRef(({domRef,threeSceneRef},ref) => {
+const Header = forwardRef(({ domRef, threeSceneRef }, ref) => {
   const [isMobile, setIsMobile] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
 
+  const { url, shortName } = config.school;
+
   const navItems = [
     {
-      id: 'home',
+      id: "home",
       label: "Home",
       onClick: (e) => {
         e?.preventDefault();
         setShowMenu(false);
         domRef.current.scrollAreaRef.current.scrollTop = 0;
       },
-      deleted:false
+      deleted: false,
     },
     {
-      id:'aboutUs',
+      id: "aboutUs",
       label: "About Us",
       onClick: (e) => {
         e?.preventDefault();
         setShowMenu(false);
         domRef.current.scrollAreaRef.current.scrollTop = window.innerHeight;
       },
-      deleted:false
+      deleted: false,
     },
     {
-      id:'contactUs',
+      id: "contactUs",
       label: "Contact Us",
       onClick: (e) => {
         e?.preventDefault();
         setShowMenu(false);
-
         const h1 =  window.innerHeight;
         const { height: h2 } =
           domRef.current.secondSectionRef.current.getBoundingClientRect();
@@ -56,30 +59,26 @@ const Header = forwardRef(({domRef,threeSceneRef},ref) => {
 
          domRef.current.scrollAreaRef.current.scrollTop = y;
       },
-      deleted:false
+      deleted: false,
     },
   ];
 
+  useImperativeHandle(ref, () => ({
+    goTo: (sectionId) => {
+      const navItemToClick = navItems.find((ni) => ni.id === sectionId);
+      navItemToClick.onClick();
+    },
+  }));
 
-  useImperativeHandle(ref, () => {
-    return {
-      goTo :(sectionId)=>{
-        const navItemToClick = navItems.find(ni => ni.id === sectionId)
-        navItemToClick.onClick();
-      }
-    }
-  });
-
-  // Function to check the window width and update state
   const handleResize = () => {
     setIsMobile(window.matchMedia("(max-width: 768px)").matches);
   };
 
   useEffect(() => {
-    handleResize(); // Check on initial render
-    window.addEventListener("resize", handleResize); // Add resize listener
+    handleResize();
+    window.addEventListener("resize", handleResize);
 
-    return () => window.removeEventListener("resize", handleResize); // Cleanup listener on unmount
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const toggleShowMenu = () => {
@@ -88,17 +87,38 @@ const Header = forwardRef(({domRef,threeSceneRef},ref) => {
 
   return (
     <>
-      <header className="header">
+      <Helmet>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SiteNavigationElement",
+            name: navItems.filter((nv) => !nv.deleted).map((item) => item.label),
+            url: navItems
+              .filter((nv) => !nv.deleted)
+              .map((item) => `${url}/#${item.id}`),
+          })}
+        </script>
+      </Helmet>
+
+      <header className="header1 w-25">
         <div className="container-fluid">
           <div className="d-flex justify-content-start align-items-center">
-            <a href="#" id="logo">
-              ALMAALY
+            <a
+              className="cursor-pointer"
+              id="logo"
+              onClick={(e) => {
+                e?.preventDefault();
+                const navItemToClick = navItems.find((ni) => ni.id === "home");
+                navItemToClick.onClick();
+              }}
+            >
+              {shortName}
             </a>
           </div>
         </div>
       </header>
 
-      <header className="header">
+      <header className="header2">
         <div className="container-fluid">
           <Slide direction="down">
             <div
@@ -113,23 +133,23 @@ const Header = forwardRef(({domRef,threeSceneRef},ref) => {
                   backgroundColor: "rgb(222 222 222 / 25%)",
                 }}
               >
-                {!isMobile && // Only show these items if not mobile
-                  navItems.filter(nv => !nv.deleted).map((item, index) => (
-                    <li key={`nav-bar-item-${index}`} className="mx-3">
-                      <a onClick={item.onClick}>
-                        {item.label}
-                      </a>
-                    </li>
-                  ))}
+                {!isMobile &&
+                  navItems
+                    .filter((nv) => !nv.deleted)
+                    .map((item, index) => (
+                      <li key={`nav-bar-item-${index}`} className="mx-3">
+                        <a href={`#${item.id}`} onClick={item.onClick}>
+                          {item.label}
+                        </a>
+                      </li>
+                    ))}
 
                 <div
                   className="-mt-15 cursor-pointer mx-3"
                   style={{ fontSize: "1.5rem" }}
                   onClick={toggleShowMenu}
                 >
-                  <i
-                    className={`fa-solid ${showMenu ? "fa-xmark" : "fa-bars"}`}
-                  ></i>
+                  <i className={`fa-solid ${showMenu ? "fa-xmark" : "fa-bars"}`}></i>
                 </div>
               </ul>
             </div>
@@ -141,13 +161,15 @@ const Header = forwardRef(({domRef,threeSceneRef},ref) => {
           <div className="overlay" />
           <div className="menu-items">
             <ul className="p-0 display-1">
-              {navItems.filter(nv => !nv.deleted).map((item, index) => (
-                <li key={`nav-menu-item-${index}`} className="mb-3">
-                  <a onClick={item.onClick}>
-                    {item.label}
-                  </a>
-                </li>
-              ))}
+              {navItems
+                .filter((nv) => !nv.deleted)
+                .map((item, index) => (
+                  <li key={`nav-menu-item-${index}`} className="mb-3">
+                    <a href={`#${item.id}`} onClick={item.onClick}>
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
             </ul>
           </div>
         </div>

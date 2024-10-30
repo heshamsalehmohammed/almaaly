@@ -1,19 +1,15 @@
 import { forwardRef, useImperativeHandle, useRef } from "react";
+import { Helmet } from "react-helmet";
 import "./QuotesSection.css";
-
-import quote1 from "../../assets/images/quote-1.jpeg";
-import quote2 from "../../assets/images/quote-2.jpg";
-import quote3 from "../../assets/images/quote-3.jpg";
-import quote4 from "../../assets/images/quote-4.jpg";
-
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import config from "../../config";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 
-const Quote = forwardRef(({ img, top }, ref) => {
+const Quote = forwardRef(({ img, top, text, author, title }, ref) => {
   return (
     <div
       ref={ref}
@@ -23,24 +19,22 @@ const Quote = forwardRef(({ img, top }, ref) => {
         borderRadius: "25px",
         position: "absolute",
         top,
-        
       }}
     >
-      <div className=" col-10 col-md-6">
+      <div className="col-10 col-md-6">
         <div className="quotes-quote-container w-100 h-100 text-dark d-flex flex-column justify-content-center align-items-center">
           <div className="mb-4 fs-1">
             <i className="fa-solid fa-quote-right"></i>
           </div>
-          <div className="mb-4 fs-2 display-6">
-            Tedy has enabled us to move from employee benefits to a personalized
-            wellness experience.
+          <div className="mb-4 fs-2 display-6">{text}</div>
+          <div style={{ opacity: "0.7" }}>
+            {author}, {title}
           </div>
-          <div className="" style={{opacity: '0.7'}}>Andrew Lockhead, President and Co-founder</div>
         </div>
       </div>
-      <div className="col-10 col-md-6 ">
+      <div className="col-10 col-md-6">
         <div className="quotes-img-container mt-3 mt-sm-0 mb-3 mb-sm-0">
-          <img src={img} alt="quote person"/>
+          <img src={img} alt="quote person" />
         </div>
       </div>
     </div>
@@ -53,6 +47,8 @@ const QuotesSection = forwardRef(({ scrollAreaRef }, ref) => {
   const quote2Ref = useRef(null);
   const quote3Ref = useRef(null);
   const quote4Ref = useRef(null);
+
+  const quotes = config.school.quotes;
 
   useImperativeHandle(ref, () => quotesSectionRef.current);
 
@@ -245,27 +241,59 @@ const QuotesSection = forwardRef(({ scrollAreaRef }, ref) => {
 
 
   return (
-    <div
-      ref={quotesSectionRef}
-      className="row justify-content-center  vw-100"
-      style={{
-        position: "relative",
-      }}
-    >
-      <div className="container mt-0 p-0 quotes-section">
-        <div className="row justify-content-center text-center mt-5 mt-sm-0 ms-0 me-0 px-3">
-          <div
-            className="col-11 col-sm-10 col-md-9 col-lg-8 col-xl-7"
-            style={{ position: "relative" }}
-          >
-            <Quote ref={quote1Ref} img={quote1}  />
-            <Quote ref={quote2Ref} img={quote2}  />
-            <Quote ref={quote3Ref} img={quote3}  />
-            <Quote ref={quote4Ref} img={quote4}  />
+    <>
+      {/* Helmet for SEO */}
+      <Helmet>
+        <title>Testimonials | {config.school.shortName}</title>
+        <meta name="description" content="Read what industry leaders say about Tedy and its impact on wellness and productivity." />
+        
+        {/* JSON-LD structured data for quotes */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CreativeWorkSeries",
+            name: "Testimonials",
+            about: config.school.name,
+            mainEntity: quotes.map((quote) => ({
+              "@type": "Review",
+              reviewBody: quote.text,
+              author: {
+                "@type": "Person",
+                name: quote.author,
+                jobTitle: quote.title,
+              },
+              associatedMedia: {
+                "@type": "ImageObject",
+                contentUrl: quote.img,
+                description: `${quote.author} - ${quote.title}`
+              },
+            })),
+          })}
+        </script>
+      </Helmet>
+
+      <div
+        ref={quotesSectionRef}
+        className="row justify-content-center vw-100"
+        style={{
+          position: "relative",
+        }}
+      >
+        <div className="container mt-0 p-0 quotes-section">
+          <div className="row justify-content-center text-center mt-5 mt-sm-0 ms-0 me-0 px-3">
+            <div
+              className="col-11 col-sm-10 col-md-9 col-lg-8 col-xl-7"
+              style={{ position: "relative" }}
+            >
+              <Quote ref={quote1Ref} img={quotes[0].img} text={quotes[0].text} author={quotes[0].author} title={quotes[0].title} />
+              <Quote ref={quote2Ref} img={quotes[1].img} text={quotes[1].text} author={quotes[1].author} title={quotes[1].title} />
+              <Quote ref={quote3Ref} img={quotes[2].img} text={quotes[2].text} author={quotes[2].author} title={quotes[2].title} />
+              <Quote ref={quote4Ref} img={quotes[3].img} text={quotes[3].text} author={quotes[3].author} title={quotes[3].title} />
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 });
 

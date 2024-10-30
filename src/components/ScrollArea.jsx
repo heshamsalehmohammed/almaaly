@@ -1,6 +1,6 @@
 import { forwardRef, useEffect, useImperativeHandle, useLayoutEffect, useRef } from "react";
 import BottomPage from "./BottomPage";
-import { FirstSectionHtml } from "./Sections/FirstSection";
+import { FirstSectionHtml } from "./Sections/FirstSectionHtml";
 import FourthSection from "./Sections/FourthSection";
 import SecondSection from "./Sections/SecondSection";
 import ThirdSection from "./Sections/ThirdSection";

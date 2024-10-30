@@ -3,7 +3,7 @@ import * as THREE from "three";
 import { ThreeBackgroundVideo } from "./BackgroundVideo";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import ThreeCanvasUpdater from "./ThreeCanvasUpdater";
-import { FirstSectionCanvas } from "./Sections/FirstSection";
+import { FirstSectionCanvas } from "./Sections/FirstSectionCanvas";
 import Effects from "../Effects";
 import LayerCardSection from "./Sections/LayerCardSection";
 
