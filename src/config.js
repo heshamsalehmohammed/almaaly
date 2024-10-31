@@ -115,6 +115,25 @@ const config = {
         },
       ],
     },
+    bottomPage: {
+      mainTitle: "Our Events",
+      mainText: [
+        "An AI web designer & developer by your side.",
+        "With support from three amazing assistants, I can bring your ideal website to life.",
+        "Let's start chatting!",
+      ],
+      subtitle: {
+        video1: "SCARLETT'S PHOTO GALLERY",
+        video2: "Bird Conversation Initiative",
+        video3: "FUTURE CARTOON MARKETPLACE",
+      },
+      videos: [
+        { id: "M5QjjUgkC48", title: "Main Video" },
+        { id: "x_3zGg9658c", title: "SCARLETT'S PHOTO GALLERY" },
+        { id: "CXy_r4U9oTQ", title: "Bird Conversation Initiative" },
+        { id: "HiwnB2aV7P0", title: "FUTURE CARTOON MARKETPLACE" },
+      ],
+    },
   },
 };
 

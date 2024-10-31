@@ -9,7 +9,9 @@ import {
   useRef,
   useState,
 } from "react";
+import { Helmet } from "react-helmet";
 import { useGSAP } from "@gsap/react";
+import config from "../config";
 
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -97,6 +99,7 @@ const NormalYouTubeEmbedWithAnimation = forwardRef(({ videoId }, ref) => {
 });
 
 const BottomPage = forwardRef(({ scrollAreaRef }, ref) => {
+  const { mainTitle, mainText, subtitle, videos } = config.school.bottomPage;
   const bottomElementRef = useRef(null); // Reference to the container
   const videoResponsiveRef = useRef(null);
   const mainWorksTitleRef = useRef();
@@ -109,14 +112,8 @@ const BottomPage = forwardRef(({ scrollAreaRef }, ref) => {
   const video3Ref = useRef();
 
 
-  const videoTitles = {
-    video1: "SCARLETT'S PHOTO GALLERY",
-    video2: "Bird Conversation Initialive",
-    video3: "FUTURE CARTOON MARKETPLACE",
-  };
-
   const [currentWorksSubTitle, setCurrentWorksSubTitle] = useState(
-    videoTitles.video1
+    subtitle.video1
   );
 
   useImperativeHandle(ref, () => bottomElementRef.current);
@@ -135,11 +132,11 @@ const BottomPage = forwardRef(({ scrollAreaRef }, ref) => {
 
       // Check if mainWorksSubTitle is currently above each video section
       if (subtitleRect.bottom <= video1Rect.bottom) {
-        setCurrentWorksSubTitle(videoTitles.video1);
+        setCurrentWorksSubTitle(subtitle.video1);
       } else if (subtitleRect.bottom <= video2Rect.bottom) {
-        setCurrentWorksSubTitle(videoTitles.video2);
+        setCurrentWorksSubTitle(subtitle.video2);
       } else if (subtitleRect.bottom <= video3Rect.bottom) {
-        setCurrentWorksSubTitle(videoTitles.video3);
+        setCurrentWorksSubTitle(subtitle.video3);
       }
     }
   };
@@ -300,35 +297,45 @@ const BottomPage = forwardRef(({ scrollAreaRef }, ref) => {
 
   return (
     <>
-      <div
-        className="bottom-element"
-        style={{
-          
-        }}
-        ref={bottomElementRef}
-      >
+      {/* Helmet for SEO */}
+      <Helmet>
+        <title>{mainTitle} | {config.school.shortName}</title>
+        <meta name="description" content="Discover our highlighted events and projects." />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "EducationalOccupationalProgram",
+            name: mainTitle,
+            hasCourse: videos.map((video, index) => ({
+              "@type": "Course",
+              name: video.title,
+              video: {
+                "@type": "VideoObject",
+                name: video.title,
+                embedUrl: `https://www.youtube.com/embed/${video.id}`,
+              },
+            })),
+          })}
+        </script>
+      </Helmet>
+
+      <div className="bottom-element" ref={bottomElementRef}>
         <div className="d-flex w-100 flex-column text-white text-start mb-2 p-5">
-          {[
-            "An AI web designer & developer by your side.",
-            "With support from three amazing assistants, I can bring your ideal website to life.",
-            "Let's start chatting!",
-          ].map((text, index) => (
-            <div
-              className="bottom-element-text font-poppins-semi-bold-italic "
-              key={index}
-            >
+          {mainText.map((text, index) => (
+            <div className="bottom-element-text font-poppins-semi-bold-italic" key={index}>
               <div>
-                <h1 className={`${index!=2 ?'pb-4':''} display-6 display-md-4 display-xl-3 text-transform-none`}>
+                <h1 className={`${index !== 2 ? "pb-4" : ""} display-6 display-md-4 display-xl-3 text-transform-none`}>
                   {text}
                 </h1>
               </div>
             </div>
           ))}
         </div>
+
         <div className="row w-100 p-1 mt-1 mb-5 justify-content-center">
           <div className="col-12 col-md-8 col-lg-8 col-xl-7">
             <MainYouTubeEmbedWithAnimation
-              videoId="M5QjjUgkC48"
+              videoId={videos[0].id}
               scrollAreaRef={scrollAreaRef}
               ref={videoResponsiveRef}
             />
@@ -345,7 +352,7 @@ const BottomPage = forwardRef(({ scrollAreaRef }, ref) => {
             >
               <div>
                 <h1 className="py-5 display-6 display-md-5 display-lg-4  display-xl-3 fw-bold text-dark font-protest-strike">
-                  Our Events
+                  {mainTitle}
                 </h1>
               </div>
             </div>
@@ -366,10 +373,10 @@ const BottomPage = forwardRef(({ scrollAreaRef }, ref) => {
           </div>
         </div>
         <div className="position-relative w-100">
-          <div className="row p-3 mt-5 mb-5 pt-5 pb-5 justify-content-center">
+        <div className="row p-3 mt-5 mb-5 pt-5 pb-5 justify-content-center">
             <div className="col-11 col-md-6 col-lg-6 col-xl-5 pt-5 pb-5">
               <NormalYouTubeEmbedWithAnimation
-                videoId="x_3zGg9658c"
+                videoId={videos[1].id}
                 ref={video1Ref}
               />
             </div>
@@ -377,7 +384,7 @@ const BottomPage = forwardRef(({ scrollAreaRef }, ref) => {
           <div className="row p-3 mt-5 mb-5  pt-5 pb-5 justify-content-center">
             <div className="col-11 col-md-6 col-lg-6 col-xl-5 pt-5 pb-5">
               <NormalYouTubeEmbedWithAnimation
-                videoId="CXy_r4U9oTQ"
+                videoId={videos[2].id}
                 ref={video2Ref}
               />
             </div>
@@ -385,11 +392,11 @@ const BottomPage = forwardRef(({ scrollAreaRef }, ref) => {
           <div className="row p-3 mt-5 mb-5  pt-5 pb-5 justify-content-center" ref={lastRowRef}>
             <div className="col-11 col-md-6 col-lg-6 col-xl-5 pt-5 pb-5">
               <NormalYouTubeEmbedWithAnimation
-                videoId="HiwnB2aV7P0"
+                videoId={videos[3].id}
                 ref={video3Ref}
               />
             </div>
-          </div>
+        </div>
         </div>
       </div>
     </>

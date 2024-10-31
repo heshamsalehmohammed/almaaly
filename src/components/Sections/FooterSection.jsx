@@ -17,21 +17,21 @@ const FooterSection = forwardRef(({ scrollAreaRef }, ref) => {
             <div className="col-md-4 footer-column">
               <ul className="nav flex-column">
                 <li className="nav-item">
-                  <span className="footer-title">Product</span>
+                  <span className="footer-title">Almaaly</span>
                 </li>
                 <li className="nav-item">
                   <a className="nav-link" href="#">
-                    Product 1
+                    About us
                   </a>
                 </li>
                 <li className="nav-item">
                   <a className="nav-link" href="#">
-                    Product 2
+                    What they say 
                   </a>
                 </li>
                 <li className="nav-item">
                   <a className="nav-link" href="#">
-                    Plans & Prices
+                    Our Programs
                   </a>
                 </li>
                 <li className="nav-item">
@@ -43,17 +43,15 @@ const FooterSection = forwardRef(({ scrollAreaRef }, ref) => {
             </div>
             <div className="col-md-4 footer-column">
               <ul className="nav flex-column">
-                <li className="nav-item">
-                  <span className="footer-title">Company</span>
-                </li>
+
                 <li className="nav-item">
                   <a className="nav-link" href="#">
-                    About us
+                    Life in Almaaly
                   </a>
                 </li>
                 <li className="nav-item">
                   <a className="nav-link" href="#">
-                    Job postings
+                    Our Events
                   </a>
                 </li>
                 <li className="nav-item">
@@ -75,17 +73,12 @@ const FooterSection = forwardRef(({ scrollAreaRef }, ref) => {
                 </li>
                 <li className="nav-item">
                   <a className="nav-link" href="#">
-                    <i className="fas fa-comments"></i> Live chat
+                  <i class="fa-solid fa-right-to-bracket me-2"></i> Join us
                   </a>
                 </li>
                 <li className="nav-item">
                   <a className="nav-link" href="#">
                     <i className="fas fa-envelope"></i> Contact us
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="#">
-                    <i className="fas fa-star"></i> Give feedback
                   </a>
                 </li>
               </ul>
@@ -121,7 +114,7 @@ const FooterSection = forwardRef(({ scrollAreaRef }, ref) => {
                 </li>
               </ul>
             </div>
-            <div className="col-md-4 box">
+            {/* <div className="col-md-4 box">
               <ul className="list-inline quick-links">
                 <li className="list-inline-item">
                   <a href="#">Privacy Policy</a>
@@ -130,7 +123,7 @@ const FooterSection = forwardRef(({ scrollAreaRef }, ref) => {
                   <a href="#">Terms of Use</a>
                 </li>
               </ul>
-            </div>
+            </div> */}
           </div>
         </div>
       </footer>
