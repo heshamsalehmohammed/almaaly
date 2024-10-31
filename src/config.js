@@ -134,6 +134,7 @@ const config = {
         { id: "HiwnB2aV7P0", title: "FUTURE CARTOON MARKETPLACE" },
       ],
     },
+    copyright: `Copyright © Almaaly ${new Date().getFullYear()}`,
   },
 };
 
