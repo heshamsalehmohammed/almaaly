@@ -1,3 +1,4 @@
+require('dotenv').config();
 const fs = require('fs');
 const metagen = require('meta-generator');
 const config = require('./src/config');
