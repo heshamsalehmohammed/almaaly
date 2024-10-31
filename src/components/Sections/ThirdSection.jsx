@@ -1,7 +1,6 @@
 import { forwardRef } from "react";
 import { Helmet } from "react-helmet";
 import { Button } from "primereact/button";
-import SoFar from "../../assets/images/so-far.jpeg";
 import { Slide, Fade, Zoom } from "react-awesome-reveal";
 import config from "../../config";
 

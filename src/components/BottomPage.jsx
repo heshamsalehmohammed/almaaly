@@ -99,7 +99,7 @@ const NormalYouTubeEmbedWithAnimation = forwardRef(({ videoId }, ref) => {
 });
 
 const BottomPage = forwardRef(({ scrollAreaRef }, ref) => {
-  const { mainTitle, mainText, subtitle, videos } = config.school.bottomPage;
+  const { mainTitle, mainText, subtitle, videos,metaDescription } = config.school.bottomPage;
   const bottomElementRef = useRef(null); // Reference to the container
   const videoResponsiveRef = useRef(null);
   const mainWorksTitleRef = useRef();
@@ -300,7 +300,7 @@ const BottomPage = forwardRef(({ scrollAreaRef }, ref) => {
       {/* Helmet for SEO */}
       <Helmet>
         <title>{mainTitle} | {config.school.shortName}</title>
-        <meta name="description" content="Discover our highlighted events and projects." />
+        <meta name="description" content={metaDescription} />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",

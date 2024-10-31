@@ -9,8 +9,8 @@ const config = {
     welcomeMessage:
       "Embark on a journey of educational excellence with Almaaly. Discover our rich history and commitment to nurturing future leaders.",
     url: `${process.env.PUBLIC_URL}`,
-    logoPath: `${process.env.PUBLIC_URL}/logo.png`,
-    ogImagePath: `${process.env.PUBLIC_URL}/og-image.jpg`,
+    logoPath: `${process.env.PUBLIC_URL}/images/logo.png`,
+    ogImagePath: `${process.env.PUBLIC_URL}/images/og-image.jpg`,
     address: {
       streetAddress: "123 Education Street",
       addressLocality: "Cairo",
@@ -31,25 +31,25 @@ const config = {
         text: "Tedy has enabled us to move from employee benefits to a personalized wellness experience.",
         author: "Andrew Lockhead",
         title: "President and Co-founder",
-        img: require("./assets/images/quote-1.jpeg"),
+        img: `${process.env.PUBLIC_URL}/images/quote-1.jpeg`,
       },
       {
         text: "This solution has transformed our approach to employee wellness and productivity.",
         author: "Samantha Carter",
         title: "Chief HR Officer",
-        img: require("./assets/images/quote-2.jpg"),
+        img: `${process.env.PUBLIC_URL}/images/quote-2.jpg`,
       },
       {
         text: "Our team's satisfaction and performance have never been better, thanks to Tedy.",
         author: "Michael Evans",
         title: "CEO",
-        img: require("./assets/images/quote-3.jpg"),
+        img: `${process.env.PUBLIC_URL}/images/quote-3.jpg`,
       },
       {
         text: "A revolutionary tool that has reshaped our corporate culture and morale.",
         author: "Sarah Robinson",
         title: "Operations Manager",
-        img: require("./assets/images/quote-4.jpg"),
+        img: `${process.env.PUBLIC_URL}/images/quote-4.jpg`,
       },
     ],
     facts: [
@@ -69,10 +69,20 @@ const config = {
         "Credits go to Unsplash and Pexels for photos and video used in this template. Vivamus tincidunt, augue rutrum convallis volutpat, massa lacus tempus leo.",
     },
     galleryImages: [
-      require("./assets/images/galary-1.jpeg"),
-      require("./assets/images/galary-2.jpeg"),
-      require("./assets/images/galary-3.jpeg"),
-      require("./assets/images/galary-4.jpeg"),
+      `${process.env.PUBLIC_URL}/images/galary-1.jpeg`,
+      `${process.env.PUBLIC_URL}/images/galary-2.jpeg`,
+      `${process.env.PUBLIC_URL}/images/galary-3.jpeg`,
+      `${process.env.PUBLIC_URL}/images/galary-4.jpeg`,
+    ],
+    studentsGalleryImages: [
+      `${process.env.PUBLIC_URL}/images/student-1.png`,
+      `${process.env.PUBLIC_URL}/images/student-2.jpg`,
+      `${process.env.PUBLIC_URL}/images/student-3.jpg`,
+      `${process.env.PUBLIC_URL}/images/student-4.jpg`,
+      `${process.env.PUBLIC_URL}/images/student-5.jpg`,
+      `${process.env.PUBLIC_URL}/images/student-6.jpg`,
+      `${process.env.PUBLIC_URL}/images/student-7.jpg`,
+      `${process.env.PUBLIC_URL}/images/student-8.jpg`,
     ],
     thirdSection: {
       title: "Join the Almaaly Community",
@@ -83,24 +93,26 @@ const config = {
         text: "Being part of Almaaly has been a transformative journey. The school's commitment to fostering a supportive and dynamic learning environment is unparalleled. The diverse programs and passionate educators have truly enriched my educational experience.",
         authorName: "Emily Carter",
         authorTitle: "Almaaly Alumnus",
-        image: require("./assets/images/so-far.jpeg"),
+        image: `${process.env.PUBLIC_URL}/images/so-far.jpeg`,
       },
     },
     fourthSection: {
       title: "Diverse and Comprehensive",
       subtitle: "Explore Our Programs",
-      description: "Almaaly offers a wide range of programs designed to cater to the unique interests and strengths of each student.",
+      description:
+        "Almaaly offers a wide range of programs designed to cater to the unique interests and strengths of each student.",
       programs1: [
         {
           name: "STEM Education",
-          description: "Innovative curriculum fostering critical thinking and problem-solving skills.",
+          description:
+            "Innovative curriculum fostering critical thinking and problem-solving skills.",
           icon: "fa-school",
         },
         {
           name: "Arts & Humanities",
           description: "Encouraging creative expression and cultural awareness.",
           icon: "fa-theater-masks",
-        }
+        },
       ],
       programs2: [
         {
@@ -110,7 +122,8 @@ const config = {
         },
         {
           name: "Languages & Literature",
-          description: "Building communication skills and literary appreciation.",
+          description:
+            "Building communication skills and literary appreciation.",
           icon: "fa-book",
         },
       ],
@@ -133,9 +146,12 @@ const config = {
         { id: "CXy_r4U9oTQ", title: "Bird Conversation Initiative" },
         { id: "HiwnB2aV7P0", title: "FUTURE CARTOON MARKETPLACE" },
       ],
+      metaDescription: "Discover our highlighted events and projects.",
     },
+    footerMetaDescription:
+      "Explore Almaaly's offerings, contact details, and support information.",
     copyright: `Copyright © Almaaly ${new Date().getFullYear()}`,
   },
 };
 
-export default config;
+module.exports = config;

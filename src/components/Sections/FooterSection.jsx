@@ -4,7 +4,7 @@ import config from "../../config";
 import "./FooterSection.css";
 
 const FooterSection = forwardRef(({ scrollAreaRef }, ref) => {
-  const { socialLinks, copyright, shortName, name, telephone } = config.school;
+  const { socialLinks, copyright, shortName, name, telephone,footerMetaDescription } = config.school;
 
   return (
     <>
@@ -12,7 +12,7 @@ const FooterSection = forwardRef(({ scrollAreaRef }, ref) => {
         <title>{name} - Contact & Support</title>
         <meta
           name="description"
-          content="Explore Almaaly's offerings, contact details, and support information."
+          content={footerMetaDescription}
         />
 
         <script type="application/ld+json">

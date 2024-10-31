@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 
 import App from "./App";
 import store from "./redux/store";
+import { injectStaticMeta } from "./SEO_Enhancement";
 
 
 (function printNameInConsole() {
@@ -38,24 +39,12 @@ console.log('%c' + developedBy, 'color: green; font-size:12px;')
 
 
 
-const container = document.getElementById("root");
+const root = ReactDOM.createRoot(document.getElementById("root"));
 
-if (container.hasChildNodes()) {
-  ReactDOM.hydrateRoot(
-    container,
-    <React.StrictMode>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </React.StrictMode>
-  );
-} else {
-  const root = ReactDOM.createRoot(container);
-  root.render(
-    <React.StrictMode>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </React.StrictMode>
-  );
-}
+root.render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>
+);

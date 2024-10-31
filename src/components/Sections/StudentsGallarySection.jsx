@@ -1,31 +1,23 @@
 import { forwardRef, useRef } from "react";
 import "./StudentsGallarySection.css";
 
-import student1 from "../../assets/images/student-1.png";
-import student2 from "../../assets/images/student-2.jpg";
-import student3 from "../../assets/images/student-3.jpg";
-import student4 from "../../assets/images/student-4.jpg";
-import student5 from "../../assets/images/student-5.jpg";
-import student6 from "../../assets/images/student-6.jpg";
-import student7 from "../../assets/images/student-7.jpg";
-import student8 from "../../assets/images/student-8.jpg";
-
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import config from "../../config";
 
 gsap.registerPlugin(ScrollTrigger);
 
 /**/ const StudentsGallarySection = forwardRef(({ scrollAreaRef }, ref) => {
   const studentsGallary = [
-    { img: student1 },
-    { img: student2 },
-    { img: student3 },
-    { img: student4 },
-    { img: student5 },
-    { img: student6 },
-    { img: student7 },
-    { img: student8 },
+    { img: config.school.studentsGalleryImages[0] },
+    { img: config.school.studentsGalleryImages[1] },
+    { img: config.school.studentsGalleryImages[2] },
+    { img: config.school.studentsGalleryImages[3] },
+    { img: config.school.studentsGalleryImages[4] },
+    { img: config.school.studentsGalleryImages[5] },
+    { img: config.school.studentsGalleryImages[6] },
+    { img: config.school.studentsGalleryImages[7] },
   ];
 
   const imageRefs = useRef([]);
