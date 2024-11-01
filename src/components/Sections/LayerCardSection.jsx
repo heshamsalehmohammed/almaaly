@@ -73,7 +73,7 @@ function Text({
       anchorX={anchorX}
       anchorY={anchorY}
       textAlign={textAlign}
-      font={getCurrentLanguage() + font}
+      font={font}
       onSync={reflow}
       {...props}
     />

@@ -125,7 +125,7 @@ app.get('/ar/*', async (req, res) => {
 
 // Redirect root to /en
 app.get('/', (req, res) => {
-  res.redirect('/en');
+  res.redirect('/en/');
 });
 
 // Handle other undefined routes with 404
