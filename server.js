@@ -11,60 +11,69 @@ app.use(
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'"],
-        scriptSrc: ["'self'", "'unsafe-inline'"], // Allow inline scripts (if necessary)
-        styleSrc: ["'self'", "'unsafe-inline'"], // Allow inline styles (if necessary)
-        imgSrc: ["'self'", 'data:', 'https:'], // Allow images from self and data URIs
+        scriptSrc: [
+          "'self'",
+          // Add hashes or nonces if you need to allow specific inline scripts
+        ],
+        styleSrc: [
+          "'self'",
+          "'unsafe-inline'", // Temporarily allow inline styles (can be tightened later)
+          'https://fonts.googleapis.com', // Allow Google Fonts
+        ],
+        fontSrc: [
+          "'self'",
+          'https://fonts.gstatic.com', // Allow Google Fonts
+          'data:',
+        ],
+        imgSrc: ["'self'", 'data:', 'https:'],
         connectSrc: ["'self'"],
-        fontSrc: ["'self'", 'https:', 'data:'],
         objectSrc: ["'none'"],
         upgradeInsecureRequests: [],
       },
     },
   })
 );
+
 app.use(compression());
 
 // Serve static files from the build directories
+// Serve static files for English and Arabic
 app.use('/en', express.static(path.join(__dirname, 'build_en')));
 app.use('/ar', express.static(path.join(__dirname, 'build_ar')));
 
-// Serve manifest.json and other static files
-app.use('/manifest.json', express.static(path.join(__dirname, 'public_langs', 'en', 'manifest.json')));
-app.use('/ar/manifest.json', express.static(path.join(__dirname, 'public_langs', 'ar', 'manifest.json')));
-app.use('/en/manifest.json', express.static(path.join(__dirname, 'public_langs', 'en', 'manifest.json')));
+// Serve manifest.json correctly
+app.get('/manifest.json', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build_en', 'manifest.json'));
+});
 
+app.get('/en/manifest.json', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build_en', 'manifest.json'));
+});
 
-// Fallback to index.html for React Router
+app.get('/ar/manifest.json', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build_ar', 'manifest.json'));
+});
+
+// Fallback to index.html for client-side routing in English
 app.get('/en/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'build_en', 'index.html'));
 });
 
+// Fallback to index.html for client-side routing in Arabic
 app.get('/ar/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'build_ar', 'index.html'));
 });
 
-// Redirect root to English version
+// Redirect root to /en
 app.get('/', (req, res) => {
   res.redirect('/en');
 });
 
-// Handle manifest.json requests for root and languages
-app.get('/manifest.json', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public_langs', 'en', 'manifest.json'));
-});
-
-app.get('/en/manifest.json', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public_langs', 'en', 'manifest.json'));
-});
-
-app.get('/ar/manifest.json', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public_langs', 'ar', 'manifest.json'));
-});
-
-// Handle all other routes and redirect to English
+// Handle other undefined routes with 404
 app.get('*', (req, res) => {
-  res.redirect('/en');
+  res.status(404).send('Page Not Found');
 });
+
 
 
 
