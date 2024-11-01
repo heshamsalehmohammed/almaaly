@@ -1,14 +1,15 @@
 require('dotenv').config();
 const fs = require('fs');
 const metagen = require('meta-generator');
-const config = require('./src/config');
+const lang = process.env.LANG || 'en';
+const config = require(`./src/config.${lang}.js`);
 
 
 const {
     name,
     shortName,
-    description,
-    descriptionContent,
+    metaDescription,
+    meta_og_Description,
     welcomeMessage,
     url,
     logoPath,
@@ -19,6 +20,7 @@ const {
     foundingDate,
     socialLinks,
     quotes,
+    quotesMetaDescription,
     facts,
     aboutUs,
     thirdSection,
@@ -28,9 +30,18 @@ const {
     copyright,
   } = config.school;
 
+
+  const htmlAttributes = lang === 'ar' ? 'lang="ar" dir="rtl"' : 'lang="en"';
+  const noscriptMessage = lang === 'ar'
+  ? 'يجب تمكين JavaScript لتشغيل هذا التطبيق.'
+  : 'You need to enable JavaScript to run this app.';
+
+  const pageTitle = lang === 'ar' ? `مرحبًا بكم في ${shortName}` : `Welcome to ${shortName}`;
+
+
 const boilerplate = `
 <!DOCTYPE html>
-<html lang="en">
+<html ${htmlAttributes}>
   <head>
   <meta charset="utf-8" />
   <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
@@ -40,25 +51,28 @@ const boilerplate = `
     <!-- {% metagen %} -->
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <noscript>${noscriptMessage}</noscript>
     <div id="root"></div>
   </body>
 </html>`;
 
+const generateMetaDescription = ()=>{
+  return `${metaDescription} | ${welcomeMessage} | ${aboutUs.description} | ${quotesMetaDescription} | ${footerMetaDescription}`
+}
+
 const metaHTML = `
-  <title>${name}</title>
-  <meta name="description" content="${description}" />
+  <title>${pageTitle}</title>
+  <meta name="description" content="${generateMetaDescription()}" />
   <meta property="og:title" content="${name}" />
-  <meta property="og:description" content="${descriptionContent}" />
+  <meta property="og:description" content="${meta_og_Description}" />
   <meta property="og:image" content="${ogImagePath}" />
   <meta property="og:url" content="${url}" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@AlmaalySchool" />
   <meta name="twitter:title" content="${name}" />
-  <meta name="twitter:description" content="${descriptionContent}" />
+  <meta name="twitter:description" content="${meta_og_Description}" />
   <meta name="twitter:image" content="${ogImagePath}" />
-  <meta name="description" content="${footerMetaDescription}" />
 `;
 
 const jsonLdData = [
@@ -201,7 +215,9 @@ const headContent = metaHTML + jsonLdScripts;
 
 const content = boilerplate.replace('<!-- {% metagen %} -->', headContent);
 
-fs.writeFile('./public/index.html', content.trim(), (err) => {
+const outputPath = `./public_langs/${lang}/index.html`;
+
+fs.writeFile(outputPath, content.trim(), (err) => {
   if (err) throw err;
-  console.log('Meta tags and JSON-LD data successfully injected!');
+  console.log(`Meta tags and JSON-LD data successfully for ${lang}!`);
 });

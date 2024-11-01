@@ -1003,3 +1003,14 @@ body {
 .bottom-page-sticky-element {
     will-change: transform;
 }
+
+.switcher-button{
+    margin-top: -6px;
+
+}
+.switcher-button .p-button{
+    padding: 3px 7px;    
+    background-color: #fff !important;
+    border-color: #fff !important;
+    color: #4b5563 !important;
+}

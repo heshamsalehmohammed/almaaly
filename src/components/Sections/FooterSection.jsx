@@ -1,19 +1,14 @@
 import { forwardRef } from "react";
 import { Helmet } from "react-helmet";
-import config from "../../config";
 import "./FooterSection.css";
 
-const FooterSection = forwardRef(({ scrollAreaRef }, ref) => {
+const FooterSection = forwardRef(({ scrollAreaRef,config }, ref) => {
   const { socialLinks, copyright, shortName, name, telephone,footerMetaDescription } = config.school;
 
   return (
     <>
-      <Helmet>
-        <title>{name} - Contact & Support</title>
-        <meta
-          name="description"
-          content={footerMetaDescription}
-        />
+{/*       <Helmet>
+
 
         <script type="application/ld+json">
           {JSON.stringify({
@@ -34,7 +29,7 @@ const FooterSection = forwardRef(({ scrollAreaRef }, ref) => {
             ],
           })}
         </script>
-      </Helmet>
+      </Helmet> */}
       <div
         ref={ref}
         className="row justify-content-center align-content-center vw-100 p-0 m-0"

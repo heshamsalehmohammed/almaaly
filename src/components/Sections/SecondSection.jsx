@@ -8,20 +8,15 @@ import { Autoplay, Pagination } from "swiper/modules";
 
 import { Helmet } from "react-helmet";
 import { Slide } from "react-awesome-reveal";
-import config from "../../config";
 
 
-const SecondSection = forwardRef((props, ref) => {
+const SecondSection = forwardRef(({config}, ref) => {
   const { facts, aboutUs, galleryImages } = config.school;
 
   return (
     <>
-      {/* Helmet for SEO */}
-      <Helmet>
-        <title>About Us | {config.school.shortName}</title>
-        <meta name="description" content={aboutUs.description} />
-        
-        {/* JSON-LD structured data */}
+     {/*  <Helmet>
+     
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -39,7 +34,7 @@ const SecondSection = forwardRef((props, ref) => {
             })),
           })}
         </script>
-      </Helmet>
+      </Helmet> */}
 
       <div
         ref={ref}

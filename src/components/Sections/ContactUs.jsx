@@ -5,11 +5,11 @@ import { useRef, useState } from "react";
 import { Helmet } from "react-helmet";
 import emailjs from 'emailjs-com';
 import { Button } from "primereact/button";
-import config from "../../config";
+
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-const ContactUs = ({ scrollAreaRef }) => {
+const ContactUs = ({ scrollAreaRef,config }) => {
   const contactUsRef = useRef();
 
   const [formData, setFormData] = useState({
@@ -48,8 +48,7 @@ const ContactUs = ({ scrollAreaRef }) => {
 
   return (
     <>
-      <Helmet>
-        {/* JSON-LD structured data for contact information */}
+{/*       <Helmet>
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -66,7 +65,7 @@ const ContactUs = ({ scrollAreaRef }) => {
             },
           })}
         </script>
-      </Helmet>
+      </Helmet> */}
 
       <div className="row w-100 justify-content-center mt-5 mb-5" ref={contactUsRef}>
         <div className="col-12 mb-3">

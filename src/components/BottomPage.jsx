@@ -11,7 +11,6 @@ import {
 } from "react";
 import { Helmet } from "react-helmet";
 import { useGSAP } from "@gsap/react";
-import config from "../config";
 
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -98,7 +97,7 @@ const NormalYouTubeEmbedWithAnimation = forwardRef(({ videoId }, ref) => {
   );
 });
 
-const BottomPage = forwardRef(({ scrollAreaRef }, ref) => {
+const BottomPage = forwardRef(({ scrollAreaRef,config }, ref) => {
   const { mainTitle, mainText, subtitle, videos,metaDescription } = config.school.bottomPage;
   const bottomElementRef = useRef(null); // Reference to the container
   const videoResponsiveRef = useRef(null);
@@ -297,10 +296,7 @@ const BottomPage = forwardRef(({ scrollAreaRef }, ref) => {
 
   return (
     <>
-      {/* Helmet for SEO */}
-      <Helmet>
-        <title>{mainTitle} | {config.school.shortName}</title>
-        <meta name="description" content={metaDescription} />
+    {/*   <Helmet>
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -317,7 +313,7 @@ const BottomPage = forwardRef(({ scrollAreaRef }, ref) => {
             })),
           })}
         </script>
-      </Helmet>
+      </Helmet> */}
 
       <div className="bottom-element" ref={bottomElementRef}>
         <div className="d-flex w-100 flex-column text-white text-start mb-2 p-5">

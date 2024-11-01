@@ -1,15 +1,12 @@
 import React from "react";
 import { Helmet } from "react-helmet";
-import config from "../config";
 
-const SocialIcons = () => {
+const SocialIcons = ({config}) => {
   const { name, url, logoPath, socialLinks } = config.school;
 
   return (
     <>
-      {/* React Helmet for SEO */}
-      <Helmet>
-        {/* JSON-LD structured data for social profiles */}
+{/*       <Helmet>
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -20,7 +17,7 @@ const SocialIcons = () => {
             sameAs: [socialLinks.facebook, socialLinks.twitter, socialLinks.linkedin],
           })}
         </script>
-      </Helmet>
+      </Helmet> */}
 
       {/* Social Icons */}
       <div id="social-icons">

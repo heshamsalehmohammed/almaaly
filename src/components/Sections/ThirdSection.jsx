@@ -2,19 +2,14 @@ import { forwardRef } from "react";
 import { Helmet } from "react-helmet";
 import { Button } from "primereact/button";
 import { Slide, Fade, Zoom } from "react-awesome-reveal";
-import config from "../../config";
 
 
-const ThirdSection = forwardRef((props, ref) => {
+const ThirdSection = forwardRef(({config}, ref) => {
   const { title, description, buttonText, quote } = config.school.thirdSection;
 
   return (
     <>
-      <Helmet>
-        <title>{title}</title>
-        <meta name="description" content={description} />
-
-        {/* JSON-LD structured data */}
+{/*       <Helmet>
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -34,7 +29,7 @@ const ThirdSection = forwardRef((props, ref) => {
             },
           })}
         </script>
-      </Helmet>
+      </Helmet> */}
 
       <div
         ref={ref}

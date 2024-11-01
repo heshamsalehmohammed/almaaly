@@ -5,7 +5,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-const FifthSection = forwardRef(({ scrollAreaRef,threeSceneRef },ref) => {
+const FifthSection = forwardRef(({ scrollAreaRef,threeSceneRef,config },ref) => {
   const fifthElementContainerRef = useRef();
 
   useImperativeHandle(ref, () => fifthElementContainerRef.current);
@@ -52,7 +52,7 @@ const FifthSection = forwardRef(({ scrollAreaRef,threeSceneRef },ref) => {
         background: "linear-gradient(to bottom, #4096ee 0%, #39ced6 100%)",
       }}
     >
-      <ContactUs />
+      <ContactUs config={config}/>
     </div>
   );
 });

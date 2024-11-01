@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet";
 import Header from "./components/Header";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -9,29 +9,32 @@ import "./App.css";
 import SocialIcons from "./components/SocilaIcons";
 import ThreeCanvas from "./components/ThreeCanvas";
 import ScrollArea from "./components/ScrollArea";
-import config from "./config";
+import configEn from './config.en.js';
+import configAr from './config.ar.js';
+import { getCurrentLanguage } from './helpers';
 
 const App = () => {
   const headerRef = useRef();
   const domRef = useRef();
   const threeSceneRef = useRef();
 
-  const {
-    name,
-    description,
-    descriptionContent,
-    url,
-    logoPath,
-    ogImagePath,
-    address,
-    telephone,
-    foundingDate,
-    socialLinks,
-  } = config.school;
 
+
+  const [currentLanguage, setCurrentLanguage] = useState(getCurrentLanguage());
+
+  useEffect(() => {
+    const handleRouteChange = () => {
+      setCurrentLanguage(getCurrentLanguage());
+    };
+    window.addEventListener('popstate', handleRouteChange);
+    return () => window.removeEventListener('popstate', handleRouteChange);
+  }, []);
+
+  const config = currentLanguage === 'ar' ? configAr : configEn;
+  
   return (
     <>
-      <Helmet>
+{/*       <Helmet>
         <title>{name}</title>
         <meta name="description" content={description} />
         <meta property="og:title" content={name} />
@@ -61,12 +64,12 @@ const App = () => {
             sameAs: [socialLinks.facebook, socialLinks.twitter, socialLinks.linkedin],
           })}
         </script>
-      </Helmet>
+      </Helmet> */}
 
-      <Header ref={headerRef} domRef={domRef} threeSceneRef={threeSceneRef} />
-      <ThreeCanvas ref={threeSceneRef} domRef={domRef} />
-      <ScrollArea ref={domRef} threeSceneRef={threeSceneRef} headerRef={headerRef} />
-      <SocialIcons />
+      <Header ref={headerRef} domRef={domRef} threeSceneRef={threeSceneRef} config={config}/>
+      <ThreeCanvas ref={threeSceneRef} domRef={domRef}  config={config}/>
+      <ScrollArea ref={domRef} threeSceneRef={threeSceneRef} headerRef={headerRef}  config={config}/>
+      <SocialIcons  config={config}/>
     </>
   );
 };

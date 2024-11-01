@@ -1,20 +1,14 @@
 import { forwardRef } from "react";
 import { Helmet } from "react-helmet";
 import { Slide, Fade, Zoom } from "react-awesome-reveal";
-import config from "../../config";
 
 
-const FourthSection = forwardRef((props, ref) => {
+const FourthSection = forwardRef(({config}, ref) => {
   const { title, subtitle, description, programs1,programs2 } = config.school.fourthSection;
 
   return (
     <>
-      {/* Helmet for SEO */}
-      <Helmet>
-        <title>{title} | {config.school.shortName}</title>
-        <meta name="description" content={description} />
-
-        {/* JSON-LD structured data */}
+      {/* <Helmet>
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -28,7 +22,7 @@ const FourthSection = forwardRef((props, ref) => {
             })),
           })}
         </script>
-      </Helmet>
+      </Helmet> */}
 
       <div
         ref={ref}

@@ -9,14 +9,14 @@ import {
   selectThreeSize,
   selectThreeViewport,
 } from "../../redux/threeSlice";
-import config from "../../config";
 
-export const FirstSectionHtml = forwardRef(({ headerRef }, ref) => {
+
+export const FirstSectionHtml = forwardRef(({ headerRef,config }, ref) => {
   const viewport = useSelector(selectThreeViewport);
   const size = useSelector(selectThreeSize);
   const camera = useSelector(selectThreeCamera);
 
-  const { name, shortName, description, url, logoPath, welcomeMessage } = config.school;
+  const { welcomeMessage } = config.school;
 
   if (!viewport || !size || !camera) return null;
 
@@ -41,17 +41,8 @@ export const FirstSectionHtml = forwardRef(({ headerRef }, ref) => {
 
   return (
     <>
-      {/* Helmet for SEO */}
-      <Helmet>
-        <title>{`Welcome to ${shortName}`}</title>
-        <meta name="description" content={welcomeMessage} />
-        <meta property="og:title" content={`Welcome to ${name}`} />
-        <meta property="og:description" content={welcomeMessage} />
-        <meta property="og:image" content={logoPath} />
-        <meta property="og:url" content={url} />
-        <meta property="og:type" content="website" />
+{/*       <Helmet>
 
-        {/* JSON-LD for structured data */}
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -62,7 +53,7 @@ export const FirstSectionHtml = forwardRef(({ headerRef }, ref) => {
             logo: logoPath,
           })}
         </script>
-      </Helmet>
+      </Helmet> */}
 
       <div
         ref={ref}

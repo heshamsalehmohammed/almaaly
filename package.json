@@ -15,7 +15,9 @@
     "classnames": "^2.5.1",
     "dotenv": "^16.4.5",
     "emailjs-com": "^3.2.0",
+    "express": "^4.21.1",
     "gsap": "^3.12.5",
+    "i18next": "^23.16.4",
     "lodash": "^4.17.21",
     "meta-generator": "^0.1.5",
     "primereact": "^10.8.4",
@@ -24,6 +26,7 @@
     "react-awesome-reveal": "^4.2.14",
     "react-dom": "^18.3.1",
     "react-helmet": "^6.1.0",
+    "react-i18next": "^15.1.0",
     "react-redux": "^9.1.2",
     "react-scripts": "5.0.1",
     "swiper": "^11.1.14",
@@ -31,9 +34,14 @@
     "valtio": "^2.1.0"
   },
   "scripts": {
-    "start": "node --max-old-space-size=4096 node_modules/.bin/react-scripts start",
+    "start": "craco start",
+    "start:prod": "node server.js",
     "prebuild": "node replace-head.js",
-    "build": "ESLINT_NO_DEV_ERRORS=true CI=false node --max-old-space-size=4096 node_modules/.bin/react-scripts build",
+    "copy-lang-index": "node copy-lang-index.js",
+    "build:en": "cross-env LANG=en npm run build:lang",
+    "build:ar": "cross-env LANG=ar npm run build:lang",
+    "build:lang": "npm run prebuild && npm run copy-lang-index && ESLINT_NO_DEV_ERRORS=true CI=false node --max-old-space-size=4096 node_modules/.bin/react-scripts build && node postbuild.js",
+    "build:all": "npm run build:en && npm run build:ar",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -54,5 +62,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@craco/craco": "^7.1.0",
+    "cross-env": "^7.0.3",
+    "fs-extra": "^11.2.0"
   }
 }

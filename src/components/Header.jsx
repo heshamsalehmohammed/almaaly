@@ -1,10 +1,33 @@
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { Helmet } from "react-helmet";
 import { Slide } from "react-awesome-reveal";
-import config from "../config";
+import { ToggleButton } from "primereact/togglebutton";
 import "./Header.css";
+import { getCurrentLanguage } from "../helpers";
 
-const Header = forwardRef(({ domRef, threeSceneRef }, ref) => {
+function LanguageSwitcher() {
+  const currentPath = window.location.pathname.replace(/^\/(en|ar)/, "");
+
+  const switchLanguage = (lang) => {
+    window.location.pathname = `/${lang}${currentPath}`;
+  };
+
+
+  return (
+    <ToggleButton
+    className="switcher-button"
+      onLabel="ar"
+      offLabel="en"
+      checked={getCurrentLanguage() === 'ar'}
+      onChange={(e) => {
+        const newLang = e.value ? "ar" : "en";
+        switchLanguage(newLang);
+      }}
+    />
+  );
+}
+
+const Header = forwardRef(({ domRef, threeSceneRef, config }, ref) => {
   const [isMobile, setIsMobile] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
 
@@ -37,7 +60,7 @@ const Header = forwardRef(({ domRef, threeSceneRef }, ref) => {
       onClick: (e) => {
         e?.preventDefault();
         setShowMenu(false);
-        const h1 =  window.innerHeight;
+        const h1 = window.innerHeight;
         const { height: h2 } =
           domRef.current.secondSectionRef.current.getBoundingClientRect();
         const { height: h3 } =
@@ -46,18 +69,18 @@ const Header = forwardRef(({ domRef, threeSceneRef }, ref) => {
           domRef.current.fourthSectionRef.current.getBoundingClientRect();
         const { height: h5 } =
           domRef.current.bottomElementRef.current.getBoundingClientRect();
-    
+
         const { height: h6 } =
           domRef.current.studentsGallarySectionRef.current.getBoundingClientRect();
-    
+
         const { height: h7 } =
           domRef.current.quotesSectionRef.current.getBoundingClientRect();
 
-          const h8 = window.innerHeight +5;
+        const h8 = window.innerHeight + 5;
 
-         const y = h1 + h2 + h3 + h4 + h5 + h6 + h7 +h8;
+        const y = h1 + h2 + h3 + h4 + h5 + h6 + h7 + h8;
 
-         domRef.current.scrollAreaRef.current.scrollTop = y;
+        domRef.current.scrollAreaRef.current.scrollTop = y;
       },
       deleted: false,
     },
@@ -87,7 +110,7 @@ const Header = forwardRef(({ domRef, threeSceneRef }, ref) => {
 
   return (
     <>
-      <Helmet>
+      {/*       <Helmet>
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -98,7 +121,7 @@ const Header = forwardRef(({ domRef, threeSceneRef }, ref) => {
               .map((item) => `${url}/#${item.id}`),
           })}
         </script>
-      </Helmet>
+      </Helmet> */}
 
       <header className="header1 w-25">
         <div className="container-fluid">
@@ -133,6 +156,7 @@ const Header = forwardRef(({ domRef, threeSceneRef }, ref) => {
                   backgroundColor: "rgb(222 222 222 / 25%)",
                 }}
               >
+                <LanguageSwitcher />
                 {!isMobile &&
                   navItems
                     .filter((nv) => !nv.deleted)
@@ -149,7 +173,9 @@ const Header = forwardRef(({ domRef, threeSceneRef }, ref) => {
                   style={{ fontSize: "1.5rem" }}
                   onClick={toggleShowMenu}
                 >
-                  <i className={`fa-solid ${showMenu ? "fa-xmark" : "fa-bars"}`}></i>
+                  <i
+                    className={`fa-solid ${showMenu ? "fa-xmark" : "fa-bars"}`}
+                  ></i>
                 </div>
               </ul>
             </div>

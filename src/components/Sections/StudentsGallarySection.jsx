@@ -4,11 +4,10 @@ import "./StudentsGallarySection.css";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import config from "../../config";
 
 gsap.registerPlugin(ScrollTrigger);
 
-/**/ const StudentsGallarySection = forwardRef(({ scrollAreaRef }, ref) => {
+/**/ const StudentsGallarySection = forwardRef(({ scrollAreaRef,config }, ref) => {
   const studentsGallary = [
     { img: config.school.studentsGalleryImages[0] },
     { img: config.school.studentsGalleryImages[1] },

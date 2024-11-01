@@ -4,7 +4,6 @@ import "./QuotesSection.css";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import config from "../../config";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -41,7 +40,7 @@ const Quote = forwardRef(({ img, top, text, author, title }, ref) => {
   );
 });
 
-const QuotesSection = forwardRef(({ scrollAreaRef }, ref) => {
+const QuotesSection = forwardRef(({ scrollAreaRef,config }, ref) => {
   const quotesSectionRef = useRef(null);
   const quote1Ref = useRef(null);
   const quote2Ref = useRef(null);
@@ -242,12 +241,8 @@ const QuotesSection = forwardRef(({ scrollAreaRef }, ref) => {
 
   return (
     <>
-      {/* Helmet for SEO */}
-      <Helmet>
-        <title>Testimonials | {config.school.shortName}</title>
-        <meta name="description" content="Read what industry leaders say about Tedy and its impact on wellness and productivity." />
-        
-        {/* JSON-LD structured data for quotes */}
+{/*       <Helmet>
+      
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -270,7 +265,7 @@ const QuotesSection = forwardRef(({ scrollAreaRef }, ref) => {
             })),
           })}
         </script>
-      </Helmet>
+      </Helmet> */}
 
       <div
         ref={quotesSectionRef}

@@ -9,7 +9,7 @@ import FooterSection from "./Sections/FooterSection";
 import StudentsGallarySection from "./Sections/StudentsGallarySection";
 import QuotesSection from "./Sections/QuotesSection";
 
-const ScrollArea = forwardRef(({threeSceneRef,headerRef}, ref) => {
+const ScrollArea = forwardRef(({threeSceneRef,headerRef,config}, ref) => {
   const scrollAreaRef = useRef(null);
   const bottomElementRef = useRef(null);
   const firstSectionRef = useRef(null);
@@ -96,20 +96,21 @@ const ScrollArea = forwardRef(({threeSceneRef,headerRef}, ref) => {
       onPointerMove={onPointerMove}
     >
       <div style={{ width: "100vw", zIndex: "1000" }}>
-        <FirstSectionHtml ref={firstSectionRef} headerRef={headerRef}/>
-        <SecondSection ref={secondSectionRef} />
-        <ThirdSection ref={thirdSectionRef} />
-        <StudentsGallarySection ref={studentsGallarySectionRef} scrollAreaRef={scrollAreaRef} />
-        <FourthSection ref={fourthSectionRef} />
-        <QuotesSection ref={quotesSectionRef} scrollAreaRef={scrollAreaRef}/>
+        <FirstSectionHtml ref={firstSectionRef} headerRef={headerRef}  config={config}/>
+        <SecondSection ref={secondSectionRef}  config={config}/>
+        <ThirdSection ref={thirdSectionRef}  config={config}/>
+        <StudentsGallarySection ref={studentsGallarySectionRef} scrollAreaRef={scrollAreaRef}  config={config}/>
+        <FourthSection ref={fourthSectionRef}  config={config}/>
+        <QuotesSection ref={quotesSectionRef} scrollAreaRef={scrollAreaRef}  config={config}/>
         <BottomPage
           ref={bottomElementRef}
           scrollAreaRef={scrollAreaRef}
           elementBeforeRef={fourthSectionRef}
           positionTop={"400vh"}
+          config={config}
         />
-        <FifthSection ref={fifthSectionRef} scrollAreaRef={scrollAreaRef} threeSceneRef={threeSceneRef}/>
-        <FooterSection ref={footerSectionRef} />
+        <FifthSection ref={fifthSectionRef} scrollAreaRef={scrollAreaRef} threeSceneRef={threeSceneRef}  config={config}/>
+        <FooterSection ref={footerSectionRef}  config={config}/>
       </div>
     </div>
   );

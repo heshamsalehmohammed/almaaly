@@ -2,10 +2,10 @@ const config = {
   school: {
     name: "Almaaly International School",
     shortName: "Almaaly",
-    description:
+    metaDescription:
       "Almaaly International School offers comprehensive educational programs for students aged 5 to 18, fostering excellence and global citizenship.",
-    descriptionContent:
-      "Offering quality education and fostering global citizens.",
+    meta_og_Description:
+      "Offering quality education, comprehensive educational programs and fostering global citizens.",
     welcomeMessage:
       "Embark on a journey of educational excellence with Almaaly. Discover our rich history and commitment to nurturing future leaders.",
     url: `${process.env.PUBLIC_URL}`,
@@ -26,6 +26,7 @@ const config = {
       twitter: "https://www.twitter.com/AlmaalySchool",
       linkedin: "https://www.linkedin.com/company/almaaly-international-school",
     },
+    quotesMetaDescription:"Read what industry leaders say about Tedy and its impact on wellness and productivity.",
     quotes: [
       {
         text: "Tedy has enabled us to move from employee benefits to a personalized wellness experience.",
