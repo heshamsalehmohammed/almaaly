@@ -98,7 +98,7 @@ const FooterSection = forwardRef(({ scrollAreaRef,config }, ref) => {
                   </li>
                   <li className="nav-item">
                     <a className="nav-link" href="#">
-                      <i class="fa-solid fa-right-to-bracket me-2"></i> Join us
+                      <i className="fa-solid fa-right-to-bracket me-2"></i> Join us
                     </a>
                   </li>
                   <li className="nav-item">

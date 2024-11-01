@@ -37,12 +37,11 @@
     "valtio": "^2.1.0"
   },
   "scripts": {
-    "start": "craco start",
+    "start": "node start-local-environment.js",
     "start:prod": "node server.js",
-    "copy-lang-index": "node copy-lang-index.js",
     "build:en": "cross-env PUBLIC_URL=. LANG=en npm run build:lang",
     "build:ar": "cross-env PUBLIC_URL=. LANG=ar npm run build:lang",
-    "build:lang": "node copy-lang-index.js && ESLINT_NO_DEV_ERRORS=true CI=false node --max-old-space-size=4096 node_modules/.bin/react-scripts build && node replace-head.js && node postbuild.js",
+    "build:lang": "node create-html.js node copy-lang-index.js && ESLINT_NO_DEV_ERRORS=true CI=false node --max-old-space-size=4096 node_modules/.bin/react-scripts build && node postbuild.js",
     "build:all": "npm run build:en && npm run build:ar",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

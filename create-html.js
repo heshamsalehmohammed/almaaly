@@ -1,7 +1,8 @@
-// replace-head.js
+// create-html.js
 require('dotenv').config();
 const path = require('path');
 const fs = require('fs');
+const fsPromises = fs.promises;
 const metagen = require('meta-generator');
 const lang = process.env.LANG || 'en';
 const config = require(`./src/config.${lang}.js`);
@@ -46,10 +47,10 @@ const boilerplate = `
 <html ${htmlAttributes}>
   <head>
   <meta charset="utf-8" />
-  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+  <link rel="icon" href="${process.env.PUBLIC_URL || './'}favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta name="theme-color" content="#000000" />
-  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  <link rel="manifest" href="${process.env.PUBLIC_URL || './'}manifest.json" />
     <!-- {% metagen %} -->
   </head>
   <body>
@@ -242,18 +243,19 @@ let content = boilerplate.replace('<!-- {% metagen %} -->', headContent);
 // Inject data-nonce placeholders and make asset paths relative
 content = addDataNonce(content);
 
-console.log('content after adding nonce',content)
 
 // Define the output path for the language-specific index.html
 const outputPath = path.join(__dirname, `public_langs/${lang}/index.html`);
 
 // Write the final HTML to the specified path
-fs.mkdir(path.dirname(outputPath), { recursive: true }, (err) => {
-  if (err) throw err;
-
-  // Write the final HTML to the specified path
-  fs.writeFile(outputPath, content.trim(), (err) => {
-    if (err) throw err;
+const createHtml = async () => {
+  try {
+    await fsPromises.mkdir(path.dirname(outputPath), { recursive: true });
+    await fsPromises.writeFile(outputPath, content.trim());
     console.log(`Meta tags and JSON-LD data successfully generated for ${lang}!`);
-  });
-});
+  } catch (error) {
+    console.error(`Error generating HTML for ${lang}:`, error);
+  }
+};
+
+createHtml();

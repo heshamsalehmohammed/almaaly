@@ -31,13 +31,18 @@ module.exports = {
     },
   },
   devServer: {
-    historyApiFallback: false, // Disable default history API fallback
+    historyApiFallback: {
+      rewrites: [
+        { from: /^\/en/, to: '/en/index.html' },
+        { from: /^\/ar/, to: '/ar/index.html' },
+      ],
+    },
 
     // Add custom middleware using onBeforeSetupMiddleware
     onBeforeSetupMiddleware: function (devServer) {
-      devServer.app.get('/:lang(en|ar)', (req, res, next) => {
+      devServer.app.get('/:lang(en|ar)/*', (req, res, next) => {
         const lang = req.params.lang;
-        const filename = path.join(devServer.compiler.outputPath, `${lang}/index.html`);
+        const filename = path.join(__dirname, `public_langs/${lang}/index.html`);
         devServer.compiler.outputFileSystem.readFile(filename, (err, result) => {
           if (err) {
             return next(err);
@@ -50,7 +55,7 @@ module.exports = {
 
       devServer.app.get('/:lang(en|ar)/*', (req, res, next) => {
         const lang = req.params.lang;
-        const filename = path.join(devServer.compiler.outputPath, `${lang}/index.html`);
+        const filename = path.join(__dirname, `public_langs/${lang}/index.html`);
         devServer.compiler.outputFileSystem.readFile(filename, (err, result) => {
           if (err) {
             return next(err);
