@@ -1,4 +1,5 @@
 require('dotenv').config();
+const path = require('path');
 const fs = require('fs');
 const metagen = require('meta-generator');
 const lang = process.env.LANG || 'en';
@@ -80,18 +81,17 @@ const metaHTML = `
 `;
 
 
-// Add data-nonce attributes to script and link tags
-// Function to add data-nonce attributes
+// Function to add data-nonce attributes and make asset paths relative
 const addDataNonce = (html) => {
-  // Add data-nonce to all script tags
-  html = html.replace(/<script/g, '<script data-nonce="REPLACE_WITH_NONCE"');
+  // Add data-nonce to all script tags that don't already have it
+  html = html.replace(/<script(?!(?:[^>]*\sdata-nonce=))/g, '<script data-nonce="REPLACE_WITH_NONCE"');
 
-  // Add data-nonce to all stylesheet link tags
-  html = html.replace(/<link rel="stylesheet"/g, '<link rel="stylesheet" data-nonce="REPLACE_WITH_NONCE"');
+  // Add data-nonce to all stylesheet link tags that don't already have it
+  html = html.replace(/<link rel="stylesheet"(?!(?:[^>]*\sdata-nonce=))/g, '<link rel="stylesheet" data-nonce="REPLACE_WITH_NONCE"');
 
   // Make asset paths relative by removing leading slash
-  html = html.replace(/href="\//g, 'href="');
-  html = html.replace(/src="\//g, 'src="');
+  html = html.replace(/href="\/static\//g, 'href="static/');
+  html = html.replace(/src="\/static\//g, 'src="static/');
 
   return html;
 };
@@ -226,6 +226,7 @@ const jsonLdData = [
   },
 ];
 
+// Generate JSON-LD script tags with data-nonce placeholders
 const jsonLdScripts = jsonLdData
   .map(
     (jsonLd) =>
@@ -233,15 +234,19 @@ const jsonLdScripts = jsonLdData
   )
   .join('\n');
 
-const headContent = metaHTML + jsonLdScripts;
+const headContent = metaHTML + '\n' + jsonLdScripts;
 
+// Replace the boilerplate's metagen placeholder with actual meta tags and JSON-LD
 let content = boilerplate.replace('<!-- {% metagen %} -->', headContent);
 
+// Inject data-nonce placeholders and make asset paths relative
 content = addDataNonce(content);
 
-const outputPath = `./public_langs/${lang}/index.html`;
+// Define the output path for the language-specific index.html
+const outputPath = path.join(__dirname, `build_${lang}`, 'index.html');
 
+// Write the final HTML to the specified path
 fs.writeFile(outputPath, content.trim(), (err) => {
   if (err) throw err;
-  console.log(`Meta tags and JSON-LD data successfully for ${lang}!`);
+  console.log(`Meta tags and JSON-LD data successfully generated for ${lang}!`);
 });

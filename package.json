@@ -39,11 +39,10 @@
   "scripts": {
     "start": "craco start",
     "start:prod": "node server.js",
-    "prebuild": "node replace-head.js",
     "copy-lang-index": "node copy-lang-index.js",
     "build:en": "cross-env LANG=en npm run build:lang",
     "build:ar": "cross-env LANG=ar npm run build:lang",
-    "build:lang": "npm run prebuild && npm run copy-lang-index && ESLINT_NO_DEV_ERRORS=true CI=false node --max-old-space-size=4096 node_modules/.bin/react-scripts build && node postbuild.js",
+    "build:lang": "node copy-lang-index.js && ESLINT_NO_DEV_ERRORS=true CI=false node --max-old-space-size=4096 node_modules/.bin/react-scripts build && node replace-head.js && node postbuild.js",
     "build:all": "npm run build:en && npm run build:ar",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

@@ -40,6 +40,7 @@ app.use(
         upgradeInsecureRequests: [],
       },
     },
+    // Other Helmet configurations can be added here
   })
 );
 
@@ -47,18 +48,18 @@ app.use(
 app.use(compression());
 
 // Serve static files for English and Arabic
-app.use('/en', express.static(path.join(__dirname, 'build_en')));
-app.use('/ar', express.static(path.join(__dirname, 'build_ar')));
+app.use('/en/static', express.static(path.join(__dirname, 'build_en', 'static')));
+app.use('/ar/static', express.static(path.join(__dirname, 'build_ar', 'static')));
 
 // Function to inject nonce into HTML files
 const injectNonce = async (filePath, nonce) => {
   try {
     let html = await fs.readFile(filePath, 'utf8');
 
-    // Replace <script data-nonce="REPLACE_WITH_NONCE"> with <script nonce="...">
+    // Replace <script data-nonce="REPLACE_WITH_NONCE" ...> with <script nonce="actual_nonce" ...>
     html = html.replace(/<script\s+data-nonce="REPLACE_WITH_NONCE"([^>]*)>/g, `<script nonce="${nonce}"$1>`);
 
-    // Replace <link rel="stylesheet" data-nonce="REPLACE_WITH_NONCE" ...> with <link rel="stylesheet" nonce="..." ...>
+    // Replace <link rel="stylesheet" data-nonce="REPLACE_WITH_NONCE" ...> with <link rel="stylesheet" nonce="actual_nonce" ...>
     html = html.replace(/<link\s+rel="stylesheet"\s+data-nonce="REPLACE_WITH_NONCE"([^>]*)>/g, `<link rel="stylesheet" nonce="${nonce}"$1>`);
 
     return html;
@@ -69,13 +70,13 @@ const injectNonce = async (filePath, nonce) => {
 };
 
 // Serve manifest.json correctly for English and Arabic
-app.get(['/manifest.json', '/en/manifest.json', '/ar/manifest.json'], (req, res) => {
+app.get(['/en/manifest.json', '/ar/manifest.json'], (req, res) => {
   const lang = req.path.startsWith('/ar') ? 'ar' : 'en';
   res.sendFile(path.join(__dirname, `build_${lang}`, 'manifest.json'));
 });
 
 // Serve favicon.ico correctly for English and Arabic
-app.get(['/favicon.ico', '/en/favicon.ico', '/ar/favicon.ico'], (req, res) => {
+app.get(['/en/favicon.ico', '/ar/favicon.ico'], (req, res) => {
   const lang = req.path.startsWith('/ar') ? 'ar' : 'en';
   res.sendFile(path.join(__dirname, `build_${lang}`, 'favicon.ico'));
 });
