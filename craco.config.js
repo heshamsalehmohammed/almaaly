@@ -40,6 +40,26 @@ module.exports = {
 
     // Add custom middleware using onBeforeSetupMiddleware
     onBeforeSetupMiddleware: function (devServer) {
+
+
+      devServer.app.get(['/en/manifest.json', '/ar/manifest.json'], (req, res, next) => {
+        const filePath = path.join(__dirname, `public/manifest.json`);
+        res.sendFile(filePath, (err) => {
+          if (err) {
+            next(err);
+          }
+        });
+      });
+
+      devServer.app.get(['/en/favicon.ico', '/ar/favicon.ico'], (req, res, next) => {
+        const filePath = path.join(__dirname, `public/favicon.ico`);
+        res.sendFile(filePath, (err) => {
+          if (err) {
+            next(err);
+          }
+        });
+      });
+
       devServer.app.get('/:lang(en|ar)/*', (req, res, next) => {
         const lang = req.params.lang;
         const filename = path.join(__dirname, `public_langs/${lang}/index.html`);

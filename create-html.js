@@ -47,10 +47,10 @@ const boilerplate = `
 <html ${htmlAttributes}>
   <head>
   <meta charset="utf-8" />
-  <link rel="icon" href="${url}/favicon.ico" />
+  <link rel="icon" href="${url}/${lang}/favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta name="theme-color" content="#000000" />
-  <link rel="manifest" href="${url}/manifest.json" />
+  <link rel="manifest" href="${url}/${lang}/manifest.json" />
     <!-- {% metagen %} -->
   </head>
   <body>

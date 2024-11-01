@@ -66,7 +66,7 @@ function Text({
   ...props
 }) {
   const reflow = useReflow();
-  const font = bold ? "/Inter-Bold.woff" : "/Inter-Regular.woff";
+  const font = bold ? "three-fonts/Inter-Bold.woff" : "three-fonts/Inter-Regular.woff";
   return (
     <TextImpl
       anchorX={anchorX}
