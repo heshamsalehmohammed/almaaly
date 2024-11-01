@@ -79,6 +79,18 @@ const metaHTML = `
   <link rel="alternate" href="${url}/" hreflang="x-default" />
 `;
 
+
+// Add data-nonce attributes to script and link tags
+const addDataNonce = (html) => {
+  // Add data-nonce to all script tags
+  html = html.replace(/<script/g, '<script data-nonce="REPLACE_WITH_NONCE"');
+  
+  // Add data-nonce to all stylesheet link tags
+  html = html.replace(/<link rel="stylesheet"/g, '<link rel="stylesheet" data-nonce="REPLACE_WITH_NONCE"');
+  
+  return html;
+};
+
 const jsonLdData = [
   // JSON-LD for general school information
   {
@@ -211,7 +223,7 @@ const jsonLdData = [
 const jsonLdScripts = jsonLdData
   .map(
     (jsonLd) =>
-      `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`
+      `<script type="application/ld+json" data-nonce="REPLACE_WITH_NONCE">${JSON.stringify(jsonLd)}</script>`
   )
   .join('\n');
 
