@@ -6,12 +6,33 @@ const helmet = require('helmet');
 
 const app = express();
 
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", "'unsafe-inline'"], // Allow inline scripts (if necessary)
+        styleSrc: ["'self'", "'unsafe-inline'"], // Allow inline styles (if necessary)
+        imgSrc: ["'self'", 'data:', 'https:'], // Allow images from self and data URIs
+        connectSrc: ["'self'"],
+        fontSrc: ["'self'", 'https:', 'data:'],
+        objectSrc: ["'none'"],
+        upgradeInsecureRequests: [],
+      },
+    },
+  })
+);
 app.use(compression());
 
 // Serve static files from the build directories
 app.use('/en', express.static(path.join(__dirname, 'build_en')));
 app.use('/ar', express.static(path.join(__dirname, 'build_ar')));
+
+// Serve manifest.json and other static files
+app.use('/manifest.json', express.static(path.join(__dirname, 'public_langs', 'en', 'manifest.json')));
+app.use('/ar/manifest.json', express.static(path.join(__dirname, 'public_langs', 'ar', 'manifest.json')));
+app.use('/en/manifest.json', express.static(path.join(__dirname, 'public_langs', 'en', 'manifest.json')));
+
 
 // Fallback to index.html for React Router
 app.get('/en/*', (req, res) => {
@@ -27,10 +48,25 @@ app.get('/', (req, res) => {
   res.redirect('/en');
 });
 
+// Handle manifest.json requests for root and languages
+app.get('/manifest.json', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public_langs', 'en', 'manifest.json'));
+});
+
+app.get('/en/manifest.json', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public_langs', 'en', 'manifest.json'));
+});
+
+app.get('/ar/manifest.json', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public_langs', 'ar', 'manifest.json'));
+});
+
 // Handle all other routes and redirect to English
 app.get('*', (req, res) => {
   res.redirect('/en');
 });
+
+
 
 // Start the server
 const PORT = process.env.PORT || 5000;
