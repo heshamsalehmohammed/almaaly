@@ -40,7 +40,6 @@ app.use(
         upgradeInsecureRequests: [],
       },
     },
-    // Other Helmet configurations can be added here
   })
 );
 
@@ -56,33 +55,11 @@ const injectNonce = async (filePath, nonce) => {
   try {
     let html = await fs.readFile(filePath, 'utf8');
 
-    // Regex patterns to find script and style tags
-    const scriptTagPattern = /<script([^>]*)>/g;
-    const linkTagPattern = /<link([^>]*)>/g;
+    // Replace <script data-nonce="REPLACE_WITH_NONCE"> with <script nonce="...">
+    html = html.replace(/<script\s+data-nonce="REPLACE_WITH_NONCE"([^>]*)>/g, `<script nonce="${nonce}"$1>`);
 
-    // Replace <script> tags by adding nonce attribute
-    html = html.replace(scriptTagPattern, (match, p1) => {
-      // If nonce already exists, replace it
-      if (/nonce=["']([^"']+)["']/.test(match)) {
-        return match.replace(/nonce=["']([^"']+)["']/, `nonce="${nonce}"`);
-      }
-      // Otherwise, add nonce attribute
-      return `<script nonce="${nonce}"${p1}>`;
-    });
-
-    // Replace <link> tags for stylesheets by adding nonce attribute if necessary
-    html = html.replace(linkTagPattern, (match, p1) => {
-      // Only target stylesheets
-      if (/rel=["']stylesheet["']/.test(match)) {
-        // If nonce already exists, replace it
-        if (/nonce=["']([^"']+)["']/.test(match)) {
-          return match.replace(/nonce=["']([^"']+)["']/, `nonce="${nonce}"`);
-        }
-        // Otherwise, add nonce attribute
-        return `<link rel="stylesheet" nonce="${nonce}"${p1}>`;
-      }
-      return match;
-    });
+    // Replace <link rel="stylesheet" data-nonce="REPLACE_WITH_NONCE" ...> with <link rel="stylesheet" nonce="..." ...>
+    html = html.replace(/<link\s+rel="stylesheet"\s+data-nonce="REPLACE_WITH_NONCE"([^>]*)>/g, `<link rel="stylesheet" nonce="${nonce}"$1>`);
 
     return html;
   } catch (error) {

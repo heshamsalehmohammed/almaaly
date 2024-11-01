@@ -81,15 +81,21 @@ const metaHTML = `
 
 
 // Add data-nonce attributes to script and link tags
+// Function to add data-nonce attributes
 const addDataNonce = (html) => {
   // Add data-nonce to all script tags
   html = html.replace(/<script/g, '<script data-nonce="REPLACE_WITH_NONCE"');
-  
+
   // Add data-nonce to all stylesheet link tags
   html = html.replace(/<link rel="stylesheet"/g, '<link rel="stylesheet" data-nonce="REPLACE_WITH_NONCE"');
-  
+
+  // Make asset paths relative by removing leading slash
+  html = html.replace(/href="\//g, 'href="');
+  html = html.replace(/src="\//g, 'src="');
+
   return html;
 };
+
 
 const jsonLdData = [
   // JSON-LD for general school information
@@ -229,7 +235,9 @@ const jsonLdScripts = jsonLdData
 
 const headContent = metaHTML + jsonLdScripts;
 
-const content = boilerplate.replace('<!-- {% metagen %} -->', headContent);
+let content = boilerplate.replace('<!-- {% metagen %} -->', headContent);
+
+content = addDataNonce(content);
 
 const outputPath = `./public_langs/${lang}/index.html`;
 
