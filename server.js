@@ -1,8 +1,13 @@
 // server.js
 const express = require('express');
 const path = require('path');
+const compression = require('compression');
+const helmet = require('helmet');
 
 const app = express();
+
+app.use(helmet());
+app.use(compression());
 
 // Serve static files from the build directories
 app.use('/en', express.static(path.join(__dirname, 'build_en')));
