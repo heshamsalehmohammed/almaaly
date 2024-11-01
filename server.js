@@ -35,6 +35,7 @@ app.use(
           "'self'",
           'https://fonts.gstatic.com', // Allow Google Fonts
           'data:',
+          "'unsafe-eval'",
         ],
         imgSrc: ["'self'", 'data:', 'https:'],
         connectSrc: ["'self'"],
