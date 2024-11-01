@@ -73,7 +73,7 @@ app.get(['/en/manifest.json', '/ar/manifest.json'], (req, res) => {
 });
 
 // Serve favicon.ico correctly for English and Arabic
-app.get(['/en/favicon.ico', '/ar/favicon.ico'], (req, res) => {
+app.get(['/en/favicon.ico', '/ar/favicon.ico'], (req, res) => { 
   const lang = req.path.startsWith('/ar') ? 'ar' : 'en';
   res.sendFile(path.join(__dirname, `build_${lang}`, 'favicon.ico'));
 });
