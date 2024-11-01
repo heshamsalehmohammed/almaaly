@@ -47,10 +47,10 @@ const boilerplate = `
 <html ${htmlAttributes}>
   <head>
   <meta charset="utf-8" />
-  <link rel="icon" href="${process.env.PUBLIC_URL || './'}favicon.ico" />
+  <link rel="icon" href="${url}/favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta name="theme-color" content="#000000" />
-  <link rel="manifest" href="${process.env.PUBLIC_URL || './'}manifest.json" />
+  <link rel="manifest" href="${url}/manifest.json" />
     <!-- {% metagen %} -->
   </head>
   <body>
@@ -77,8 +77,8 @@ const metaHTML = `
   <meta name="twitter:description" content="${meta_og_Description}" />
   <meta name="twitter:image" content="${ogImagePath}" />
 
-  <link rel="alternate" href="${url}en/" hreflang="en" />
-  <link rel="alternate" href="${url}ar/" hreflang="ar" />
+  <link rel="alternate" href="${url}/en/" hreflang="en" />
+  <link rel="alternate" href="${url}/ar/" hreflang="ar" />
   <link rel="alternate" href="${url}" hreflang="x-default" />
 `;
 
