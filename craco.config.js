@@ -60,6 +60,17 @@ module.exports = {
         });
       });
 
+
+      devServer.app.get(['/en/three-fonts/*', '/ar/three-fonts/*', '/three-fonts/*'], (req, res, next) => {
+        const afterKey = req.path.replace(/^\/(en|ar)\/three-fonts\//, ''); // Strip language prefix if present
+        const filePath = path.join(__dirname, `public/three-fonts`, afterKey);
+        res.sendFile(filePath, (err) => {
+          if (err) {
+            next(err);
+          }
+        });
+      });
+
       devServer.app.get('/:lang(en|ar)/*', (req, res, next) => {
         const lang = req.params.lang;
         const filename = path.join(__dirname, `public_langs/${lang}/index.html`);

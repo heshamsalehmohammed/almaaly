@@ -4,6 +4,7 @@ import { FontLoader } from "three/examples/jsm/loaders/FontLoader";
 import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry";
 
 import { extend, useLoader, useThree } from "@react-three/fiber";
+import { getCurrentLanguage } from './helpers';
 
 extend({ TextGeometry });
 
@@ -23,7 +24,7 @@ const Text = forwardRef(
   ) => {
     const font = useLoader(
       FontLoader,
-      "/three-fonts/minimized/Fira Sans Eight_Regular.json"
+      `${getCurrentLanguage()}/three-fonts/minimized/FiraSansEight_Regular.json`
     );
     const config = useMemo(
       () => ({ font, size: fontSize, depth:height }),

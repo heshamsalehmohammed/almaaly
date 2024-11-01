@@ -3,6 +3,7 @@ import { useRef, useLayoutEffect, forwardRef, useImperativeHandle } from "react"
 import { useThree, useLoader } from "@react-three/fiber";
 import { Flex, Box, useReflow } from "@react-three/flex";
 import { useAspect, Text as TextImpl } from "@react-three/drei";
+import { getCurrentLanguage } from "../../helpers";
 
 export const projectYToScene = (y, unit = "px", camera, viewport, size) => {
   let yInPixels = y;
@@ -66,13 +67,13 @@ function Text({
   ...props
 }) {
   const reflow = useReflow();
-  const font = bold ? "three-fonts/Inter-Bold.woff" : "three-fonts/Inter-Regular.woff";
+  const font = bold ? "/three-fonts/Inter-Bold.woff" : "/three-fonts/Inter-Regular.woff";
   return (
     <TextImpl
       anchorX={anchorX}
       anchorY={anchorY}
       textAlign={textAlign}
-      font={font}
+      font={getCurrentLanguage() + font}
       onSync={reflow}
       {...props}
     />

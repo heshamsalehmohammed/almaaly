@@ -80,9 +80,10 @@ app.get(['/en/favicon.ico', '/ar/favicon.ico'], (req, res) => {
   res.sendFile(path.join(__dirname, `build_${lang}`, 'favicon.ico'));
 });
 
-app.get('/three-fonts/*', (req, res) => {
+app.get(['/en/three-fonts/*','/ar/three-fonts/*'], (req, res) => {
+  const lang = req.path.startsWith('/ar') ? 'ar' : 'en';
   const afterkey = req.path.split('/three-fonts/')[1];
-  res.sendFile(path.join(__dirname, `build_en`, 'three-fonts',afterkey));
+  res.sendFile(path.join(__dirname, `build_${lang}`, 'three-fonts',afterkey));
 });
 
 // Fallback to index.html for client-side routing in English
