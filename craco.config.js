@@ -61,9 +61,30 @@ module.exports = {
       });
 
 
-      devServer.app.get(['/en/three-fonts/*', '/ar/three-fonts/*', '/three-fonts/*'], (req, res, next) => {
+      devServer.app.get(['/en/three-fonts/*', '/ar/three-fonts/*'], (req, res, next) => {
         const afterKey = req.path.replace(/^\/(en|ar)\/three-fonts\//, ''); // Strip language prefix if present
         const filePath = path.join(__dirname, `public/three-fonts`, afterKey);
+        res.sendFile(filePath, (err) => {
+          if (err) {
+            next(err);
+          }
+        });
+      });
+
+
+      devServer.app.get(['/en/images/*', '/ar/images/*'], (req, res, next) => {
+        const afterKey = req.path.replace(/^\/(en|ar)\/images\//, ''); // Strip language prefix if present
+        const filePath = path.join(__dirname, `public/images`, afterKey);
+        res.sendFile(filePath, (err) => {
+          if (err) {
+            next(err);
+          }
+        });
+      });
+
+      devServer.app.get(['/en/videos/*', '/ar/videos/*'], (req, res, next) => {
+        const afterKey = req.path.replace(/^\/(en|ar)\/videos\//, ''); // Strip language prefix if present
+        const filePath = path.join(__dirname, `public/videos`, afterKey);
         res.sendFile(filePath, (err) => {
           if (err) {
             next(err);

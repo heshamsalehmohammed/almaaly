@@ -132,7 +132,7 @@ const LayerCardSection = forwardRef(({ domRef, sceneStateRef }, ref) => {
   const { viewport, size, camera } = useThree();
   const layerCardRef = useRef();
   const [bW, bH] = useAspect(1920, 800, 0.5);
-  const texture = useLoader(THREE.TextureLoader, "/students.jpg");
+  const texture = useLoader(THREE.TextureLoader, `/${getCurrentLanguage()}/images/students.jpg`);
   const scale = Math.min(1, viewport.width / 128);
 
   // initial value will be overwritten 3la tool

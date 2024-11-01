@@ -86,6 +86,19 @@ app.get(['/en/three-fonts/*','/ar/three-fonts/*'], (req, res) => {
   res.sendFile(path.join(__dirname, `build_${lang}`, 'three-fonts',afterkey));
 });
 
+app.get(['/en/images/*','/ar/images/*'], (req, res) => {
+  const lang = req.path.startsWith('/ar') ? 'ar' : 'en';
+  const afterkey = req.path.split('/images/')[1];
+  res.sendFile(path.join(__dirname, `build_${lang}`, 'images',afterkey));
+});
+
+app.get(['/en/videos/*','/ar/videos/*'], (req, res) => {
+  const lang = req.path.startsWith('/ar') ? 'ar' : 'en';
+  const afterkey = req.path.split('/videos/')[1];
+  res.sendFile(path.join(__dirname, `build_${lang}`, 'videos',afterkey));
+});
+
+
 // Fallback to index.html for client-side routing in English
 app.get('/en/*', async (req, res) => {
   try {
