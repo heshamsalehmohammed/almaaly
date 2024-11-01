@@ -23,11 +23,13 @@ app.use(
         scriptSrc: [
           "'self'",
           (req, res) => `'nonce-${res.locals.nonce}'`, // Allow scripts with the matching nonce
+          "'unsafe-eval'",
         ],
         styleSrc: [
           "'self'",
           (req, res) => `'nonce-${res.locals.nonce}'`, // Allow styles with the matching nonce
           'https://fonts.googleapis.com', // Allow Google Fonts
+          "'unsafe-eval'",
         ],
         fontSrc: [
           "'self'",
