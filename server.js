@@ -100,7 +100,7 @@ app.get(['/en/videos/*','/ar/videos/*'], (req, res) => {
 
 
 // Fallback to index.html for client-side routing in English
-app.get('/en/*', async (req, res) => {
+app.get(['/en','/en/*'], async (req, res) => {
   try {
     const indexPath = path.join(__dirname, 'build_en', 'index.html');
     const modifiedHtml = await injectNonce(indexPath, res.locals.nonce);
@@ -112,7 +112,7 @@ app.get('/en/*', async (req, res) => {
 });
 
 // Fallback to index.html for client-side routing in Arabic
-app.get('/ar/*', async (req, res) => {
+app.get(['/ar','/ar/*'], async (req, res) => {
   try {
     const indexPath = path.join(__dirname, 'build_ar', 'index.html');
     const modifiedHtml = await injectNonce(indexPath, res.locals.nonce);
