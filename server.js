@@ -56,11 +56,8 @@ const injectNonce = async (filePath, nonce) => {
   try {
     let html = await fs.readFile(filePath, 'utf8');
 
-    // Replace <script data-nonce="REPLACE_WITH_NONCE" ...> with <script nonce="actual_nonce" ...>
-    html = html.replace(/<script\s+data-nonce="REPLACE_WITH_NONCE"([^>]*)>/g, `<script nonce="${nonce}"$1>`);
-
-    // Replace <link rel="stylesheet" data-nonce="REPLACE_WITH_NONCE" ...> with <link rel="stylesheet" nonce="actual_nonce" ...>
-    html = html.replace(/<link\s+rel="stylesheet"\s+data-nonce="REPLACE_WITH_NONCE"([^>]*)>/g, `<link rel="stylesheet" nonce="${nonce}"$1>`);
+    // Replace data-nonce with the actual nonce
+    html = html.replace(/data-nonce="REPLACE_WITH_NONCE"/g, `nonce="${nonce}"`);
 
     return html;
   } catch (error) {

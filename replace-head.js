@@ -1,3 +1,4 @@
+// replace-head.js
 require('dotenv').config();
 const path = require('path');
 const fs = require('fs');
@@ -75,13 +76,12 @@ const metaHTML = `
   <meta name="twitter:description" content="${meta_og_Description}" />
   <meta name="twitter:image" content="${ogImagePath}" />
 
-  <link rel="alternate" href="${url}/en/" hreflang="en" />
-  <link rel="alternate" href="${url}/ar/" hreflang="ar" />
-  <link rel="alternate" href="${url}/" hreflang="x-default" />
+  <link rel="alternate" href="${url}en/" hreflang="en" />
+  <link rel="alternate" href="${url}ar/" hreflang="ar" />
+  <link rel="alternate" href="${url}" hreflang="x-default" />
 `;
 
 
-// Function to add data-nonce attributes and make asset paths relative
 const addDataNonce = (html) => {
   // Add data-nonce to all script tags that don't already have it
   html = html.replace(/<script(?!(?:[^>]*\sdata-nonce=))/g, '<script data-nonce="REPLACE_WITH_NONCE"');
@@ -95,7 +95,6 @@ const addDataNonce = (html) => {
 
   return html;
 };
-
 
 const jsonLdData = [
   // JSON-LD for general school information
@@ -246,7 +245,12 @@ content = addDataNonce(content);
 const outputPath = path.join(__dirname, `build_${lang}`, 'index.html');
 
 // Write the final HTML to the specified path
-fs.writeFile(outputPath, content.trim(), (err) => {
+fs.mkdir(path.dirname(outputPath), { recursive: true }, (err) => {
   if (err) throw err;
-  console.log(`Meta tags and JSON-LD data successfully generated for ${lang}!`);
+
+  // Write the final HTML to the specified path
+  fs.writeFile(outputPath, content.trim(), (err) => {
+    if (err) throw err;
+    console.log(`Meta tags and JSON-LD data successfully generated for ${lang}!`);
+  });
 });
