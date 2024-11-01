@@ -1,6 +1,6 @@
 {
   "name": "almaaly",
-  "homepage": "https://www.almaaly.edu.eg",
+  "homepage": "https://almaaly-production.up.railway.app/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

@@ -73,6 +73,10 @@ const metaHTML = `
   <meta name="twitter:title" content="${name}" />
   <meta name="twitter:description" content="${meta_og_Description}" />
   <meta name="twitter:image" content="${ogImagePath}" />
+
+  <link rel="alternate" href="${url}/en/" hreflang="en" />
+  <link rel="alternate" href="${url}/ar/" hreflang="ar" />
+  <link rel="alternate" href="${url}/" hreflang="x-default" />
 `;
 
 const jsonLdData = [
