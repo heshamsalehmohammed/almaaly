@@ -10,7 +10,7 @@ const FifthSection = forwardRef(({ scrollAreaRef,threeSceneRef,config },ref) => 
 
   useImperativeHandle(ref, () => fifthElementContainerRef.current);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
  
     // Set initial opacity
     gsap.set(fifthElementContainerRef.current, { opacity: 0 });
