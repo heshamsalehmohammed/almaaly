@@ -29,7 +29,6 @@ app.use(
           "'self'",
           (req, res) => `'nonce-${res.locals.nonce}'`, // Allow styles with the matching nonce
           'https://fonts.googleapis.com', // Allow Google Fonts
-          "'unsafe-eval'",
           "'unsafe-inline'"
         ],
         fontSrc: [
