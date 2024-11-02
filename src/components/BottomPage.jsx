@@ -1,5 +1,3 @@
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   forwardRef,
   useEffect,
@@ -9,8 +7,7 @@ import {
   useState,
 } from "react";
 import { Helmet } from "react-helmet";
-
-if (typeof window !== "undefined") gsap.registerPlugin(ScrollTrigger);
+import { gsap } from "gsap";
 
 const MainYouTubeEmbedWithAnimation = forwardRef(
   ({ videoId, scrollAreaRef }, ref) => {
@@ -142,17 +139,11 @@ const BottomPage = forwardRef(({ scrollAreaRef, config }, ref) => {
     }
   };
 
-  const handleResize = () => {
-    ScrollTrigger.refresh();
-  };
-
   useEffect(() => {
     scrollAreaRef.current.addEventListener("scroll", handleScroll);
-    window.addEventListener("resize", handleResize);
     // Clean up the event listener on component unmount
     return () => {
       scrollAreaRef.current.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
@@ -215,41 +206,39 @@ const BottomPage = forwardRef(({ scrollAreaRef, config }, ref) => {
         },
       });
 
-      ScrollTrigger.matchMedia({
-        // Desktop and above
-        "(min-width: 768px)": function () {
-          gsap.to(stickyElementRef.current, {
-            scrollTrigger: {
-              scroller: scrollAreaRef.current,
-              trigger: stickyElementRef.current,
-              start: "top top",
-              endTrigger: lastRowRef.current,
-              end: "center center",
-              pin: true,
-              scrub: 1, // Smooth scrolling on desktop
-              markers: false,
-              anticipatePin: 1,
-            },
-          });
-        },
-        // Mobile devices
-        "(max-width: 767px)": function () {
-          gsap.to(stickyElementRef.current, {
-            scrollTrigger: {
-              scroller: scrollAreaRef.current,
-              trigger: stickyElementRef.current,
-              start: "top top",
-              endTrigger: lastRowRef.current,
-              end: "center center",
-              pin: true,
-              pinType: "fixed",
-              fastScrollEnd: true,
-              scrub: 1, // Smooth scrolling on desktop
-              markers: false,
-              anticipatePin: 1,
-            },
-          });
-        },
+      let mm = gsap.matchMedia();
+
+      mm.add("(min-width: 768px)", () => {
+        gsap.to(stickyElementRef.current, {
+          scrollTrigger: {
+            scroller: scrollAreaRef.current,
+            trigger: stickyElementRef.current,
+            start: "top top",
+            endTrigger: lastRowRef.current,
+            end: "center center",
+            pin: true,
+            scrub: 1, // Smooth scrolling on desktop
+            markers: false,
+            anticipatePin: 1,
+          },
+        });
+      });
+      mm.add("(max-width: 767px)", () => {
+        gsap.to(stickyElementRef.current, {
+          scrollTrigger: {
+            scroller: scrollAreaRef.current,
+            trigger: stickyElementRef.current,
+            start: "top top",
+            endTrigger: lastRowRef.current,
+            end: "center center",
+            pin: true,
+            pinType: "fixed",
+            fastScrollEnd: true,
+            scrub: 1, // Smooth scrolling on desktop
+            markers: false,
+            anticipatePin: 1,
+          },
+        });
       });
     });
     return () => ctx.revert();

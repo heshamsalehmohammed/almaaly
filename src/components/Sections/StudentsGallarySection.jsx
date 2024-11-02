@@ -1,10 +1,7 @@
 import { forwardRef, useLayoutEffect, useRef } from "react";
 import "./StudentsGallarySection.css";
-
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-if (typeof window !== "undefined") gsap.registerPlugin(ScrollTrigger);
 
 /**/ const StudentsGallarySection = forwardRef(
   ({ scrollAreaRef, config }, ref) => {

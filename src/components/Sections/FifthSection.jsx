@@ -6,9 +6,7 @@ import {
 } from "react";
 import ContactUs from "./ContactUs";
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-if (typeof window !== "undefined") gsap.registerPlugin(ScrollTrigger);
 
 const FifthSection = forwardRef(
   ({ scrollAreaRef, threeSceneRef, config }, ref) => {
