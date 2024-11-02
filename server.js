@@ -9,46 +9,6 @@ const fs = require('fs').promises;
 const app = express();
 
 // Middleware to generate nonce and attach it to the response
-app.use((req, res, next) => {
-  res.locals.nonce = crypto.randomBytes(16).toString('base64');
-  next();
-});
-
-// Configure Helmet with CSP including the nonce
-app.use(
-  helmet({
-    contentSecurityPolicy: {
-      directives: {
-        defaultSrc: ["'self'"],
-        scriptSrc: [
-          "'self'",
-          (req, res) => `'nonce-${res.locals.nonce}'`, // Allow scripts with the matching nonce
-          "'unsafe-eval'",
-        ],
-        styleSrc: [
-          "'self'",
-          (req, res) => `'nonce-${res.locals.nonce}'`, // Allow styles with the matching nonce
-          'https://fonts.googleapis.com', // Allow Google Fonts
-          "'unsafe-inline'"
-        ],
-        fontSrc: [
-          "'self'",
-          'https://fonts.gstatic.com', // Allow Google Fonts
-          'data:',
-        ],
-        imgSrc: ["'self'", 'data:', 'https:'],
-        connectSrc: ["'self'"],
-        objectSrc: ["'none'"],
-        frameSrc: [
-          'https://www.youtube.com/',
-          'https://www.youtube-nocookie.com/'
-        ],
-        upgradeInsecureRequests: [],
-      },
-    },
-    // Other Helmet configurations can be added here
-  })
-);
 
 // Apply gzip compression
 app.use(compression());
@@ -61,10 +21,6 @@ app.use('/ar/static', express.static(path.join(__dirname, 'build_ar', 'static'))
 const injectNonce = async (filePath, nonce) => {
   try {
     let html = await fs.readFile(filePath, 'utf8');
-
-    // Replace data-nonce with the actual nonce
-    html = html.replace(/data-nonce="REPLACE_WITH_NONCE"/g, `nonce="${nonce}"`);
-
     return html;
   } catch (error) {
     console.error(`Error injecting nonce: ${error}`);
