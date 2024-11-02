@@ -54,7 +54,7 @@ gsap.registerPlugin(ScrollTrigger);
     };
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     // Ensure that refs are populated
     if (imageRefs.current.length === 0) return;
 

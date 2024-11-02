@@ -51,7 +51,7 @@ const QuotesSection = forwardRef(({ scrollAreaRef,config }, ref) => {
 
   useImperativeHandle(ref, () => quotesSectionRef.current);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     // Function to set initial GSAP properties based on media queries
     const applyGsapSet = () => {
       gsap.set(quote1Ref.current, {
