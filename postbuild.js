@@ -7,15 +7,14 @@ const lang = process.env.LANG || 'en';
 const buildDir = path.join(__dirname, 'build');
 const langDir = path.join(__dirname, `build_${lang}`); // e.g., build_en, build_ar
 
-async function copyBuildFiles() {
+async function moveBuildFiles() {
   try {
     console.log(`Copying from ${buildDir} to ${langDir}`);
 
-    // Ensure the language-specific build directory exists
-    await fs.ensureDir(langDir);
+    await fs.remove(langDir);
 
     // Copy build files to the language-specific directory
-    await fs.copy(buildDir, langDir, { overwrite: true });
+    await fs.move(buildDir, langDir, { overwrite: true });
 
     // Remove the original build directory to prevent conflicts
     await fs.remove(buildDir);
@@ -27,4 +26,4 @@ async function copyBuildFiles() {
   }
 }
 
-copyBuildFiles();
+moveBuildFiles();
