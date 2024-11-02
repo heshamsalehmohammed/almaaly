@@ -6,6 +6,7 @@ import {
   forwardRef,
   useEffect,
   useImperativeHandle,
+  useLayoutEffect,
   useRef,
   useState,
 } from "react";
@@ -154,8 +155,11 @@ const BottomPage = forwardRef(({ scrollAreaRef,config }, ref) => {
     };
   }, []);
 
-  useGSAP(
-    () => {
+
+  useLayoutEffect(()=>{
+    if (typeof window === 'undefined') return;
+
+    let ctx = gsap.context(()=>{
       const boxes = gsap.utils.toArray(".bottom-element-text");
       boxes.forEach((box) => {
         gsap.fromTo(
@@ -247,11 +251,14 @@ const BottomPage = forwardRef(({ scrollAreaRef,config }, ref) => {
           });
         }
       });
-    }
-  );
+    })
+    return () => ctx.revert();
+  },[])
 
-  useGSAP(
-    () => {
+  useLayoutEffect(()=>{
+    if (typeof window === 'undefined') return;
+
+    let ctx = gsap.context(()=>{
       const chars = bottomElementRef.current.querySelectorAll(
         ".works-subtitle-char"
       );
@@ -290,9 +297,9 @@ const BottomPage = forwardRef(({ scrollAreaRef,config }, ref) => {
         animationList.push(animation);
         animation.play(); // Start the animation once
       });
-    },
-    { scope: bottomElementRef, dependencies: [currentWorksSubTitle] }
-  );
+    },bottomElementRef)
+    return () => ctx.revert();
+  },[currentWorksSubTitle])
 
   return (
     <>

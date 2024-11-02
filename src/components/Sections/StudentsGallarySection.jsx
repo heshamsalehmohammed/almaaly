@@ -1,4 +1,4 @@
-import { forwardRef, useRef } from "react";
+import { forwardRef, useLayoutEffect, useRef } from "react";
 import "./StudentsGallarySection.css";
 
 import gsap from "gsap";
@@ -54,7 +54,9 @@ gsap.registerPlugin(ScrollTrigger);
     };
   };
 
-  useGSAP(() => {
+  useLayoutEffect(() => {
+    if (typeof window === 'undefined') return;
+
     let ctx = gsap.context(() => {
       imageRefs.current.forEach((imageRef) => {
         gsap.set(imageRef, {
@@ -169,7 +171,7 @@ gsap.registerPlugin(ScrollTrigger);
           },
         });
       }); 
-    }, imageRefs);
+    });
 
     return () => ctx.revert();
   }, []);

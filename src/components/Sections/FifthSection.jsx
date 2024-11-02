@@ -1,4 +1,4 @@
-import { forwardRef, useImperativeHandle, useRef } from "react";
+import { forwardRef, useImperativeHandle, useLayoutEffect, useRef } from "react";
 import ContactUs from "./ContactUs";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -10,38 +10,41 @@ const FifthSection = forwardRef(({ scrollAreaRef,threeSceneRef,config },ref) => 
 
   useImperativeHandle(ref, () => fifthElementContainerRef.current);
 
-  useGSAP(() => {
-        // Set initial opacity
-        gsap.set(fifthElementContainerRef.current, { opacity: 0 });
-   
-        // Animation 1: Opacity animation
-        gsap.to(fifthElementContainerRef.current, {
-          opacity: 0.75,
-          duration: 1,
-          scrub: 1,
-          scrollTrigger: {
-            scroller: scrollAreaRef.current,
-            trigger: fifthElementContainerRef.current,
-            start: `+=${window.innerHeight-10}`,
-            scrub: 1,
-            markers: false,
-          },
-        });
-  
-        // Animation 2: Pinning element
-        gsap.to(fifthElementContainerRef.current, {
-          scrollTrigger: {
-            scroller: scrollAreaRef.current,
-            trigger: fifthElementContainerRef.current,
-            start: "top top",
-            end: `+=${window.innerHeight}`,
-            pin: true,
-            scrub: 1,
-            markers: false,
-          },
-        });
+  useLayoutEffect(()=>{
+    if (typeof window === 'undefined') return;
 
-  }, []);
+    let ctx = gsap.context(()=>{
+      gsap.set(fifthElementContainerRef.current, { opacity: 0 });
+   
+      // Animation 1: Opacity animation
+      gsap.to(fifthElementContainerRef.current, {
+        opacity: 0.75,
+        duration: 1,
+        scrub: 1,
+        scrollTrigger: {
+          scroller: scrollAreaRef.current,
+          trigger: fifthElementContainerRef.current,
+          start: `+=${window.innerHeight-10}`,
+          scrub: 1,
+          markers: false,
+        },
+      });
+
+      // Animation 2: Pinning element
+      gsap.to(fifthElementContainerRef.current, {
+        scrollTrigger: {
+          scroller: scrollAreaRef.current,
+          trigger: fifthElementContainerRef.current,
+          start: "top top",
+          end: `+=${window.innerHeight}`,
+          pin: true,
+          scrub: 1,
+          markers: false,
+        },
+      });
+    })
+    return () => ctx.revert();
+  },[])
 
   return (
     <div

@@ -1,4 +1,9 @@
-import { forwardRef, useImperativeHandle, useRef } from "react";
+import {
+  forwardRef,
+  useImperativeHandle,
+  useLayoutEffect,
+  useRef,
+} from "react";
 import { Helmet } from "react-helmet";
 import "./QuotesSection.css";
 import gsap from "gsap";
@@ -6,7 +11,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
-
 
 const Quote = forwardRef(({ img, top, text, author, title }, ref) => {
   return (
@@ -40,7 +44,7 @@ const Quote = forwardRef(({ img, top, text, author, title }, ref) => {
   );
 });
 
-const QuotesSection = forwardRef(({ scrollAreaRef,config }, ref) => {
+const QuotesSection = forwardRef(({ scrollAreaRef, config }, ref) => {
   const quotesSectionRef = useRef(null);
   const quote1Ref = useRef(null);
   const quote2Ref = useRef(null);
@@ -51,197 +55,214 @@ const QuotesSection = forwardRef(({ scrollAreaRef,config }, ref) => {
 
   useImperativeHandle(ref, () => quotesSectionRef.current);
 
-  const applyGsapSet = () => {
-    gsap.set(quote1Ref.current, {
-      position: 'absolute',
-      top: '0',
-    });
-    if (window.matchMedia('(max-width: 575.98px)').matches) {
+  useLayoutEffect(() => {
+    if (typeof window === "undefined") return;
 
-      gsap.set(quote2Ref.current, {
-        position: 'absolute',
-        top: `100vh`,
+    let ctx = gsap.context(() => {
+      gsap.set(quote1Ref.current, {
+        position: "absolute",
+        top: "0",
       });
-  
-      gsap.set(quote3Ref.current, {
-        position: 'absolute',
-        top: `200vh`,
-      });
-  
-      gsap.set(quote4Ref.current, {
-        position: 'absolute',
-        top: `300vh`,
-      });
-  
-      gsap.set(quotesSectionRef.current, {
-        height: `400vh`,
-      });
-    } else if (window.matchMedia('(min-width: 576px) and (max-width: 767.98px)').matches) {
-      // Small devices (sm)
+      if (window.matchMedia("(max-width: 575.98px)").matches) {
+        gsap.set(quote2Ref.current, {
+          position: "absolute",
+          top: `100vh`,
+        });
 
-      gsap.set(quote2Ref.current, {
-        position: 'absolute',
-        top: `100vh`,
-      });
-  
-      gsap.set(quote3Ref.current, {
-        position: 'absolute',
-        top: `200vh`,
-      });
-  
-      gsap.set(quote4Ref.current, {
-        position: 'absolute',
-        top: `300vh`,
-      });
-  
-      gsap.set(quotesSectionRef.current, {
-        height: `400vh`,
-      });
-    } else if (window.matchMedia('(min-width: 768px) and (max-width: 991.98px)').matches) {
-      // Medium devices (md)
-      gsap.set(quote2Ref.current, {
-        position: 'absolute',
-        top: `90vh`,
-      });
-  
-      gsap.set(quote3Ref.current, {
-        position: 'absolute',
-        top: `180vh`,
-      });
-  
-      gsap.set(quote4Ref.current, {
-        position: 'absolute',
-        top: `270vh`,
-      });
-  
-      gsap.set(quotesSectionRef.current, {
-        height: `360vh`,
-      });
-    } else if (window.matchMedia('(min-width: 992px)').matches) {
-      // Large devices and above (lg, xl)
-      gsap.set(quote2Ref.current, {
-        position: 'absolute',
-        top: `80vh`,
-      });
-  
-      gsap.set(quote3Ref.current, {
-        position: 'absolute',
-        top: `160vh`,
-      });
-  
-      gsap.set(quote4Ref.current, {
-        position: 'absolute',
-        top: `240vh`,
-      });
-  
-      gsap.set(quotesSectionRef.current, {
-        height: `320vh`,
-      });
-    }
-  };
+        gsap.set(quote3Ref.current, {
+          position: "absolute",
+          top: `200vh`,
+        });
 
-  useGSAP(() => {
-    applyGsapSet();
+        gsap.set(quote4Ref.current, {
+          position: "absolute",
+          top: `300vh`,
+        });
 
-    // animate quote 1
+        gsap.set(quotesSectionRef.current, {
+          height: `400vh`,
+        });
+      } else if (
+        window.matchMedia("(min-width: 576px) and (max-width: 767.98px)")
+          .matches
+      ) {
+        // Small devices (sm)
 
-    gsap.to(quote1Ref.current, {
-      scrub: 1,
-      scrollTrigger: {
-        scroller: scrollAreaRef.current,
-        trigger: quote1Ref.current,
-        start: "center center",
-        endTrigger: quote4Ref.current,
-        end: "center center",
-        pin: true,
-        pinType: window.matchMedia('(max-width: 767px)').matches? 'fixed':undefined,
-        fastScrollEnd:  window.matchMedia('(max-width: 767px)').matches? true :undefined,
-        pinSpacing: true,
-        markers: false,
-      },
-    });
+        gsap.set(quote2Ref.current, {
+          position: "absolute",
+          top: `100vh`,
+        });
 
-    gsap.to(quote1Ref.current, {
-      scale: 0.8,
-      duration: 1,
-      scrub: 1,
-      scrollTrigger: {
-        scroller: scrollAreaRef.current,
-        trigger: quote2Ref.current,
-        start: "top 80%",
+        gsap.set(quote3Ref.current, {
+          position: "absolute",
+          top: `200vh`,
+        });
+
+        gsap.set(quote4Ref.current, {
+          position: "absolute",
+          top: `300vh`,
+        });
+
+        gsap.set(quotesSectionRef.current, {
+          height: `400vh`,
+        });
+      } else if (
+        window.matchMedia("(min-width: 768px) and (max-width: 991.98px)")
+          .matches
+      ) {
+        // Medium devices (md)
+        gsap.set(quote2Ref.current, {
+          position: "absolute",
+          top: `90vh`,
+        });
+
+        gsap.set(quote3Ref.current, {
+          position: "absolute",
+          top: `180vh`,
+        });
+
+        gsap.set(quote4Ref.current, {
+          position: "absolute",
+          top: `270vh`,
+        });
+
+        gsap.set(quotesSectionRef.current, {
+          height: `360vh`,
+        });
+      } else if (window.matchMedia("(min-width: 992px)").matches) {
+        // Large devices and above (lg, xl)
+        gsap.set(quote2Ref.current, {
+          position: "absolute",
+          top: `80vh`,
+        });
+
+        gsap.set(quote3Ref.current, {
+          position: "absolute",
+          top: `160vh`,
+        });
+
+        gsap.set(quote4Ref.current, {
+          position: "absolute",
+          top: `240vh`,
+        });
+
+        gsap.set(quotesSectionRef.current, {
+          height: `320vh`,
+        });
+      }
+
+      // animate quote 1
+
+      gsap.to(quote1Ref.current, {
         scrub: 1,
-        markers: false,
-      },
-    });
+        scrollTrigger: {
+          scroller: scrollAreaRef.current,
+          trigger: quote1Ref.current,
+          start: "center center",
+          endTrigger: quote4Ref.current,
+          end: "center center",
+          pin: true,
+          pinType: window.matchMedia("(max-width: 767px)").matches
+            ? "fixed"
+            : undefined,
+          fastScrollEnd: window.matchMedia("(max-width: 767px)").matches
+            ? true
+            : undefined,
+          pinSpacing: true,
+          markers: false,
+        },
+      });
 
-    // animate quote 2
-
-    gsap.to(quote2Ref.current, {
-      scrub: 1,
-      scrollTrigger: {
-        scroller: scrollAreaRef.current,
-        trigger: quote2Ref.current,
-        start: "center center",
-        endTrigger: quote4Ref.current,
-        end: "center center",
-        pin: true,
-        pinSpacing: true,
-        pinType: window.matchMedia('(max-width: 767px)').matches? 'fixed':undefined,
-        fastScrollEnd:  window.matchMedia('(max-width: 767px)').matches? true :undefined,
-        markers: false,
-      },
-    });
-
-    gsap.to(quote2Ref.current, {
-      scale: 0.8,
-      duration: 1,
-      scrub: 1,
-      scrollTrigger: {
-        scroller: scrollAreaRef.current,
-        trigger: quote3Ref.current,
-        start: "top 80%",
+      gsap.to(quote1Ref.current, {
+        scale: 0.8,
+        duration: 1,
         scrub: 1,
-        markers: false,
-      },
-    });
+        scrollTrigger: {
+          scroller: scrollAreaRef.current,
+          trigger: quote2Ref.current,
+          start: "top 80%",
+          scrub: 1,
+          markers: false,
+        },
+      });
 
-    // animate quote 3
+      // animate quote 2
 
-    gsap.to(quote3Ref.current, {
-      scrub: 1,
-      scrollTrigger: {
-        scroller: scrollAreaRef.current,
-        trigger: quote3Ref.current,
-        start: "center center",
-        endTrigger: quote4Ref.current,
-        end: "center center",
-        pin: true,
-        pinSpacing: true,
-        pinType: window.matchMedia('(max-width: 767px)').matches? 'fixed':undefined,
-        fastScrollEnd:  window.matchMedia('(max-width: 767px)').matches? true :undefined,
-        markers: false,
-      },
-    });
-
-    gsap.to(quote3Ref.current, {
-      scale: 0.8,
-      duration: 1,
-      scrub: 1,
-      scrollTrigger: {
-        scroller: scrollAreaRef.current,
-        trigger: quote4Ref.current,
-        start: "top 80%",
+      gsap.to(quote2Ref.current, {
         scrub: 1,
-        markers: false,
-      },
+        scrollTrigger: {
+          scroller: scrollAreaRef.current,
+          trigger: quote2Ref.current,
+          start: "center center",
+          endTrigger: quote4Ref.current,
+          end: "center center",
+          pin: true,
+          pinSpacing: true,
+          pinType: window.matchMedia("(max-width: 767px)").matches
+            ? "fixed"
+            : undefined,
+          fastScrollEnd: window.matchMedia("(max-width: 767px)").matches
+            ? true
+            : undefined,
+          markers: false,
+        },
+      });
+
+      gsap.to(quote2Ref.current, {
+        scale: 0.8,
+        duration: 1,
+        scrub: 1,
+        scrollTrigger: {
+          scroller: scrollAreaRef.current,
+          trigger: quote3Ref.current,
+          start: "top 80%",
+          scrub: 1,
+          markers: false,
+        },
+      });
+
+      // animate quote 3
+
+      gsap.to(quote3Ref.current, {
+        scrub: 1,
+        scrollTrigger: {
+          scroller: scrollAreaRef.current,
+          trigger: quote3Ref.current,
+          start: "center center",
+          endTrigger: quote4Ref.current,
+          end: "center center",
+          pin: true,
+          pinSpacing: true,
+          pinType: window.matchMedia("(max-width: 767px)").matches
+            ? "fixed"
+            : undefined,
+          fastScrollEnd: window.matchMedia("(max-width: 767px)").matches
+            ? true
+            : undefined,
+          markers: false,
+        },
+      });
+
+      gsap.to(quote3Ref.current, {
+        scale: 0.8,
+        duration: 1,
+        scrub: 1,
+        scrollTrigger: {
+          scroller: scrollAreaRef.current,
+          trigger: quote4Ref.current,
+          start: "top 80%",
+          scrub: 1,
+          markers: false,
+        },
+      });
     });
-  }, {dependencies:[]});
 
-
+    return () => ctx.revert();
+  }, []);
 
   return (
     <>
-{/*       <Helmet>
+      {/*       <Helmet>
       
         <script type="application/ld+json">
           {JSON.stringify({
@@ -280,10 +301,34 @@ const QuotesSection = forwardRef(({ scrollAreaRef,config }, ref) => {
               className="col-11 col-sm-10 col-md-9 col-lg-8 col-xl-7"
               style={{ position: "relative" }}
             >
-              <Quote ref={quote1Ref} img={quotes[0].img} text={quotes[0].text} author={quotes[0].author} title={quotes[0].title} />
-              <Quote ref={quote2Ref} img={quotes[1].img} text={quotes[1].text} author={quotes[1].author} title={quotes[1].title} />
-              <Quote ref={quote3Ref} img={quotes[2].img} text={quotes[2].text} author={quotes[2].author} title={quotes[2].title} />
-              <Quote ref={quote4Ref} img={quotes[3].img} text={quotes[3].text} author={quotes[3].author} title={quotes[3].title} />
+              <Quote
+                ref={quote1Ref}
+                img={quotes[0].img}
+                text={quotes[0].text}
+                author={quotes[0].author}
+                title={quotes[0].title}
+              />
+              <Quote
+                ref={quote2Ref}
+                img={quotes[1].img}
+                text={quotes[1].text}
+                author={quotes[1].author}
+                title={quotes[1].title}
+              />
+              <Quote
+                ref={quote3Ref}
+                img={quotes[2].img}
+                text={quotes[2].text}
+                author={quotes[2].author}
+                title={quotes[2].title}
+              />
+              <Quote
+                ref={quote4Ref}
+                img={quotes[3].img}
+                text={quotes[3].text}
+                author={quotes[3].author}
+                title={quotes[3].title}
+              />
             </div>
           </div>
         </div>
