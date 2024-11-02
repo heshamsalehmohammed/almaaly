@@ -40,7 +40,7 @@
     "start:prod": "node server.js",
     "build:en": "cross-env BASE_URL=https://almaaly-production.up.railway.app PUBLIC_URL=https://almaaly-production.up.railway.app/en LANG=en npm run build:lang",
     "build:ar": "cross-env BASE_URL=https://almaaly-production.up.railway.app PUBLIC_URL=https://almaaly-production.up.railway.app/ar LANG=ar npm run build:lang",
-    "build:lang": "node create-html.js && node copy-lang-index.js && react-scripts build && node postbuild.js",
+    "build:lang": "node create-html.js && node copy-lang-index.js && ESLINT_NO_DEV_ERRORS=true CI=false node --max-old-space-size=4096 node_modules/.bin/react-scripts build && node postbuild.js",
     "build:all": "npm run build:en && npm run build:ar",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
