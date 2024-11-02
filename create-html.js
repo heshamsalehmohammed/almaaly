@@ -35,7 +35,7 @@ const {
   } = config.school;
 
 
-  const htmlAttributes = lang === 'ar' ? 'lang="ar" dir="rtl"' : 'lang="en"';
+  const htmlAttributes = lang === 'ar' ? 'lang="ar"' : 'lang="en"';
   const noscriptMessage = lang === 'ar'
   ? 'يجب تمكين JavaScript لتشغيل هذا التطبيق.'
   : 'You need to enable JavaScript to run this app.';
