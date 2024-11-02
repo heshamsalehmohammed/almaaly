@@ -6,7 +6,6 @@ import {
   forwardRef,
   useEffect,
   useImperativeHandle,
-  useLayoutEffect,
   useRef,
   useState,
 } from "react";
@@ -155,158 +154,145 @@ const BottomPage = forwardRef(({ scrollAreaRef,config }, ref) => {
     };
   }, []);
 
-  useEffect(() => {
-    const boxes = gsap.utils.toArray(".bottom-element-text");
-    const animations = [];
-
-    boxes.forEach((box) => {
-      const fadeIn = gsap.fromTo(
-        box,
-        { opacity: 0 },
-        {
-          opacity: 1,
-          duration: 2,
-          ease: "power2.out",
-          scrollTrigger: {
-            scroller: scrollAreaRef.current,
-            trigger: box,
-            start: "bottom bottom",
-            end: "bottom 60%",
-            scrub: true,
+  useGSAP(
+    () => {
+      const boxes = gsap.utils.toArray(".bottom-element-text");
+      boxes.forEach((box) => {
+        gsap.fromTo(
+          box,
+          {
+            opacity: 0,
           },
-        }
-      );
+          {
+            opacity: 1,
+            duration: 2,
+            ease: "power2.out",
+            scrollTrigger: {
+              scroller: scrollAreaRef.current,
+              trigger: box,
+              start: "bottom bottom",
+              end: "bottom 60%",
+              scrub: true,
+            },
+          }
+        );
 
-      const moveIn = gsap.fromTo(
-        box,
-        { y: 80 },
-        {
-          y: 0,
-          ease: "elastic.out(1,1)",
-          scrollTrigger: {
-            scroller: scrollAreaRef.current,
-            trigger: box,
-            start: "bottom bottom",
-            end: "bottom 90%",
-            toggleActions: "play none none reset",
-            // markers:true
+        gsap.fromTo(
+          box,
+          {
+            y: 80,
           },
-        }
-      );
+          {
+            y: 0,
+            ease: "elastic.out(1,1)",
+            scrollTrigger: {
+              scroller: scrollAreaRef.current,
+              trigger: box,
+              start: "bottom bottom",
+              end: "bottom 90%",
+              toggleActions: "play none none reset",
+              // markers:true
+            },
+          }
+        );
+      });
 
-      animations.push(fadeIn, moveIn);
-    });
+      gsap.to(bottomElementRef.current, {
+        "--gradient-start": "#F7F6F5", // Transition to white
+        "--gradient-end": "#39ced6", // Transition to white
+        ease: "none",
+        scrollTrigger: {
+          scroller: scrollAreaRef.current,
+          trigger: videoResponsiveRef.current, // Use the video-responsive as the trigger
+          start: "bottom 80%", // When the trigger's bottom reaches 50% of the viewport
+          end: "bottom top", // When the trigger's top reaches the top of the viewport
+          scrub: true, // Links the animation progress to the scrollbar
+          // markers: true,       // Uncomment for debugging
+        },
+      });
 
-    const gradientAnimation = gsap.to(bottomElementRef.current, {
-      "--gradient-start": "#F7F6F5", // Transition to white
-      "--gradient-end": "#39ced6", // Transition to white
-      ease: "none",
-      scrollTrigger: {
-        scroller: scrollAreaRef.current,
-        trigger: videoResponsiveRef.current, // Use the video-responsive as the trigger
-        start: "bottom 80%", // When the trigger's bottom reaches 80% of the viewport
-        end: "bottom top", // When the trigger's top reaches the top of the viewport
-        scrub: true, // Links the animation progress to the scrollbar
-        // markers: true,       // Uncomment for debugging
-      },
-    });
-
-    animations.push(gradientAnimation);
-
-    // Handle responsive ScrollTriggers
-    const mediaQueries = ScrollTrigger.matchMedia({
-      // Desktop and above
-      "(min-width: 768px)": function() {
-        const desktopAnimation = gsap.to(stickyElementRef.current, {
-          scrollTrigger: {
-            scroller: scrollAreaRef.current,
-            trigger: stickyElementRef.current,
-            start: "top top", 
-            endTrigger: lastRowRef.current,
-            end: "center center", 
-            pin: true, 
-            scrub: 1, // Smooth scrolling on desktop
-            markers: false,
-            anticipatePin: 1,
-          },
-        });
-        animations.push(desktopAnimation);
-      },
-      // Mobile devices
-      "(max-width: 767px)": function() {
-        const mobileAnimation = gsap.to(stickyElementRef.current, {
-          scrollTrigger: {
-            scroller: scrollAreaRef.current,
-            trigger: stickyElementRef.current,
-            start: "top top", 
-            endTrigger: lastRowRef.current,
-            end: "center center", 
-            pin: true, 
-            pinType: 'fixed',
-            fastScrollEnd: true,
-            scrub: 1, // Smooth scrolling on mobile
-            markers: false,
-            anticipatePin: 1,
-          },
-        });
-        animations.push(mobileAnimation);
-      }
-    });
-
-    // Cleanup function to kill all animations and ScrollTriggers
-    return () => {
-      animations.forEach(anim => anim.kill());
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-      mediaQueries.revert();
-    };
-  }, []); // Empty dependency array means this runs once on mount
-
-  // Second useEffect replacing the second useGSAP
-  useEffect(() => {
-    const chars = bottomElementRef.current.querySelectorAll(
-      ".works-subtitle-char"
-    );
-    const animationList = [];
-    let completedAnimation = 0;
-
-    const onIndividualAnimationComplete = (index) => {
-      completedAnimation++;
-      if (completedAnimation === animationList.length) {
-        setTimeout(() => {
-          completedAnimation = 0; // Reset count for the next cycle
-          animationList.forEach((anim) => {
-            anim.delay(Math.random() * 2); // Reapply random delay on each restart
-            anim.restart(true, true); // Restart with initial delay and yoyo effect
+      ScrollTrigger.matchMedia({
+        // Desktop and above
+        "(min-width: 768px)": function() {
+          gsap.to(stickyElementRef.current, {
+            scrollTrigger: {
+              scroller: scrollAreaRef.current,
+              trigger: stickyElementRef.current,
+              start: "top top", 
+              endTrigger: lastRowRef.current,
+              end: "center center", 
+              pin: true, 
+              scrub: 1, // Smooth scrolling on desktop
+              markers: false,
+              anticipatePin: 1,
+            },
           });
-        }, 3000); // 3-second delay before the next cycle starts
-      }
-    };
-
-    // Stage 2: Infinite animation from opacity 0.5 to 1 and back to 0.5 independently
-    chars.forEach((char, index) => {
-      const animation = gsap.fromTo(
-        char,
-        { opacity: 0.5 },
-        {
-          opacity: 1,
-          duration: Math.random() * 0.5,
-          delay: Math.random() * 1, // Initial random delay up to 1 second
-          yoyo: true, // Animate back to opacity 1
-          ease: "power1.inOut",
-          paused: true, // Start paused to control animation timing
-          onComplete: onIndividualAnimationComplete,
-          onCompleteParams: [index],
+        },
+        // Mobile devices
+        "(max-width: 767px)": function() {
+          gsap.to(stickyElementRef.current, {
+            scrollTrigger: {
+              scroller: scrollAreaRef.current,
+              trigger: stickyElementRef.current,
+              start: "top top", 
+              endTrigger: lastRowRef.current,
+              end: "center center", 
+              pin: true, 
+              pinType: 'fixed',
+              fastScrollEnd: true,
+              scrub: 1, // Smooth scrolling on desktop
+              markers: false,
+              anticipatePin: 1,
+            },
+          });
         }
-      );
-      animationList.push(animation);
-      animation.play(); // Start the animation once
-    });
+      });
+    }
+  );
 
-    // Cleanup function to kill all animations
-    return () => {
-      animationList.forEach(anim => anim.kill());
-    };
-  }, [currentWorksSubTitle]);
+  useGSAP(
+    () => {
+      const chars = bottomElementRef.current.querySelectorAll(
+        ".works-subtitle-char"
+      );
+      const animationList = [];
+      let completedAnimation = 0;
+
+      const onIndevidualAnimationComplete = (index) => {
+        completedAnimation++;
+        if (completedAnimation === animationList.length) {
+          setTimeout(() => {
+            completedAnimation = 0; // Reset count for the next cycle
+            animationList.forEach((anim) => {
+              anim.delay(Math.random() * 2); // Reapply random delay on each restart
+              anim.restart(true, true); // Restart with initial delay and yoyo effect
+            });
+          }, 3000); // 1-second delay before the next cycle starts
+        }
+      };
+
+      // Stage 2: Infinite animation from opacity 1 to 0 and back to 1 independently
+      chars.forEach((char, index) => {
+        const animation = gsap.fromTo(
+          char,
+          { opacity: 0.5 },
+          {
+            opacity: 1,
+            duration: Math.random() * 0.5,
+            delay: Math.random() * 1, // Initial random delay up to 1 second
+            yoyo: true, // Animate back to opacity 1
+            ease: "power1.inOut",
+            paused: true, // Start paused to control animation timing
+            onComplete: onIndevidualAnimationComplete,
+            onCompleteParams: [index],
+          }
+        );
+        animationList.push(animation);
+        animation.play(); // Start the animation once
+      });
+    },
+    { scope: bottomElementRef, dependencies: [currentWorksSubTitle] }
+  );
 
   return (
     <>

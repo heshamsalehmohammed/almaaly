@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useImperativeHandle, useLayoutEffect, useRef } from "react";
+import { forwardRef, useImperativeHandle, useRef } from "react";
 import { Helmet } from "react-helmet";
 import "./QuotesSection.css";
 import gsap from "gsap";
@@ -51,44 +51,100 @@ const QuotesSection = forwardRef(({ scrollAreaRef,config }, ref) => {
 
   useImperativeHandle(ref, () => quotesSectionRef.current);
 
-  useEffect(() => {
-    // Function to set initial GSAP properties based on media queries
-    const applyGsapSet = () => {
-      gsap.set(quote1Ref.current, {
+  const applyGsapSet = () => {
+    gsap.set(quote1Ref.current, {
+      position: 'absolute',
+      top: '0',
+    });
+    if (window.matchMedia('(max-width: 575.98px)').matches) {
+
+      gsap.set(quote2Ref.current, {
         position: 'absolute',
-        top: '0',
+        top: `100vh`,
       });
   
-      if (window.matchMedia('(max-width: 575.98px)').matches) {
-        gsap.set(quote2Ref.current, { position: 'absolute', top: `100vh` });
-        gsap.set(quote3Ref.current, { position: 'absolute', top: `200vh` });
-        gsap.set(quote4Ref.current, { position: 'absolute', top: `300vh` });
-        gsap.set(quotesSectionRef.current, { height: `400vh` });
-      } else if (window.matchMedia('(min-width: 576px) and (max-width: 767.98px)').matches) {
-        // Small devices (sm)
-        gsap.set(quote2Ref.current, { position: 'absolute', top: `100vh` });
-        gsap.set(quote3Ref.current, { position: 'absolute', top: `200vh` });
-        gsap.set(quote4Ref.current, { position: 'absolute', top: `300vh` });
-        gsap.set(quotesSectionRef.current, { height: `400vh` });
-      } else if (window.matchMedia('(min-width: 768px) and (max-width: 991.98px)').matches) {
-        // Medium devices (md)
-        gsap.set(quote2Ref.current, { position: 'absolute', top: `90vh` });
-        gsap.set(quote3Ref.current, { position: 'absolute', top: `180vh` });
-        gsap.set(quote4Ref.current, { position: 'absolute', top: `270vh` });
-        gsap.set(quotesSectionRef.current, { height: `360vh` });
-      } else if (window.matchMedia('(min-width: 992px)').matches) {
-        // Large devices and above (lg, xl)
-        gsap.set(quote2Ref.current, { position: 'absolute', top: `80vh` });
-        gsap.set(quote3Ref.current, { position: 'absolute', top: `160vh` });
-        gsap.set(quote4Ref.current, { position: 'absolute', top: `240vh` });
-        gsap.set(quotesSectionRef.current, { height: `320vh` });
-      }
-    };
+      gsap.set(quote3Ref.current, {
+        position: 'absolute',
+        top: `200vh`,
+      });
   
-    // Apply initial GSAP settings
+      gsap.set(quote4Ref.current, {
+        position: 'absolute',
+        top: `300vh`,
+      });
+  
+      gsap.set(quotesSectionRef.current, {
+        height: `400vh`,
+      });
+    } else if (window.matchMedia('(min-width: 576px) and (max-width: 767.98px)').matches) {
+      // Small devices (sm)
+
+      gsap.set(quote2Ref.current, {
+        position: 'absolute',
+        top: `100vh`,
+      });
+  
+      gsap.set(quote3Ref.current, {
+        position: 'absolute',
+        top: `200vh`,
+      });
+  
+      gsap.set(quote4Ref.current, {
+        position: 'absolute',
+        top: `300vh`,
+      });
+  
+      gsap.set(quotesSectionRef.current, {
+        height: `400vh`,
+      });
+    } else if (window.matchMedia('(min-width: 768px) and (max-width: 991.98px)').matches) {
+      // Medium devices (md)
+      gsap.set(quote2Ref.current, {
+        position: 'absolute',
+        top: `90vh`,
+      });
+  
+      gsap.set(quote3Ref.current, {
+        position: 'absolute',
+        top: `180vh`,
+      });
+  
+      gsap.set(quote4Ref.current, {
+        position: 'absolute',
+        top: `270vh`,
+      });
+  
+      gsap.set(quotesSectionRef.current, {
+        height: `360vh`,
+      });
+    } else if (window.matchMedia('(min-width: 992px)').matches) {
+      // Large devices and above (lg, xl)
+      gsap.set(quote2Ref.current, {
+        position: 'absolute',
+        top: `80vh`,
+      });
+  
+      gsap.set(quote3Ref.current, {
+        position: 'absolute',
+        top: `160vh`,
+      });
+  
+      gsap.set(quote4Ref.current, {
+        position: 'absolute',
+        top: `240vh`,
+      });
+  
+      gsap.set(quotesSectionRef.current, {
+        height: `320vh`,
+      });
+    }
+  };
+
+  useGSAP(() => {
     applyGsapSet();
-  
-    // Animate quote 1
+
+    // animate quote 1
+
     gsap.to(quote1Ref.current, {
       scrub: 1,
       scrollTrigger: {
@@ -98,13 +154,13 @@ const QuotesSection = forwardRef(({ scrollAreaRef,config }, ref) => {
         endTrigger: quote4Ref.current,
         end: "center center",
         pin: true,
-        pinType: window.matchMedia('(max-width: 767px)').matches ? 'fixed' : undefined,
-        fastScrollEnd: window.matchMedia('(max-width: 767px)').matches ? true : undefined,
+        pinType: window.matchMedia('(max-width: 767px)').matches? 'fixed':undefined,
+        fastScrollEnd:  window.matchMedia('(max-width: 767px)').matches? true :undefined,
         pinSpacing: true,
         markers: false,
       },
     });
-  
+
     gsap.to(quote1Ref.current, {
       scale: 0.8,
       duration: 1,
@@ -117,8 +173,9 @@ const QuotesSection = forwardRef(({ scrollAreaRef,config }, ref) => {
         markers: false,
       },
     });
-  
-    // Animate quote 2
+
+    // animate quote 2
+
     gsap.to(quote2Ref.current, {
       scrub: 1,
       scrollTrigger: {
@@ -129,12 +186,12 @@ const QuotesSection = forwardRef(({ scrollAreaRef,config }, ref) => {
         end: "center center",
         pin: true,
         pinSpacing: true,
-        pinType: window.matchMedia('(max-width: 767px)').matches ? 'fixed' : undefined,
-        fastScrollEnd: window.matchMedia('(max-width: 767px)').matches ? true : undefined,
+        pinType: window.matchMedia('(max-width: 767px)').matches? 'fixed':undefined,
+        fastScrollEnd:  window.matchMedia('(max-width: 767px)').matches? true :undefined,
         markers: false,
       },
     });
-  
+
     gsap.to(quote2Ref.current, {
       scale: 0.8,
       duration: 1,
@@ -147,8 +204,9 @@ const QuotesSection = forwardRef(({ scrollAreaRef,config }, ref) => {
         markers: false,
       },
     });
-  
-    // Animate quote 3
+
+    // animate quote 3
+
     gsap.to(quote3Ref.current, {
       scrub: 1,
       scrollTrigger: {
@@ -159,12 +217,12 @@ const QuotesSection = forwardRef(({ scrollAreaRef,config }, ref) => {
         end: "center center",
         pin: true,
         pinSpacing: true,
-        pinType: window.matchMedia('(max-width: 767px)').matches ? 'fixed' : undefined,
-        fastScrollEnd: window.matchMedia('(max-width: 767px)').matches ? true : undefined,
+        pinType: window.matchMedia('(max-width: 767px)').matches? 'fixed':undefined,
+        fastScrollEnd:  window.matchMedia('(max-width: 767px)').matches? true :undefined,
         markers: false,
       },
     });
-  
+
     gsap.to(quote3Ref.current, {
       scale: 0.8,
       duration: 1,
@@ -177,15 +235,7 @@ const QuotesSection = forwardRef(({ scrollAreaRef,config }, ref) => {
         markers: false,
       },
     });
-  
-    // Refresh ScrollTrigger to ensure it picks up all animations
-    ScrollTrigger.refresh();
-  
-    // Cleanup function to kill all ScrollTriggers when component unmounts
-    return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-    };
-  }, [scrollAreaRef, ref]);
+  }, {dependencies:[]});
 
 
 

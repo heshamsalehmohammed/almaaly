@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useImperativeHandle, useLayoutEffect, useRef } from "react";
+import { forwardRef, useImperativeHandle, useRef } from "react";
 import ContactUs from "./ContactUs";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -10,46 +10,38 @@ const FifthSection = forwardRef(({ scrollAreaRef,threeSceneRef,config },ref) => 
 
   useImperativeHandle(ref, () => fifthElementContainerRef.current);
 
-  useEffect(() => {
- 
-    // Set initial opacity
-    gsap.set(fifthElementContainerRef.current, { opacity: 0 });
+  useGSAP(() => {
+        // Set initial opacity
+        gsap.set(fifthElementContainerRef.current, { opacity: 0 });
+   
+        // Animation 1: Opacity animation
+        gsap.to(fifthElementContainerRef.current, {
+          opacity: 0.75,
+          duration: 1,
+          scrub: 1,
+          scrollTrigger: {
+            scroller: scrollAreaRef.current,
+            trigger: fifthElementContainerRef.current,
+            start: `+=${window.innerHeight-10}`,
+            scrub: 1,
+            markers: false,
+          },
+        });
   
-    // Animation 1: Opacity animation
-    gsap.to(fifthElementContainerRef.current, {
-      opacity: 0.75,
-      duration: 1,
-      scrub: 1,
-      scrollTrigger: {
-        scroller: scrollAreaRef.current,
-        trigger: fifthElementContainerRef.current,
-        start: `+=${window.innerHeight - 10}`,
-        scrub: 1,
-        markers: false,
-      },
-    });
-  
-    // Animation 2: Pinning element
-    gsap.to(fifthElementContainerRef.current, {
-      scrollTrigger: {
-        scroller: scrollAreaRef.current,
-        trigger: fifthElementContainerRef.current,
-        start: "top top",
-        end: `+=${window.innerHeight}`,
-        pin: true,
-        scrub: 1,
-        markers: false,
-      },
-    });
-  
-    // Refresh ScrollTrigger to ensure it picks up all animations
-    ScrollTrigger.refresh();
-  
-    // Cleanup function to kill ScrollTriggers when component unmounts
-    return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-    };
-  }, []); 
+        // Animation 2: Pinning element
+        gsap.to(fifthElementContainerRef.current, {
+          scrollTrigger: {
+            scroller: scrollAreaRef.current,
+            trigger: fifthElementContainerRef.current,
+            start: "top top",
+            end: `+=${window.innerHeight}`,
+            pin: true,
+            scrub: 1,
+            markers: false,
+          },
+        });
+
+  }, []);
 
   return (
     <div
