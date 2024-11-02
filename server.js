@@ -11,7 +11,7 @@ const app = express();
 // Middleware to generate nonce and attach it to the response
 
 // Apply gzip compression
-app.use(compression());
+/* app.use(compression()); */
 
 // Serve static files for English and Arabic
 app.use('/en/static', express.static(path.join(__dirname, 'build_en', 'static')));

@@ -85,11 +85,6 @@ const metaHTML = `
 
 
 const addDataNonce = (html) => {
-  // Add data-nonce to all script tags that don't already have it
-  html = html.replace(/<script(?!(?:[^>]*\sdata-nonce=))/g, '<script data-nonce="REPLACE_WITH_NONCE"');
-
-  // Add data-nonce to all stylesheet link tags that don't already have it
-  html = html.replace(/<link rel="stylesheet"(?!(?:[^>]*\sdata-nonce=))/g, '<link rel="stylesheet" data-nonce="REPLACE_WITH_NONCE"');
 
   // Make asset paths relative by removing leading slash
   html = html.replace(/href="\/static\//g, 'href="static/');
@@ -232,7 +227,7 @@ const jsonLdData = [
 const jsonLdScripts = jsonLdData
   .map(
     (jsonLd) =>
-      `<script type="application/ld+json" data-nonce="REPLACE_WITH_NONCE">${JSON.stringify(jsonLd)}</script>`
+      `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`
   )
   .join('\n');
 
