@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useRef } from "react";
+import { forwardRef, useEffect, useLayoutEffect, useRef } from "react";
 import "./StudentsGallarySection.css";
 
 import gsap from "gsap";
@@ -54,7 +54,7 @@ gsap.registerPlugin(ScrollTrigger);
     };
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     // Ensure that refs are populated
     if (imageRefs.current.length === 0) return;
 
