@@ -24,7 +24,7 @@ const FifthSection = forwardRef(
         gsap.to(fifthElementContainerRef.current, {
           opacity: 0.75,
           duration: 1,
-          scrub: 1,
+          
           scrollTrigger: {
             scroller: scrollAreaRef.current,
             trigger: fifthElementContainerRef.current,

@@ -151,7 +151,7 @@ const QuotesSection = forwardRef(({ scrollAreaRef, config }, ref) => {
       // animate quote 1
 
       gsap.to(quote1Ref.current, {
-        scrub: 1,
+        
         scrollTrigger: {
           scroller: scrollAreaRef.current,
           trigger: quote1Ref.current,
@@ -173,7 +173,7 @@ const QuotesSection = forwardRef(({ scrollAreaRef, config }, ref) => {
       gsap.to(quote1Ref.current, {
         scale: 0.8,
         duration: 1,
-        scrub: 1,
+        
         scrollTrigger: {
           scroller: scrollAreaRef.current,
           trigger: quote2Ref.current,
@@ -186,7 +186,7 @@ const QuotesSection = forwardRef(({ scrollAreaRef, config }, ref) => {
       // animate quote 2
 
       gsap.to(quote2Ref.current, {
-        scrub: 1,
+        
         scrollTrigger: {
           scroller: scrollAreaRef.current,
           trigger: quote2Ref.current,
@@ -208,7 +208,7 @@ const QuotesSection = forwardRef(({ scrollAreaRef, config }, ref) => {
       gsap.to(quote2Ref.current, {
         scale: 0.8,
         duration: 1,
-        scrub: 1,
+        
         scrollTrigger: {
           scroller: scrollAreaRef.current,
           trigger: quote3Ref.current,
@@ -221,7 +221,7 @@ const QuotesSection = forwardRef(({ scrollAreaRef, config }, ref) => {
       // animate quote 3
 
       gsap.to(quote3Ref.current, {
-        scrub: 1,
+        
         scrollTrigger: {
           scroller: scrollAreaRef.current,
           trigger: quote3Ref.current,
@@ -243,7 +243,7 @@ const QuotesSection = forwardRef(({ scrollAreaRef, config }, ref) => {
       gsap.to(quote3Ref.current, {
         scale: 0.8,
         duration: 1,
-        scrub: 1,
+        
         scrollTrigger: {
           scroller: scrollAreaRef.current,
           trigger: quote4Ref.current,
