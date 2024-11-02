@@ -1,5 +1,3 @@
-
-
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
@@ -11,10 +9,8 @@ import {
   useState,
 } from "react";
 import { Helmet } from "react-helmet";
-import { useGSAP } from "@gsap/react";
 
-
-gsap.registerPlugin(useGSAP, ScrollTrigger);
+if (typeof window !== "undefined") gsap.registerPlugin(ScrollTrigger);
 
 const MainYouTubeEmbedWithAnimation = forwardRef(
   ({ videoId, scrollAreaRef }, ref) => {
@@ -22,48 +18,53 @@ const MainYouTubeEmbedWithAnimation = forwardRef(
 
     useImperativeHandle(ref, () => videoResponsive.current);
 
-    useGSAP(() => {
+    useLayoutEffect(() => {
+      if (typeof window === "undefined") return;
       if (!videoResponsive.current) return;
-      gsap.fromTo(
-        videoResponsive.current,
-        {
-          y: 150,
-        },
-        {
-          y: 0,
-          ease: "elastic.out(1,1)",
-          duration: 1.5,
-          scrollTrigger: {
-            scroller: scrollAreaRef.current,
-            trigger: videoResponsive.current,
-            start: "top bottom",
-            end: "top 60%",
-            toggleActions: "play none none reset",
-            // markers:true
+      let ctx = gsap.context(() => {
+        gsap.fromTo(
+          videoResponsive.current,
+          {
+            y: 150,
           },
-        }
-      );
+          {
+            y: 0,
+            ease: "elastic.out(1,1)",
+            duration: 1.5,
+            scrollTrigger: {
+              scroller: scrollAreaRef.current,
+              trigger: videoResponsive.current,
+              start: "top bottom",
+              end: "top 60%",
+              toggleActions: "play none none reset",
+              // markers:true
+            },
+          }
+        );
 
-      gsap.fromTo(
-        videoResponsive.current,
-        {
-          scale: 1,
-        },
-        {
-          scale: 0.6,
-          ease: "none",
-          duration: 1.5,
-          scrollTrigger: {
-            scroller: scrollAreaRef.current,
-            trigger: videoResponsive.current,
-            start: "top 40%",
-            end: "bottom 10%",
-            scrub: true,
-            // markers:true
+        gsap.fromTo(
+          videoResponsive.current,
+          {
+            scale: 1,
           },
-        }
-      );
-    });
+          {
+            scale: 0.6,
+            ease: "none",
+            duration: 1.5,
+            scrollTrigger: {
+              scroller: scrollAreaRef.current,
+              trigger: videoResponsive.current,
+              start: "top 40%",
+              end: "bottom 10%",
+              scrub: true,
+              // markers:true
+            },
+          }
+        );
+      });
+
+      return () => ctx.revert();
+    }, []);
 
     return (
       <div className="main-video-responsive mt-4" ref={videoResponsive}>
@@ -98,8 +99,9 @@ const NormalYouTubeEmbedWithAnimation = forwardRef(({ videoId }, ref) => {
   );
 });
 
-const BottomPage = forwardRef(({ scrollAreaRef,config }, ref) => {
-  const { mainTitle, mainText, subtitle, videos,metaDescription } = config.school.bottomPage;
+const BottomPage = forwardRef(({ scrollAreaRef, config }, ref) => {
+  const { mainTitle, mainText, subtitle, videos, metaDescription } =
+    config.school.bottomPage;
   const bottomElementRef = useRef(null); // Reference to the container
   const videoResponsiveRef = useRef(null);
   const mainWorksTitleRef = useRef();
@@ -110,7 +112,6 @@ const BottomPage = forwardRef(({ scrollAreaRef,config }, ref) => {
   const video1Ref = useRef();
   const video2Ref = useRef();
   const video3Ref = useRef();
-
 
   const [currentWorksSubTitle, setCurrentWorksSubTitle] = useState(
     subtitle.video1
@@ -155,11 +156,10 @@ const BottomPage = forwardRef(({ scrollAreaRef,config }, ref) => {
     };
   }, []);
 
+  useLayoutEffect(() => {
+    if (typeof window === "undefined") return;
 
-  useLayoutEffect(()=>{
-    if (typeof window === 'undefined') return;
-
-    let ctx = gsap.context(()=>{
+    let ctx = gsap.context(() => {
       const boxes = gsap.utils.toArray(".bottom-element-text");
       boxes.forEach((box) => {
         gsap.fromTo(
@@ -217,15 +217,15 @@ const BottomPage = forwardRef(({ scrollAreaRef,config }, ref) => {
 
       ScrollTrigger.matchMedia({
         // Desktop and above
-        "(min-width: 768px)": function() {
+        "(min-width: 768px)": function () {
           gsap.to(stickyElementRef.current, {
             scrollTrigger: {
               scroller: scrollAreaRef.current,
               trigger: stickyElementRef.current,
-              start: "top top", 
+              start: "top top",
               endTrigger: lastRowRef.current,
-              end: "center center", 
-              pin: true, 
+              end: "center center",
+              pin: true,
               scrub: 1, // Smooth scrolling on desktop
               markers: false,
               anticipatePin: 1,
@@ -233,32 +233,32 @@ const BottomPage = forwardRef(({ scrollAreaRef,config }, ref) => {
           });
         },
         // Mobile devices
-        "(max-width: 767px)": function() {
+        "(max-width: 767px)": function () {
           gsap.to(stickyElementRef.current, {
             scrollTrigger: {
               scroller: scrollAreaRef.current,
               trigger: stickyElementRef.current,
-              start: "top top", 
+              start: "top top",
               endTrigger: lastRowRef.current,
-              end: "center center", 
-              pin: true, 
-              pinType: 'fixed',
+              end: "center center",
+              pin: true,
+              pinType: "fixed",
               fastScrollEnd: true,
               scrub: 1, // Smooth scrolling on desktop
               markers: false,
               anticipatePin: 1,
             },
           });
-        }
+        },
       });
-    })
+    });
     return () => ctx.revert();
-  },[])
+  }, []);
 
-  useLayoutEffect(()=>{
-    if (typeof window === 'undefined') return;
+  useLayoutEffect(() => {
+    if (typeof window === "undefined") return;
 
-    let ctx = gsap.context(()=>{
+    let ctx = gsap.context(() => {
       const chars = bottomElementRef.current.querySelectorAll(
         ".works-subtitle-char"
       );
@@ -297,13 +297,13 @@ const BottomPage = forwardRef(({ scrollAreaRef,config }, ref) => {
         animationList.push(animation);
         animation.play(); // Start the animation once
       });
-    },bottomElementRef)
+    }, bottomElementRef);
     return () => ctx.revert();
-  },[currentWorksSubTitle])
+  }, [currentWorksSubTitle]);
 
   return (
     <>
-    {/*   <Helmet>
+      {/*   <Helmet>
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -325,9 +325,16 @@ const BottomPage = forwardRef(({ scrollAreaRef,config }, ref) => {
       <div className="bottom-element" ref={bottomElementRef}>
         <div className="d-flex w-100 flex-column text-white text-start mb-2 p-5">
           {mainText.map((text, index) => (
-            <div className="bottom-element-text font-poppins-semi-bold-italic" key={index}>
+            <div
+              className="bottom-element-text font-poppins-semi-bold-italic"
+              key={index}
+            >
               <div>
-                <h1 className={`${index !== 2 ? "pb-4" : ""} display-6 display-md-4 display-xl-3 text-transform-none`}>
+                <h1
+                  className={`${
+                    index !== 2 ? "pb-4" : ""
+                  } display-6 display-md-4 display-xl-3 text-transform-none`}
+                >
                   {text}
                 </h1>
               </div>
@@ -376,7 +383,7 @@ const BottomPage = forwardRef(({ scrollAreaRef,config }, ref) => {
           </div>
         </div>
         <div className="position-relative w-100">
-        <div className="row p-3 mt-5 mb-5 pt-5 pb-5 justify-content-center">
+          <div className="row p-3 mt-5 mb-5 pt-5 pb-5 justify-content-center">
             <div className="col-11 col-md-6 col-lg-6 col-xl-5 pt-5 pb-5">
               <NormalYouTubeEmbedWithAnimation
                 videoId={videos[1].id}
@@ -392,14 +399,17 @@ const BottomPage = forwardRef(({ scrollAreaRef,config }, ref) => {
               />
             </div>
           </div>
-          <div className="row p-3 mt-5 mb-5  pt-5 pb-5 justify-content-center" ref={lastRowRef}>
+          <div
+            className="row p-3 mt-5 mb-5  pt-5 pb-5 justify-content-center"
+            ref={lastRowRef}
+          >
             <div className="col-11 col-md-6 col-lg-6 col-xl-5 pt-5 pb-5">
               <NormalYouTubeEmbedWithAnimation
                 videoId={videos[3].id}
                 ref={video3Ref}
               />
             </div>
-        </div>
+          </div>
         </div>
       </div>
     </>

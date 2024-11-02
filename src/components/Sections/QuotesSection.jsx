@@ -8,9 +8,8 @@ import { Helmet } from "react-helmet";
 import "./QuotesSection.css";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
 
-gsap.registerPlugin(useGSAP, ScrollTrigger);
+if (typeof window !== "undefined") gsap.registerPlugin(ScrollTrigger);
 
 const Quote = forwardRef(({ img, top, text, author, title }, ref) => {
   return (
