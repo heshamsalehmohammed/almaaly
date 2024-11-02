@@ -24,7 +24,7 @@ const Text = forwardRef(
   ) => {
     const font = useLoader(
       FontLoader,
-      `${getCurrentLanguage()}/three-fonts/minimized/FiraSansEight_Regular.json`
+      `${process.env.PUBLIC_URL}/three-fonts/minimized/FiraSansEight_Regular.json`
     );
     const config = useMemo(
       () => ({ font, size: fontSize, depth:height }),
