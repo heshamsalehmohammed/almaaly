@@ -30,6 +30,7 @@ app.use(
           (req, res) => `'nonce-${res.locals.nonce}'`, // Allow styles with the matching nonce
           'https://fonts.googleapis.com', // Allow Google Fonts
           "'unsafe-eval'",
+          "'unsafe-inline'"
         ],
         fontSrc: [
           "'self'",
@@ -39,6 +40,10 @@ app.use(
         imgSrc: ["'self'", 'data:', 'https:'],
         connectSrc: ["'self'"],
         objectSrc: ["'none'"],
+        frameSrc: [
+          'https://www.youtube.com/',
+          'https://www.youtube-nocookie.com/'
+        ],
         upgradeInsecureRequests: [],
       },
     },
