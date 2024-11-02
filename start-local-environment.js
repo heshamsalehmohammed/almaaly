@@ -4,7 +4,7 @@ const { exec } = require('child_process');
 
 const runScript = (lang) => {
   return new Promise((resolve, reject) => {
-    exec(`PUBLIC_URL=${'http://localhost:3000'} LANG=${lang} node create-html.js`, (error, stdout, stderr) => {
+    exec(`PUBLIC_URL=${'http://localhost:3000'} BASE_URL=${'http://localhost:3000'} LANG=${lang} node create-html.js`, (error, stdout, stderr) => {
       if (error) {
         console.error(`Error generating HTML for ${lang}:`, error);
         reject(error);

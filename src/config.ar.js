@@ -8,6 +8,7 @@ const config = {
       "تقديم تعليم عالي الجودة، برامج تعليمية شاملة وتعزيز المواطنين العالميين.",
     welcomeMessage:
       "انطلق في رحلة التميز التعليمي مع المعالي. اكتشف تاريخنا الغني والتزامنا برعاية قادة المستقبل.",
+    baseUrl:`${process.env.BASE_URL}`,
     url: `${process.env.PUBLIC_URL}`,
     logoPath: `${process.env.PUBLIC_URL}/images/logo.png`,
     ogImagePath: `${process.env.PUBLIC_URL}/images/og-image.jpg`,

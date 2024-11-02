@@ -14,6 +14,7 @@ const {
     metaDescription,
     meta_og_Description,
     welcomeMessage,
+    baseUrl,
     url,
     logoPath,
     ogImagePath,
@@ -47,10 +48,10 @@ const boilerplate = `
 <html ${htmlAttributes}>
   <head>
   <meta charset="utf-8" />
-  <link rel="icon" href="${url}/${lang}/favicon.ico" />
+  <link rel="icon" href="${url}/favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta name="theme-color" content="#000000" />
-  <link rel="manifest" href="${url}/${lang}/manifest.json" />
+  <link rel="manifest" href="${url}/manifest.json" />
     <!-- {% metagen %} -->
   </head>
   <body>
@@ -77,9 +78,9 @@ const metaHTML = `
   <meta name="twitter:description" content="${meta_og_Description}" />
   <meta name="twitter:image" content="${ogImagePath}" />
 
-  <link rel="alternate" href="${url}/en/" hreflang="en" />
-  <link rel="alternate" href="${url}/ar/" hreflang="ar" />
-  <link rel="alternate" href="${url}" hreflang="x-default" />
+  <link rel="alternate" href="${baseUrl}/en/" hreflang="en" />
+  <link rel="alternate" href="${baseUrl}/ar/" hreflang="ar" />
+  <link rel="alternate" href="${baseUrl}" hreflang="x-default" />
 `;
 
 

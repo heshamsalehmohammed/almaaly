@@ -8,6 +8,7 @@ const config = {
       "Offering quality education, comprehensive educational programs and fostering global citizens.",
     welcomeMessage:
       "Embark on a journey of educational excellence with Almaaly. Discover our rich history and commitment to nurturing future leaders.",
+    baseUrl:`${process.env.BASE_URL}`,
     url: `${process.env.PUBLIC_URL}`,
     logoPath: `${process.env.PUBLIC_URL}/images/logo.png`,
     ogImagePath: `${process.env.PUBLIC_URL}/images/og-image.jpg`,
