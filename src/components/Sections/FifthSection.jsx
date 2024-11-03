@@ -1,6 +1,5 @@
 import {
   forwardRef,
-  useEffect,
   useImperativeHandle,
   useLayoutEffect,
   useRef,
@@ -16,7 +15,7 @@ const FifthSection = forwardRef(
 
     useImperativeHandle(ref, () => fifthElementContainerRef.current);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
 
       const animations = [];
         gsap.set(fifthElementContainerRef.current, { opacity: 0 });
