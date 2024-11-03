@@ -6,6 +6,7 @@ import {
 } from "react";
 import ContactUs from "./ContactUs";
 import { gsap } from "gsap";
+import ScrollTrigger from "../../gsapSetup";
 
 
 const FifthSection = forwardRef(
@@ -15,13 +16,12 @@ const FifthSection = forwardRef(
     useImperativeHandle(ref, () => fifthElementContainerRef.current);
 
     useLayoutEffect(() => {
-      if (typeof window === "undefined") return;
 
-      let ctx = gsap.context(() => {
+      const animations = [];
         gsap.set(fifthElementContainerRef.current, { opacity: 0 });
 
         // Animation 1: Opacity animation
-        gsap.to(fifthElementContainerRef.current, {
+       const opacityIn =  gsap.to(fifthElementContainerRef.current, {
           opacity: 0.75,
           duration: 1,
           
@@ -33,9 +33,10 @@ const FifthSection = forwardRef(
             markers: false,
           },
         });
+        animations.push(opacityIn)
 
         // Animation 2: Pinning element
-        gsap.to(fifthElementContainerRef.current, {
+        const pinningOut = gsap.to(fifthElementContainerRef.current, {
           scrollTrigger: {
             scroller: scrollAreaRef.current,
             trigger: fifthElementContainerRef.current,
@@ -46,8 +47,14 @@ const FifthSection = forwardRef(
             markers: false,
           },
         });
-      });
-      return () => ctx.revert();
+
+        animations.push(pinningOut)
+
+        return () => {
+          animations.forEach((anim) => anim.kill());
+          ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+        };
+     
     }, []);
 
     return (
