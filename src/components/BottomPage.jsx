@@ -16,7 +16,7 @@ const MainYouTubeEmbedWithAnimation = forwardRef(
 
     useImperativeHandle(ref, () => videoResponsive.current);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
       const animations = [];
 
       const slideIn = gsap.fromTo(
@@ -155,7 +155,7 @@ const BottomPage = forwardRef(({ scrollAreaRef, config }, ref) => {
     };
   }, []);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const boxes = gsap.utils.toArray(".bottom-element-text");
     const animations = [];
 
@@ -264,7 +264,7 @@ const BottomPage = forwardRef(({ scrollAreaRef, config }, ref) => {
   }, []); // Empty dependency array means this runs once on mount
 
   // Second useEffect replacing the second useGSAP
-  useLayoutEffect(() => {
+  useEffect(() => {
     const chars = bottomElementRef.current.querySelectorAll(
       ".works-subtitle-char"
     );
