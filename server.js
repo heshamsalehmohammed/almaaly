@@ -17,16 +17,6 @@ const app = express();
 app.use('/en/static', express.static(path.join(__dirname, 'build_en', 'static')));
 app.use('/ar/static', express.static(path.join(__dirname, 'build_ar', 'static')));
 
-// Function to inject nonce into HTML files
-const injectNonce = async (filePath, nonce) => {
-  try {
-    let html = await fs.readFile(filePath, 'utf8');
-    return html;
-  } catch (error) {
-    console.error(`Error injecting nonce: ${error}`);
-    throw error;
-  }
-};
 
 // Serve manifest.json correctly for English and Arabic
 app.get(['/en/manifest.json', '/ar/manifest.json'], (req, res) => {
@@ -59,28 +49,14 @@ app.get(['/en/videos/*','/ar/videos/*'], (req, res) => {
 });
 
 
-// Fallback to index.html for client-side routing in English
-app.get(['/en','/en/*'], async (req, res) => {
-  try {
-    const indexPath = path.join(__dirname, 'build_en', 'index.html');
-    const modifiedHtml = await injectNonce(indexPath, res.locals.nonce);
-    res.set('Content-Type', 'text/html');
-    res.send(modifiedHtml);
-  } catch (error) {
-    res.status(500).send('Server Error');
-  }
+app.get(['/en','/en/*'], (req, res) => {
+  const indexPath = path.join(__dirname, 'build_en', 'index.html');
+  res.sendFile(indexPath);
 });
 
-// Fallback to index.html for client-side routing in Arabic
-app.get(['/ar','/ar/*'], async (req, res) => {
-  try {
-    const indexPath = path.join(__dirname, 'build_ar', 'index.html');
-    const modifiedHtml = await injectNonce(indexPath, res.locals.nonce);
-    res.set('Content-Type', 'text/html');
-    res.send(modifiedHtml);
-  } catch (error) {
-    res.status(500).send('Server Error');
-  }
+app.get(['/ar','/ar/*'], (req, res) => {
+  const indexPath = path.join(__dirname, 'build_ar', 'index.html');
+  res.sendFile(indexPath);
 });
 
 // Redirect root to /en
