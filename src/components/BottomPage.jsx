@@ -151,7 +151,7 @@ const BottomPage = forwardRef(({ scrollAreaRef, config }, ref) => {
     if (typeof window === "undefined") return;
 
     let ctx = gsap.context(() => {
-      const boxes = gsap.utils.toArray(".bottom-element-text");
+      const boxes = gsap.utils.toArray("[data-animate='bottom-element-text']");
       boxes.forEach((box) => {
         gsap.fromTo(
           box,
@@ -315,6 +315,7 @@ const BottomPage = forwardRef(({ scrollAreaRef, config }, ref) => {
         <div className="d-flex w-100 flex-column text-white text-start mb-2 p-5">
           {mainText.map((text, index) => (
             <div
+            data-animate="bottom-element-text"
               className="bottom-element-text font-poppins-semi-bold-italic"
               key={index}
             >
@@ -346,6 +347,7 @@ const BottomPage = forwardRef(({ scrollAreaRef, config }, ref) => {
         >
           <div className="col-12 col-sm-10 col-md-9 col-lg-8 d-flex flex-column">
             <div
+            data-animate="bottom-element-text"
               className="bottom-element-text mt-5 main-works-title"
               ref={mainWorksTitleRef}
             >
@@ -356,6 +358,7 @@ const BottomPage = forwardRef(({ scrollAreaRef, config }, ref) => {
               </div>
             </div>
             <div
+            data-animate="bottom-element-text"
               className="bottom-element-text mt-auto mb-auto main-works-subtitle"
               ref={mainWorksSubTitleRef}
             >
