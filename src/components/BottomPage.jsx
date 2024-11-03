@@ -8,6 +8,7 @@ import {
 } from "react";
 import { Helmet } from "react-helmet";
 import { gsap } from "gsap";
+import ScrollTrigger from "../gsapSetup";
 
 const MainYouTubeEmbedWithAnimation = forwardRef(
   ({ videoId, scrollAreaRef }, ref) => {
@@ -16,50 +17,56 @@ const MainYouTubeEmbedWithAnimation = forwardRef(
     useImperativeHandle(ref, () => videoResponsive.current);
 
     useLayoutEffect(() => {
+      const animations = [];
 
-      let ctx = gsap.context(() => {
-        gsap.fromTo(
-          videoResponsive.current,
-          {
-            y: 150,
+      const slideIn = gsap.fromTo(
+        videoResponsive.current,
+        {
+          y: 150,
+        },
+        {
+          y: 0,
+          ease: "elastic.out(1,1)",
+          duration: 1.5,
+          scrollTrigger: {
+            scroller: scrollAreaRef.current,
+            trigger: videoResponsive.current,
+            start: "top bottom",
+            end: "top 60%",
+            toggleActions: "play none none reset",
+            // markers:true
           },
-          {
-            y: 0,
-            ease: "elastic.out(1,1)",
-            duration: 1.5,
-            scrollTrigger: {
-              scroller: scrollAreaRef.current,
-              trigger: videoResponsive.current,
-              start: "top bottom",
-              end: "top 60%",
-              toggleActions: "play none none reset",
-              // markers:true
-            },
-          }
-        );
+        }
+      );
 
-        gsap.fromTo(
-          videoResponsive.current,
-          {
-            scale: 1,
+      animations.push(slideIn);
+
+      const scaleOut = gsap.fromTo(
+        videoResponsive.current,
+        {
+          scale: 1,
+        },
+        {
+          scale: 0.6,
+          ease: "none",
+          duration: 1.5,
+          scrollTrigger: {
+            scroller: scrollAreaRef.current,
+            trigger: videoResponsive.current,
+            start: "top 40%",
+            end: "bottom 10%",
+            scrub: true,
+            // markers:true
           },
-          {
-            scale: 0.6,
-            ease: "none",
-            duration: 1.5,
-            scrollTrigger: {
-              scroller: scrollAreaRef.current,
-              trigger: videoResponsive.current,
-              start: "top 40%",
-              end: "bottom 10%",
-              scrub: true,
-              // markers:true
-            },
-          }
-        );
-      });
+        }
+      );
 
-      return () => ctx.revert();
+      animations.push(scaleOut);
+
+      return () => {
+        animations.forEach((anim) => anim.kill());
+        ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      };
     }, []);
 
     return (
@@ -147,68 +154,68 @@ const BottomPage = forwardRef(({ scrollAreaRef, config }, ref) => {
   }, []);
 
   useLayoutEffect(() => {
-    if (typeof window === "undefined") return;
+    const boxes = gsap.utils.toArray(".bottom-element-text");
+    const animations = [];
 
-    let ctx = gsap.context(() => {
-      const boxes = gsap.utils.toArray("[data-animate='bottom-element-text']");
-      boxes.forEach((box) => {
-        gsap.fromTo(
-          box,
-          {
-            opacity: 0,
+    boxes.forEach((box) => {
+      const fadeIn = gsap.fromTo(
+        box,
+        { opacity: 0 },
+        {
+          opacity: 1,
+          duration: 2,
+          ease: "power2.out",
+          scrollTrigger: {
+            scroller: scrollAreaRef.current,
+            trigger: box,
+            start: "bottom bottom",
+            end: "bottom 60%",
+            scrub: true,
           },
-          {
-            opacity: 1,
-            duration: 2,
-            ease: "power2.out",
-            scrollTrigger: {
-              scroller: scrollAreaRef.current,
-              trigger: box,
-              start: "bottom bottom",
-              end: "bottom 60%",
-              scrub: true,
-            },
-          }
-        );
+        }
+      );
 
-        gsap.fromTo(
-          box,
-          {
-            y: 80,
+      const moveIn = gsap.fromTo(
+        box,
+        { y: 80 },
+        {
+          y: 0,
+          ease: "elastic.out(1,1)",
+          scrollTrigger: {
+            scroller: scrollAreaRef.current,
+            trigger: box,
+            start: "bottom bottom",
+            end: "bottom 90%",
+            toggleActions: "play none none reset",
+            // markers:true
           },
-          {
-            y: 0,
-            ease: "elastic.out(1,1)",
-            scrollTrigger: {
-              scroller: scrollAreaRef.current,
-              trigger: box,
-              start: "bottom bottom",
-              end: "bottom 90%",
-              toggleActions: "play none none reset",
-              // markers:true
-            },
-          }
-        );
-      });
+        }
+      );
 
-      gsap.to(bottomElementRef.current, {
-        "--gradient-start": "#F7F6F5", // Transition to white
-        "--gradient-end": "#39ced6", // Transition to white
-        ease: "none",
-        scrollTrigger: {
-          scroller: scrollAreaRef.current,
-          trigger: videoResponsiveRef.current, // Use the video-responsive as the trigger
-          start: "bottom 80%", // When the trigger's bottom reaches 50% of the viewport
-          end: "bottom top", // When the trigger's top reaches the top of the viewport
-          scrub: true, // Links the animation progress to the scrollbar
-          // markers: true,       // Uncomment for debugging
-        },
-      });
+      animations.push(fadeIn, moveIn);
+    });
 
-      let mm = gsap.matchMedia();
+    const gradientAnimation = gsap.to(bottomElementRef.current, {
+      "--gradient-start": "#F7F6F5", // Transition to white
+      "--gradient-end": "#39ced6", // Transition to white
+      ease: "none",
+      scrollTrigger: {
+        scroller: scrollAreaRef.current,
+        trigger: videoResponsiveRef.current, // Use the video-responsive as the trigger
+        start: "bottom 80%", // When the trigger's bottom reaches 80% of the viewport
+        end: "bottom top", // When the trigger's top reaches the top of the viewport
+        scrub: true, // Links the animation progress to the scrollbar
+        // markers: true,       // Uncomment for debugging
+      },
+    });
 
-      mm.add("(min-width: 768px)", () => {
-        gsap.to(stickyElementRef.current, {
+    animations.push(gradientAnimation);
+
+    // Handle responsive ScrollTriggers
+    const mediaQueries = ScrollTrigger.matchMedia({
+      // Desktop and above
+      "(min-width: 768px)": function () {
+        const desktopAnimation = gsap.to(stickyElementRef.current, {
           scrollTrigger: {
             scroller: scrollAreaRef.current,
             trigger: stickyElementRef.current,
@@ -221,9 +228,11 @@ const BottomPage = forwardRef(({ scrollAreaRef, config }, ref) => {
             anticipatePin: 1,
           },
         });
-      });
-      mm.add("(max-width: 767px)", () => {
-        gsap.to(stickyElementRef.current, {
+        animations.push(desktopAnimation);
+      },
+      // Mobile devices
+      "(max-width: 767px)": function () {
+        const mobileAnimation = gsap.to(stickyElementRef.current, {
           scrollTrigger: {
             scroller: scrollAreaRef.current,
             trigger: stickyElementRef.current,
@@ -233,60 +242,68 @@ const BottomPage = forwardRef(({ scrollAreaRef, config }, ref) => {
             pin: true,
             pinType: "fixed",
             fastScrollEnd: true,
-            scrub: 1, // Smooth scrolling on desktop
+            scrub: 1, // Smooth scrolling on mobile
             markers: false,
             anticipatePin: 1,
           },
         });
-      });
+        animations.push(mobileAnimation);
+      },
     });
-    return () => ctx.revert();
-  }, []);
 
+    // Cleanup function to kill all animations and ScrollTriggers
+    return () => {
+      animations.forEach((anim) => anim.kill());
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      mediaQueries.revert();
+    };
+  }, []); // Empty dependency array means this runs once on mount
+
+  // Second useEffect replacing the second useGSAP
   useLayoutEffect(() => {
-    if (typeof window === "undefined") return;
+    const chars = bottomElementRef.current.querySelectorAll(
+      ".works-subtitle-char"
+    );
+    const animationList = [];
+    let completedAnimation = 0;
 
-    let ctx = gsap.context(() => {
-      const chars = bottomElementRef.current.querySelectorAll(
-        ".works-subtitle-char"
-      );
-      const animationList = [];
-      let completedAnimation = 0;
+    const onIndividualAnimationComplete = (index) => {
+      completedAnimation++;
+      if (completedAnimation === animationList.length) {
+        setTimeout(() => {
+          completedAnimation = 0; // Reset count for the next cycle
+          animationList.forEach((anim) => {
+            anim.delay(Math.random() * 2); // Reapply random delay on each restart
+            anim.restart(true, true); // Restart with initial delay and yoyo effect
+          });
+        }, 3000); // 3-second delay before the next cycle starts
+      }
+    };
 
-      const onIndevidualAnimationComplete = (index) => {
-        completedAnimation++;
-        if (completedAnimation === animationList.length) {
-          setTimeout(() => {
-            completedAnimation = 0; // Reset count for the next cycle
-            animationList.forEach((anim) => {
-              anim.delay(Math.random() * 2); // Reapply random delay on each restart
-              anim.restart(true, true); // Restart with initial delay and yoyo effect
-            });
-          }, 3000); // 1-second delay before the next cycle starts
+    // Stage 2: Infinite animation from opacity 0.5 to 1 and back to 0.5 independently
+    chars.forEach((char, index) => {
+      const animation = gsap.fromTo(
+        char,
+        { opacity: 0.5 },
+        {
+          opacity: 1,
+          duration: Math.random() * 0.5,
+          delay: Math.random() * 1, // Initial random delay up to 1 second
+          yoyo: true, // Animate back to opacity 1
+          ease: "power1.inOut",
+          paused: true, // Start paused to control animation timing
+          onComplete: onIndividualAnimationComplete,
+          onCompleteParams: [index],
         }
-      };
+      );
+      animationList.push(animation);
+      animation.play(); // Start the animation once
+    });
 
-      // Stage 2: Infinite animation from opacity 1 to 0 and back to 1 independently
-      chars.forEach((char, index) => {
-        const animation = gsap.fromTo(
-          char,
-          { opacity: 0.5 },
-          {
-            opacity: 1,
-            duration: Math.random() * 0.5,
-            delay: Math.random() * 1, // Initial random delay up to 1 second
-            yoyo: true, // Animate back to opacity 1
-            ease: "power1.inOut",
-            paused: true, // Start paused to control animation timing
-            onComplete: onIndevidualAnimationComplete,
-            onCompleteParams: [index],
-          }
-        );
-        animationList.push(animation);
-        animation.play(); // Start the animation once
-      });
-    }, bottomElementRef);
-    return () => ctx.revert();
+    // Cleanup function to kill all animations
+    return () => {
+      animationList.forEach((anim) => anim.kill());
+    };
   }, [currentWorksSubTitle]);
 
   return (
@@ -314,7 +331,7 @@ const BottomPage = forwardRef(({ scrollAreaRef, config }, ref) => {
         <div className="d-flex w-100 flex-column text-white text-start mb-2 p-5">
           {mainText.map((text, index) => (
             <div
-            data-animate="bottom-element-text"
+              data-animate="bottom-element-text"
               className="bottom-element-text font-poppins-semi-bold-italic"
               key={index}
             >
@@ -346,7 +363,7 @@ const BottomPage = forwardRef(({ scrollAreaRef, config }, ref) => {
         >
           <div className="col-12 col-sm-10 col-md-9 col-lg-8 d-flex flex-column">
             <div
-            data-animate="bottom-element-text"
+              data-animate="bottom-element-text"
               className="bottom-element-text mt-5 main-works-title"
               ref={mainWorksTitleRef}
             >
@@ -357,7 +374,7 @@ const BottomPage = forwardRef(({ scrollAreaRef, config }, ref) => {
               </div>
             </div>
             <div
-            data-animate="bottom-element-text"
+              data-animate="bottom-element-text"
               className="bottom-element-text mt-auto mb-auto main-works-subtitle"
               ref={mainWorksSubTitleRef}
             >
