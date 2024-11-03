@@ -1,4 +1,4 @@
-import { forwardRef, useLayoutEffect, useRef } from "react";
+import { forwardRef, useEffect, useLayoutEffect, useRef } from "react";
 import "./StudentsGallarySection.css";
 import {gsap,ScrollTrigger} from "../../gsapSetup";
 
@@ -51,7 +51,7 @@ import {gsap,ScrollTrigger} from "../../gsapSetup";
       };
     };
 
-    useLayoutEffect(() => {
+    useEffect(() => {
       const animations = [];
 
       imageRefs.current.forEach((imageRef) => {
