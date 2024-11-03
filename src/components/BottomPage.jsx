@@ -16,8 +16,7 @@ const MainYouTubeEmbedWithAnimation = forwardRef(
     useImperativeHandle(ref, () => videoResponsive.current);
 
     useLayoutEffect(() => {
-      if (typeof window === "undefined") return;
-      if (!videoResponsive.current) return;
+
       let ctx = gsap.context(() => {
         gsap.fromTo(
           videoResponsive.current,

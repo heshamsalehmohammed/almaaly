@@ -7,7 +7,7 @@ import {
 import { Helmet } from "react-helmet";
 import "./QuotesSection.css";
 import gsap from "gsap";
-
+import ScrollTrigger from "../../gsapSetup";
 
 const Quote = forwardRef(({ img, top, text, author, title }, ref) => {
   return (
@@ -53,209 +53,140 @@ const QuotesSection = forwardRef(({ scrollAreaRef, config }, ref) => {
   useImperativeHandle(ref, () => quotesSectionRef.current);
 
   useLayoutEffect(() => {
-    if (typeof window === "undefined") return;
-
-    let ctx = gsap.context(() => {
+    // Function to set initial GSAP properties based on media queries
+    const applyGsapSet = () => {
       gsap.set(quote1Ref.current, {
-        position: "absolute",
-        top: "0",
+        position: 'absolute',
+        top: '0',
       });
-      if (window.matchMedia("(max-width: 575.98px)").matches) {
-        gsap.set(quote2Ref.current, {
-          position: "absolute",
-          top: `100vh`,
-        });
-
-        gsap.set(quote3Ref.current, {
-          position: "absolute",
-          top: `200vh`,
-        });
-
-        gsap.set(quote4Ref.current, {
-          position: "absolute",
-          top: `300vh`,
-        });
-
-        gsap.set(quotesSectionRef.current, {
-          height: `400vh`,
-        });
-      } else if (
-        window.matchMedia("(min-width: 576px) and (max-width: 767.98px)")
-          .matches
-      ) {
+  
+      if (window.matchMedia('(max-width: 575.98px)').matches) {
+        gsap.set(quote2Ref.current, { position: 'absolute', top: `100vh` });
+        gsap.set(quote3Ref.current, { position: 'absolute', top: `200vh` });
+        gsap.set(quote4Ref.current, { position: 'absolute', top: `300vh` });
+        gsap.set(quotesSectionRef.current, { height: `400vh` });
+      } else if (window.matchMedia('(min-width: 576px) and (max-width: 767.98px)').matches) {
         // Small devices (sm)
-
-        gsap.set(quote2Ref.current, {
-          position: "absolute",
-          top: `100vh`,
-        });
-
-        gsap.set(quote3Ref.current, {
-          position: "absolute",
-          top: `200vh`,
-        });
-
-        gsap.set(quote4Ref.current, {
-          position: "absolute",
-          top: `300vh`,
-        });
-
-        gsap.set(quotesSectionRef.current, {
-          height: `400vh`,
-        });
-      } else if (
-        window.matchMedia("(min-width: 768px) and (max-width: 991.98px)")
-          .matches
-      ) {
+        gsap.set(quote2Ref.current, { position: 'absolute', top: `100vh` });
+        gsap.set(quote3Ref.current, { position: 'absolute', top: `200vh` });
+        gsap.set(quote4Ref.current, { position: 'absolute', top: `300vh` });
+        gsap.set(quotesSectionRef.current, { height: `400vh` });
+      } else if (window.matchMedia('(min-width: 768px) and (max-width: 991.98px)').matches) {
         // Medium devices (md)
-        gsap.set(quote2Ref.current, {
-          position: "absolute",
-          top: `90vh`,
-        });
-
-        gsap.set(quote3Ref.current, {
-          position: "absolute",
-          top: `180vh`,
-        });
-
-        gsap.set(quote4Ref.current, {
-          position: "absolute",
-          top: `270vh`,
-        });
-
-        gsap.set(quotesSectionRef.current, {
-          height: `360vh`,
-        });
-      } else if (window.matchMedia("(min-width: 992px)").matches) {
+        gsap.set(quote2Ref.current, { position: 'absolute', top: `90vh` });
+        gsap.set(quote3Ref.current, { position: 'absolute', top: `180vh` });
+        gsap.set(quote4Ref.current, { position: 'absolute', top: `270vh` });
+        gsap.set(quotesSectionRef.current, { height: `360vh` });
+      } else if (window.matchMedia('(min-width: 992px)').matches) {
         // Large devices and above (lg, xl)
-        gsap.set(quote2Ref.current, {
-          position: "absolute",
-          top: `80vh`,
-        });
-
-        gsap.set(quote3Ref.current, {
-          position: "absolute",
-          top: `160vh`,
-        });
-
-        gsap.set(quote4Ref.current, {
-          position: "absolute",
-          top: `240vh`,
-        });
-
-        gsap.set(quotesSectionRef.current, {
-          height: `320vh`,
-        });
+        gsap.set(quote2Ref.current, { position: 'absolute', top: `80vh` });
+        gsap.set(quote3Ref.current, { position: 'absolute', top: `160vh` });
+        gsap.set(quote4Ref.current, { position: 'absolute', top: `240vh` });
+        gsap.set(quotesSectionRef.current, { height: `320vh` });
       }
-
-      // animate quote 1
-
-      gsap.to(quote1Ref.current, {
-        
-        scrollTrigger: {
-          scroller: scrollAreaRef.current,
-          trigger: quote1Ref.current,
-          start: "center center",
-          endTrigger: quote4Ref.current,
-          end: "center center",
-          pin: true,
-          pinType: window.matchMedia("(max-width: 767px)").matches
-            ? "fixed"
-            : undefined,
-          fastScrollEnd: window.matchMedia("(max-width: 767px)").matches
-            ? true
-            : undefined,
-          pinSpacing: true,
-          markers: false,
-        },
-      });
-
-      gsap.to(quote1Ref.current, {
-        scale: 0.8,
-        duration: 1,
-        
-        scrollTrigger: {
-          scroller: scrollAreaRef.current,
-          trigger: quote2Ref.current,
-          start: "top 80%",
-          scrub: 1,
-          markers: false,
-        },
-      });
-
-      // animate quote 2
-
-      gsap.to(quote2Ref.current, {
-        
-        scrollTrigger: {
-          scroller: scrollAreaRef.current,
-          trigger: quote2Ref.current,
-          start: "center center",
-          endTrigger: quote4Ref.current,
-          end: "center center",
-          pin: true,
-          pinSpacing: true,
-          pinType: window.matchMedia("(max-width: 767px)").matches
-            ? "fixed"
-            : undefined,
-          fastScrollEnd: window.matchMedia("(max-width: 767px)").matches
-            ? true
-            : undefined,
-          markers: false,
-        },
-      });
-
-      gsap.to(quote2Ref.current, {
-        scale: 0.8,
-        duration: 1,
-        
-        scrollTrigger: {
-          scroller: scrollAreaRef.current,
-          trigger: quote3Ref.current,
-          start: "top 80%",
-          scrub: 1,
-          markers: false,
-        },
-      });
-
-      // animate quote 3
-
-      gsap.to(quote3Ref.current, {
-        
-        scrollTrigger: {
-          scroller: scrollAreaRef.current,
-          trigger: quote3Ref.current,
-          start: "center center",
-          endTrigger: quote4Ref.current,
-          end: "center center",
-          pin: true,
-          pinSpacing: true,
-          pinType: window.matchMedia("(max-width: 767px)").matches
-            ? "fixed"
-            : undefined,
-          fastScrollEnd: window.matchMedia("(max-width: 767px)").matches
-            ? true
-            : undefined,
-          markers: false,
-        },
-      });
-
-      gsap.to(quote3Ref.current, {
-        scale: 0.8,
-        duration: 1,
-        
-        scrollTrigger: {
-          scroller: scrollAreaRef.current,
-          trigger: quote4Ref.current,
-          start: "top 80%",
-          scrub: 1,
-          markers: false,
-        },
-      });
+    };
+  
+    // Apply initial GSAP settings
+    applyGsapSet();
+  
+    // Animate quote 1
+    gsap.to(quote1Ref.current, {
+      scrub: 1,
+      scrollTrigger: {
+        scroller: scrollAreaRef.current,
+        trigger: quote1Ref.current,
+        start: "center center",
+        endTrigger: quote4Ref.current,
+        end: "center center",
+        pin: true,
+        pinType: window.matchMedia('(max-width: 767px)').matches ? 'fixed' : undefined,
+        fastScrollEnd: window.matchMedia('(max-width: 767px)').matches ? true : undefined,
+        pinSpacing: true,
+        markers: false,
+      },
     });
-
-    return () => ctx.revert();
-  }, []);
+  
+    gsap.to(quote1Ref.current, {
+      scale: 0.8,
+      duration: 1,
+      scrub: 1,
+      scrollTrigger: {
+        scroller: scrollAreaRef.current,
+        trigger: quote2Ref.current,
+        start: "top 80%",
+        scrub: 1,
+        markers: false,
+      },
+    });
+  
+    // Animate quote 2
+    gsap.to(quote2Ref.current, {
+      scrub: 1,
+      scrollTrigger: {
+        scroller: scrollAreaRef.current,
+        trigger: quote2Ref.current,
+        start: "center center",
+        endTrigger: quote4Ref.current,
+        end: "center center",
+        pin: true,
+        pinSpacing: true,
+        pinType: window.matchMedia('(max-width: 767px)').matches ? 'fixed' : undefined,
+        fastScrollEnd: window.matchMedia('(max-width: 767px)').matches ? true : undefined,
+        markers: false,
+      },
+    });
+  
+    gsap.to(quote2Ref.current, {
+      scale: 0.8,
+      duration: 1,
+      scrub: 1,
+      scrollTrigger: {
+        scroller: scrollAreaRef.current,
+        trigger: quote3Ref.current,
+        start: "top 80%",
+        scrub: 1,
+        markers: false,
+      },
+    });
+  
+    // Animate quote 3
+    gsap.to(quote3Ref.current, {
+      scrub: 1,
+      scrollTrigger: {
+        scroller: scrollAreaRef.current,
+        trigger: quote3Ref.current,
+        start: "center center",
+        endTrigger: quote4Ref.current,
+        end: "center center",
+        pin: true,
+        pinSpacing: true,
+        pinType: window.matchMedia('(max-width: 767px)').matches ? 'fixed' : undefined,
+        fastScrollEnd: window.matchMedia('(max-width: 767px)').matches ? true : undefined,
+        markers: false,
+      },
+    });
+  
+    gsap.to(quote3Ref.current, {
+      scale: 0.8,
+      duration: 1,
+      scrub: 1,
+      scrollTrigger: {
+        scroller: scrollAreaRef.current,
+        trigger: quote4Ref.current,
+        start: "top 80%",
+        scrub: 1,
+        markers: false,
+      },
+    });
+  
+    // Refresh ScrollTrigger to ensure it picks up all animations
+    ScrollTrigger.refresh();
+  
+    // Cleanup function to kill all ScrollTriggers when component unmounts
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
+  }, [scrollAreaRef, ref]);
 
   return (
     <>
