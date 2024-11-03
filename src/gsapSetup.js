@@ -3,4 +3,4 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default ScrollTrigger;
+export {gsap , ScrollTrigger};

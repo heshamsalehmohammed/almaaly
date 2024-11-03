@@ -1,8 +1,6 @@
 import { forwardRef, useLayoutEffect, useRef } from "react";
 import "./StudentsGallarySection.css";
-import gsap from "gsap";
-import ScrollTrigger from "../../gsapSetup";
-
+import {gsap,ScrollTrigger} from "../../gsapSetup";
 
 /**/ const StudentsGallarySection = forwardRef(
   ({ scrollAreaRef, config }, ref) => {
@@ -55,130 +53,132 @@ import ScrollTrigger from "../../gsapSetup";
 
     useLayoutEffect(() => {
       const animations = [];
-  
+
       imageRefs.current.forEach((imageRef) => {
-          gsap.set(imageRef, {
-              scale: 1,
-              x: window.innerWidth / 2 - imageRef.offsetWidth / 2,
-              y: window.innerHeight / 2 - imageRef.offsetHeight / 2,
-          });
+        gsap.set(imageRef, {
+          scale: 1,
+          x: window.innerWidth / 2 - imageRef.offsetWidth / 2,
+          y: window.innerHeight / 2 - imageRef.offsetHeight / 2,
+        });
       });
-  
+
       imageRefs.current.forEach((imageRef, index) => {
-          let animationProps = {};
-  
-          switch (index) {
-              case 0:
-                  animationProps = calculateAnimationPropsBasedOnMEdiaQuery({
-                      scale: 0.8,
-                      normalizedXtoC: 0.1,
-                      normalizedYtoC: 0.1757,
-                      normalizedXtoC_md: 0.1,
-                      normalizedYtoC_md: 0.1,
-                      normalizedXtoC_xs: 0.1,
-                      normalizedYtoC_xs: 0.1,
-                  });
-                  break;
-              case 1:
-                  animationProps = calculateAnimationPropsBasedOnMEdiaQuery({
-                      scale: 0.85,
-                      normalizedXtoC: 0.6552,
-                      normalizedYtoC: 0.1337,
-                      normalizedXtoC_md: 0.55,
-                      normalizedYtoC_md: 0.1,
-                      normalizedXtoC_xs: 0.44,
-                      normalizedYtoC_xs: 0.15,
-                  });
-                  break;
-              case 2:
-                  animationProps = calculateAnimationPropsBasedOnMEdiaQuery({
-                      scale: 0.8,
-                      normalizedXtoC: 0.1,
-                      normalizedYtoC: 0.669,
-                      normalizedXtoC_md: 0.25,
-                      normalizedYtoC_md: 0.27,
-                      normalizedXtoC_xs: 0.1,
-                      normalizedYtoC_xs: 0.3,
-                  });
-                  break;
-              case 3:
-                  animationProps = calculateAnimationPropsBasedOnMEdiaQuery({
-                      scale: 0.85,
-                      normalizedXtoC: 0.6552,
-                      normalizedYtoC: 0.6578,
-                      normalizedXtoC_md: 0.5,
-                      normalizedYtoC_md: 0.4,
-                      normalizedXtoC_xs: 0.44,
-                      normalizedYtoC_xs: 0.35,
-                  });
-                  break;
-              case 4:
-                  animationProps = calculateAnimationPropsBasedOnMEdiaQuery({
-                      scale: 0.75,
-                      normalizedXtoC: 0.31667,
-                      normalizedYtoC: 0.1,
-                      normalizedXtoC_md: 0.05,
-                      normalizedYtoC_md: 0.4,
-                      normalizedXtoC_xs: 0.1,
-                      normalizedYtoC_xs: 0.48,
-                  });
-                  break;
-              case 5:
-                  animationProps = calculateAnimationPropsBasedOnMEdiaQuery({
-                      scale: 0.8,
-                      normalizedXtoC: 0.4625,
-                      normalizedYtoC: 0.1914,
-                      normalizedXtoC_md: 0.6,
-                      normalizedYtoC_md: 0.6,
-                      normalizedXtoC_xs: 0.45,
-                      normalizedYtoC_xs: 0.55,
-                  });
-                  break;
-              case 6:
-                  animationProps = calculateAnimationPropsBasedOnMEdiaQuery({
-                      scale: 0.8,
-                      normalizedXtoC: 0.26458,
-                      normalizedYtoC: 0.539,
-                      normalizedXtoC_md: 0.35,
-                      normalizedYtoC_md: 0.8,
-                      normalizedXtoC_xs: 0.1,
-                      normalizedYtoC_xs: 0.65,
-                  });
-                  break;
-              case 7:
-                  animationProps = calculateAnimationPropsBasedOnMEdiaQuery({
-                      scale: 0.8,
-                      normalizedXtoC: 0.4208,
-                      normalizedYtoC: 0.6511,
-                      normalizedXtoC_md: 0.2,
-                      normalizedYtoC_md: 0.6,
-                      normalizedXtoC_xs: 0.45,
-                      normalizedYtoC_xs: 0.75,
-                  });
-                  break;
-          }
-  
-          const animation = gsap.to(imageRef, {
-              ...animationProps,
-              scrollTrigger: {
-                  trigger: ref.current,
-                  scroller: scrollAreaRef.current || window,
-                  start: "center bottom",
-                  end: window.matchMedia("(max-width: 575.98px)").matches
-                      ? "+=200"
-                      : "+=500",
-                  scrub: true,
-              },
-          });
-  
-          animations.push(animation);
+        let animationProps = {};
+
+        switch (index) {
+          case 0:
+            animationProps = calculateAnimationPropsBasedOnMEdiaQuery({
+              scale: 0.8,
+              normalizedXtoC: 0.1,
+              normalizedYtoC: 0.1757,
+              normalizedXtoC_md: 0.1,
+              normalizedYtoC_md: 0.1,
+              normalizedXtoC_xs: 0.1,
+              normalizedYtoC_xs: 0.1,
+            });
+            break;
+          case 1:
+            animationProps = calculateAnimationPropsBasedOnMEdiaQuery({
+              scale: 0.85,
+              normalizedXtoC: 0.6552,
+              normalizedYtoC: 0.1337,
+              normalizedXtoC_md: 0.55,
+              normalizedYtoC_md: 0.1,
+              normalizedXtoC_xs: 0.44,
+              normalizedYtoC_xs: 0.15,
+            });
+            break;
+          case 2:
+            animationProps = calculateAnimationPropsBasedOnMEdiaQuery({
+              scale: 0.8,
+              normalizedXtoC: 0.1,
+              normalizedYtoC: 0.669,
+              normalizedXtoC_md: 0.25,
+              normalizedYtoC_md: 0.27,
+              normalizedXtoC_xs: 0.1,
+              normalizedYtoC_xs: 0.3,
+            });
+            break;
+          case 3:
+            animationProps = calculateAnimationPropsBasedOnMEdiaQuery({
+              scale: 0.85,
+              normalizedXtoC: 0.6552,
+              normalizedYtoC: 0.6578,
+              normalizedXtoC_md: 0.5,
+              normalizedYtoC_md: 0.4,
+              normalizedXtoC_xs: 0.44,
+              normalizedYtoC_xs: 0.35,
+            });
+            break;
+          case 4:
+            animationProps = calculateAnimationPropsBasedOnMEdiaQuery({
+              scale: 0.75,
+              normalizedXtoC: 0.31667,
+              normalizedYtoC: 0.1,
+              normalizedXtoC_md: 0.05,
+              normalizedYtoC_md: 0.4,
+              normalizedXtoC_xs: 0.1,
+              normalizedYtoC_xs: 0.48,
+            });
+            break;
+          case 5:
+            animationProps = calculateAnimationPropsBasedOnMEdiaQuery({
+              scale: 0.8,
+              normalizedXtoC: 0.4625,
+              normalizedYtoC: 0.1914,
+              normalizedXtoC_md: 0.6,
+              normalizedYtoC_md: 0.6,
+              normalizedXtoC_xs: 0.45,
+              normalizedYtoC_xs: 0.55,
+            });
+            break;
+          case 6:
+            animationProps = calculateAnimationPropsBasedOnMEdiaQuery({
+              scale: 0.8,
+              normalizedXtoC: 0.26458,
+              normalizedYtoC: 0.539,
+              normalizedXtoC_md: 0.35,
+              normalizedYtoC_md: 0.8,
+              normalizedXtoC_xs: 0.1,
+              normalizedYtoC_xs: 0.65,
+            });
+            break;
+          case 7:
+            animationProps = calculateAnimationPropsBasedOnMEdiaQuery({
+              scale: 0.8,
+              normalizedXtoC: 0.4208,
+              normalizedYtoC: 0.6511,
+              normalizedXtoC_md: 0.2,
+              normalizedYtoC_md: 0.6,
+              normalizedXtoC_xs: 0.45,
+              normalizedYtoC_xs: 0.75,
+            });
+            break;
+        }
+
+        const animation = gsap.to(imageRef, {
+          ...animationProps,
+          scrollTrigger: {
+            trigger: ref.current,
+            scroller: scrollAreaRef.current || window,
+            start: "center bottom",
+            end: window.matchMedia("(max-width: 575.98px)").matches
+              ? "+=200"
+              : "+=500",
+            scrub: true,
+          },
+        });
+
+        animations.push(animation);
       });
-  
+
+      ScrollTrigger.refresh();
+
       return () => {
-          animations.forEach((animation) => animation.kill());
-          ScrollTrigger.refresh();
+        animations.forEach((animation) => animation.kill());
+        ScrollTrigger.refresh();
       };
-  }, []);
+    }, []);
 
     return (
       <div

@@ -5,8 +5,8 @@ import {
   useRef,
 } from "react";
 import ContactUs from "./ContactUs";
-import { gsap } from "gsap";
-import ScrollTrigger from "../../gsapSetup";
+import {gsap,ScrollTrigger} from "../../gsapSetup";
+
 
 
 const FifthSection = forwardRef(
@@ -49,6 +49,8 @@ const FifthSection = forwardRef(
         });
 
         animations.push(pinningOut)
+
+        ScrollTrigger.refresh();
 
         return () => {
           animations.forEach((anim) => anim.kill());

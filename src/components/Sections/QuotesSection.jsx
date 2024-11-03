@@ -6,8 +6,8 @@ import {
 } from "react";
 import { Helmet } from "react-helmet";
 import "./QuotesSection.css";
-import gsap from "gsap";
-import ScrollTrigger from "../../gsapSetup";
+import {gsap,ScrollTrigger} from "../../gsapSetup";
+
 
 const Quote = forwardRef(({ img, top, text, author, title }, ref) => {
   return (

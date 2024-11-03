@@ -7,8 +7,8 @@ import {
   useState,
 } from "react";
 import { Helmet } from "react-helmet";
-import { gsap } from "gsap";
-import ScrollTrigger from "../gsapSetup";
+import {gsap,ScrollTrigger} from "../gsapSetup";
+
 
 const MainYouTubeEmbedWithAnimation = forwardRef(
   ({ videoId, scrollAreaRef }, ref) => {
@@ -62,6 +62,8 @@ const MainYouTubeEmbedWithAnimation = forwardRef(
       );
 
       animations.push(scaleOut);
+
+      ScrollTrigger.refresh();
 
       return () => {
         animations.forEach((anim) => anim.kill());
@@ -250,6 +252,8 @@ const BottomPage = forwardRef(({ scrollAreaRef, config }, ref) => {
         animations.push(mobileAnimation);
       },
     });
+
+    ScrollTrigger.refresh();
 
     // Cleanup function to kill all animations and ScrollTriggers
     return () => {
