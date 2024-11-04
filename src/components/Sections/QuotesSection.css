@@ -1,4 +1,4 @@
-.quotes-section {}
+
 
 
 .quotes-section .quotes-img-container {
@@ -15,3 +15,79 @@
     width: 100%;
     height: 100%;
 }
+
+
+.quotes-section {
+    /* Set default height for large devices and above */
+    height: 320vh;
+  }
+  
+  .quote {
+    /* Default top positions for large devices and above */
+    top: 0;
+  }
+  
+  .quote-1 {
+    top: 0;
+  }
+  
+  .quote-2 {
+    top: 80vh;
+  }
+  
+  .quote-3 {
+    top: 160vh;
+  }
+  
+  .quote-4 {
+    top: 240vh;
+  }
+  
+  /* Small devices (max-width: 575.98px) */
+  @media (max-width: 575.98px) {
+    .quotes-section {
+      height: 400vh;
+    }
+    .quote-2 {
+      top: 100vh;
+    }
+    .quote-3 {
+      top: 200vh;
+    }
+    .quote-4 {
+      top: 300vh;
+    }
+  }
+  
+  /* Small devices (min-width: 576px and max-width: 767.98px) */
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    .quotes-section {
+      height: 400vh;
+    }
+    .quote-2 {
+      top: 100vh;
+    }
+    .quote-3 {
+      top: 200vh;
+    }
+    .quote-4 {
+      top: 300vh;
+    }
+  }
+  
+  /* Medium devices (min-width: 768px and max-width: 991.98px) */
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .quotes-section {
+      height: 360vh;
+    }
+    .quote-2 {
+      top: 90vh;
+    }
+    .quote-3 {
+      top: 180vh;
+    }
+    .quote-4 {
+      top: 270vh;
+    }
+  }
+  
