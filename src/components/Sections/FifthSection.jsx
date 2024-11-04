@@ -16,7 +16,7 @@ const FifthSection = forwardRef(
 
     useImperativeHandle(ref, () => fifthElementContainerRef.current);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
 
       const animations = [];
        const opacityIn =  gsap.to(fifthElementContainerRef.current, {
