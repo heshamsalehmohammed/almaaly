@@ -30,7 +30,7 @@ const ScrollArea = forwardRef(({threeSceneRef,headerRef,config}, ref) => {
     mouse: [0, 0],
   })
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     domStateRef.current.scrollHeight = scrollAreaRef.current.scrollHeight;
     domStateRef.current.clientHeight = scrollAreaRef.current.clientHeight;
     domStateRef.current.scrollableHeight = scrollAreaRef.current.scrollHeight - scrollAreaRef.current.clientHeight
