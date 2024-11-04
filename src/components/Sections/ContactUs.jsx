@@ -21,7 +21,7 @@ const ContactUs = ({ scrollAreaRef,config }) => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
 
-  const { address, telephone, email,contactUS } = config.school;
+  const { address, telephone, email, contactUs } = config.school;
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -50,7 +50,7 @@ const ContactUs = ({ scrollAreaRef,config }) => {
     <>
       <div className="row w-100 justify-content-center mt-5 mb-5" ref={contactUsRef}>
         <div className="col-12 mb-3">
-          <h1>{contactUS.title}</h1>
+          <h1>{contactUs.title}</h1>
         </div>
 
         <div className="row justify-content-center">
@@ -76,7 +76,7 @@ const ContactUs = ({ scrollAreaRef,config }) => {
                   name="name"
                   id="name"
                   required
-                  placeholder={contactUS.name}
+                  placeholder={contactUs.name}
                   value={formData.name}
                   onChange={handleChange}
                 />
@@ -88,7 +88,7 @@ const ContactUs = ({ scrollAreaRef,config }) => {
                   name="email"
                   id="email"
                   required
-                  placeholder={contactUS.email}
+                  placeholder={contactUs.email}
                   value={formData.email}
                   onChange={handleChange}
                 />
@@ -99,7 +99,7 @@ const ContactUs = ({ scrollAreaRef,config }) => {
                   name="message"
                   id="message"
                   required
-                  placeholder={contactUS.message}
+                  placeholder={contactUs.message}
                   value={formData.message}
                   onChange={handleChange}
                 />
@@ -116,13 +116,13 @@ const ContactUs = ({ scrollAreaRef,config }) => {
                   boxShadow: "none",
                   color: "rgb(15 23 42 / 1)",
                 }}
-                label={loading ? contactUS.submittingLabel : contactUS.submitLabel}
+                label={loading ? contactUs.submittingLabel : contactUs.submitLabel}
               />
             </form>
             <div id="form-messages" className="mt-3">
               {error && <p style={{ color: "red" }}>{error}</p>}
               {success && (
-                <p style={{ color: "green" }}>{contactUS.successMessage}</p>
+                <p style={{ color: "green" }}>{contactUs.successMessage}</p>
               )}
             </div>
           </div>
