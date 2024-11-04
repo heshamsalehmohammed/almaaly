@@ -6,9 +6,7 @@ import {
   useRef,
 } from "react";
 import ContactUs from "./ContactUs";
-import {gsap,ScrollTrigger} from "../../gsapSetup";
-
-
+import { gsap, ScrollTrigger } from "../../gsapSetup";
 
 const FifthSection = forwardRef(
   ({ scrollAreaRef, threeSceneRef, config }, ref) => {
@@ -16,48 +14,54 @@ const FifthSection = forwardRef(
 
     useImperativeHandle(ref, () => fifthElementContainerRef.current);
 
-    useLayoutEffect(() => {
-
+    useEffect(() => {
       const animations = [];
-        gsap.set(fifthElementContainerRef.current, { opacity: 0 });
+      const opacityIn = gsap.to(fifthElementContainerRef.current, {
+        opacity: 0.75,
+        duration: 1,
 
-        // Animation 1: Opacity animation
-       const opacityIn =  gsap.to(fifthElementContainerRef.current, {
-          opacity: 0.75,
-          duration: 1,
-          
-          scrollTrigger: {
-            scroller: scrollAreaRef.current,
-            trigger: fifthElementContainerRef.current,
-            start: `+=${window.innerHeight - 10}`,
-            scrub: 1,
-            markers: false,
-          },
-        });
-        animations.push(opacityIn)
+        scrollTrigger: {
+          scroller: scrollAreaRef.current,
+          trigger: fifthElementContainerRef.current,
+          start: `+=${window.innerHeight - 10}`,
+          scrub: 1,
+          markers: false,
+        },
+      });
 
-        // Animation 2: Pinning element
-        const pinningOut = gsap.to(fifthElementContainerRef.current, {
-          scrollTrigger: {
-            scroller: scrollAreaRef.current,
-            trigger: fifthElementContainerRef.current,
-            start: "top top",
-            end: `+=${window.innerHeight}`,
-            pin: true,
-            scrub: 1,
-            markers: false,
-          },
-        });
+      animations.push(opacityIn);
 
-        animations.push(pinningOut)
+      ScrollTrigger.refresh();
 
-        ScrollTrigger.refresh();
+      return () => {
+        animations.forEach((anim) => anim.kill());
+        ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      };
+    }, []);
 
-        return () => {
-          animations.forEach((anim) => anim.kill());
-          ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-        };
-     
+    useLayoutEffect(() => {
+      const animations = [];
+
+      const pinningOut = gsap.to(fifthElementContainerRef.current, {
+        scrollTrigger: {
+          scroller: scrollAreaRef.current,
+          trigger: fifthElementContainerRef.current,
+          start: "top top",
+          end: `+=${window.innerHeight}`,
+          pin: true,
+          scrub: 1,
+          markers: false,
+        },
+      });
+
+      animations.push(pinningOut);
+
+      ScrollTrigger.refresh();
+
+      return () => {
+        animations.forEach((anim) => anim.kill());
+        ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      };
     }, []);
 
     return (
@@ -67,6 +71,7 @@ const FifthSection = forwardRef(
         style={{
           minHeight: `${100}vh`,
           background: "linear-gradient(to bottom, #4096ee 0%, #39ced6 100%)",
+          opacity: "0",
         }}
       >
         <ContactUs config={config} />
