@@ -150,6 +150,16 @@ const config = {
       ],
       metaDescription: "Discover our highlighted events and projects.",
     },
+    contactUs:{
+      title: 'Get In Touch!',
+      name:'Name',
+      email:'Email',
+      message:'Message',
+      submitLabel: 'Submit',
+      submittingLabel: '... Submitting',
+      successMessage: 'Message sent successfully!',
+
+    },
     footerMetaDescription:
       "Explore Almaaly's offerings, contact details, and support information.",
     copyright: `Copyright © Almaaly ${new Date().getFullYear()}`,

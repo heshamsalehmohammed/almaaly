@@ -151,6 +151,16 @@ const config = {
       ],
       metaDescription: "اكتشف فعالياتنا ومشاريعنا المميزة.",
     },
+    contactUs:{
+      title: 'خلينا علي اتصال',
+      name:'الاسم',
+      email:'الايميل',
+      message:'الرساله',
+      submitLabel: 'ارسال',
+      submittingLabel: '... يتم الارسال',
+      successMessage: 'تم ارسال الرساله بنجاح',
+
+    },
     footerMetaDescription:
       "استكشف عروض المعالي وتفاصيل الاتصال ومعلومات الدعم.",
     copyright: `حقوق النشر © المعالي ${new Date().getFullYear()}`,

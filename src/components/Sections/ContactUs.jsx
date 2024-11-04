@@ -21,7 +21,7 @@ const ContactUs = ({ scrollAreaRef,config }) => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
 
-  const { address, telephone, email } = config.school;
+  const { address, telephone, email,contactUS } = config.school;
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -48,28 +48,9 @@ const ContactUs = ({ scrollAreaRef,config }) => {
 
   return (
     <>
-{/*       <Helmet>
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "ContactPoint",
-            "contactType": "Customer Support",
-            "telephone": telephone,
-            "email": email,
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": address.streetAddress,
-              "addressLocality": address.addressLocality,
-              "postalCode": address.postalCode,
-              "addressCountry": address.addressCountry,
-            },
-          })}
-        </script>
-      </Helmet> */}
-
       <div className="row w-100 justify-content-center mt-5 mb-5" ref={contactUsRef}>
         <div className="col-12 mb-3">
-          <h1>Get In Touch!</h1>
+          <h1>{contactUS.title}</h1>
         </div>
 
         <div className="row justify-content-center">
@@ -95,7 +76,7 @@ const ContactUs = ({ scrollAreaRef,config }) => {
                   name="name"
                   id="name"
                   required
-                  placeholder="Name"
+                  placeholder={contactUS.name}
                   value={formData.name}
                   onChange={handleChange}
                 />
@@ -107,7 +88,7 @@ const ContactUs = ({ scrollAreaRef,config }) => {
                   name="email"
                   id="email"
                   required
-                  placeholder="Email"
+                  placeholder={contactUS.email}
                   value={formData.email}
                   onChange={handleChange}
                 />
@@ -118,7 +99,7 @@ const ContactUs = ({ scrollAreaRef,config }) => {
                   name="message"
                   id="message"
                   required
-                  placeholder="Message"
+                  placeholder={contactUS.message}
                   value={formData.message}
                   onChange={handleChange}
                 />
@@ -135,13 +116,13 @@ const ContactUs = ({ scrollAreaRef,config }) => {
                   boxShadow: "none",
                   color: "rgb(15 23 42 / 1)",
                 }}
-                label={loading ? "... Submitting" : "Submit"}
+                label={loading ? contactUS.submittingLabel : contactUS.submitLabel}
               />
             </form>
             <div id="form-messages" className="mt-3">
               {error && <p style={{ color: "red" }}>{error}</p>}
               {success && (
-                <p style={{ color: "green" }}>Email sent successfully!</p>
+                <p style={{ color: "green" }}>{contactUS.successMessage}</p>
               )}
             </div>
           </div>
